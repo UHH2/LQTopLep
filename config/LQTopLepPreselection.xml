@@ -160,7 +160,7 @@
 <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;" >
 
   
-<!--
+<!-- muons not needed for LQ->te, but later for LQ->tmu
 
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Muon_B_2016v3" Cacheable="&b_Cacheable;">
 			&DATA_Muon_B;
@@ -203,6 +203,11 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
+
+-->
+
+
+
 
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Electron_B_2016v3" Cacheable="&b_Cacheable;">
 			&DATA_Electron_B;
@@ -247,11 +252,10 @@
 		</InputData>
 
 
--->
 
 
 
-<!-- LQ samples
+<!-- LQ samples, not yet ready, ask Paolo
 
   <InputData Lumi="1237.5" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM200" Cacheable="&b_Cacheable;">
     &LQtoTEM200;
@@ -336,7 +340,7 @@
 
 
  
-<!--
+
 
 
 		<InputData Lumi="92260.16399" NEventsMax="&NEVT;" Type="MC" Version="TTbar_2016v3" Cacheable="&b_Cacheable;">
@@ -344,7 +348,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
--->
+
 
 
 
@@ -354,7 +358,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-<!--
+
 		<InputData Lumi="24239.87096" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT_100to200_2016v3" Cacheable="&b_Cacheable;">
 			&WJetsToLNu_HT_100to200;
 			<InputTree Name="AnalysisTree" />
@@ -743,7 +747,7 @@
 
 
 
- -->
+ 
 
 
 
@@ -765,7 +769,7 @@
             <Item Name="JetCollection" Value="jetsAk4CHS" />
             <Item Name="METName" Value="slimmedMETs" />
             <Item Name="GenJetCollection" Value="slimmedGenJets" /> 
-	  <!--  <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />  -->
+	  <!--  <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />  -->  <!-- this might be important later (LQ mass reco?) -->
 	    <Item Name="GenParticleCollection" Value="GenParticles" />
 	    <Item Name="GenInfoName" Value="genInfo" />
 

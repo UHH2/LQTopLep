@@ -105,9 +105,10 @@ namespace uhh2examples {
 
     
     // ERROR: muonID for CMSSW10
-    eleId = AndId<Electron>(ElectronID_Summer16_tight, PtEtaCut(30.0, 2.4)); // pT>= 30 GeV, |nu|<2.4
-    muId = AndId<Muon>(PtEtaCut(30., 2.4), MuonIso(0.15));
-    //muId = AndId<Muon>(MuonIDLoose(), PtEtaCut(30.0, 2.4), MuonIso(0.15)); // muon isloation, so that Muons in Jets etc are not used
+    eleId = AndId<Electron>(ElectronID_Summer16_tight, PtEtaCut(30.0, 2.4)); // pT>= 30 GeV, |nu|<2.4    
+    Year year = extract_year(ctx);
+    if (year == Year::is2016v2) muId = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(30.0, 2.4), MuonIso(0.15)); // loose for LQ->te, maybe change to tight at some point
+    else                        muId = AndId<Muon>(MuonID(Muon::CutBasedIdTight), PtEtaCut(30.0, 2.4), MuonIso(0.15)); // loose for LQ->te, maybe change to tight at some point
     cout << __LINE__ << endl;
 
 
