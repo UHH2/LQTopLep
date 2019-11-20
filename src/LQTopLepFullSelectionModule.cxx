@@ -23,6 +23,7 @@
 #include "UHH2/common/include/ElectronIds.h"
 #include "UHH2/common/include/MuonIds.h"
 #include "UHH2/common/include/JetIds.h"
+#include "UHH2/common/include/TopJetIds.h"
 // my own classes
 #include "UHH2/LQTopLep/include/LQTopLepSelections.h"
 #include "UHH2/LQTopLep/include/LQTopLepFullSelectionHists.h"
@@ -86,8 +87,9 @@ namespace uhh2examples {
     unique_ptr<LQChi2Discriminator> chi2_module;
     
     JetId Btag_loose;
-
-    CSVBTag::wp wp_btag_loose;
+    BTag::algo btag_algo;
+    BTag::wp wp_btag_loose, wp_btag_medium, wp_btag_tight;
+    //CSVBTag::wp wp_btag_loose;
 
     bool is_mc, exactly2lep, do_permutations, do_scale_variation, do_pdf_variation;
     bool onlySelfmadePlots;
@@ -104,7 +106,7 @@ namespace uhh2examples {
     TString dataset_version;
 
     string Sys_EleFake, Sys_MuonFake;
-    uhh2::Event::Handle<double> h_FakeRateWeightEle, h_FakeRateWeightMu;
+    //uhh2::Event::Handle<double> h_FakeRateWeightEle, h_FakeRateWeightMu;
 
   };
 
@@ -136,9 +138,20 @@ namespace uhh2examples {
     cout << "permutation: " << permutation << endl;
     if (permutation < 0 && do_permutations) throw runtime_error("Invalid value for permutation");
     
-    Btag_loose = CSVBTag(CSVBTag::WP_LOOSE);
-    wp_btag_loose = CSVBTag::WP_LOOSE;
 
+
+
+    //Btag_loose = CSVBTag(CSVBTag::WP_LOOSE);
+    //wp_btag_loose = CSVBTag::WP_LOOSE;
+
+    btag_algo = BTag::DEEPJET;
+    wp_btag_loose = BTag::WP_LOOSE;
+    wp_btag_medium = BTag::WP_MEDIUM;
+    wp_btag_tight = BTag::WP_TIGHT;
+
+    JetId DeepjetLoose = BTag(btag_algo, wp_btag_loose);
+    JetId DeepjetMedium = BTag(btag_algo, wp_btag_medium);
+    JetId DeepjetTight = BTag(btag_algo, wp_btag_tight);
 
     int btag_value = 1;
     double mee_value = 110., stlep_value = 200.;
@@ -195,13 +208,22 @@ namespace uhh2examples {
 
 
    // Scale Factors for MonteCarlo
-   SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_RecEff_Moriond17.root", 1, "", Sys_EleReco));
-   SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Tight_ID.root", 1, "", Sys_EleID));
+   // SFs for trigger: have to be remade
    SF_eleTrigger.reset(new ElectronTriggerWeights(ctx, "/nfs/dust/cms/user/reimersa/LQToTopMu/Run2_80X_v3/TagProbe/Optimization/35867fb_Iso27_NonIso115/ElectronEfficiencies.root", Sys_EleTrigger)); 
-   SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSSW_8_0_24_patch1/src/UHH2/common/data/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 1., "tightID", true, Sys_MuonID));
-   SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSSW_8_0_24_patch1/src/UHH2/common/data/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "TightISO_TightID_pt_eta", 1., "iso", true, Sys_MuonIso));
 
-   //SF_btag.reset(new MCBTagScaleFactor(ctx,wp_btag_loose,"jets", Sys_BTag)); // comment out when re-doing SF_btag
+   // SFs for Id, Reco, Iso: copied from SingleTthAnalysisModule.cxx
+ 
+    SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 0., "id", false, Sys_MuonID));
+    SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt", 0., "iso", false, Sys_MuonIso));
+
+    SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root", 1, "reco", Sys_EleReco));
+    SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/2016LegacyReReco_ElectronTight_Fall17V2.root", 1, "id", Sys_EleID));
+
+
+
+   SF_eleTrigger.reset(new ElectronTriggerWeights(ctx, "/nfs/dust/cms/user/reimersa/LQToTopMu/Run2_80X_v3/TagProbe/Optimization/35867fb_Iso27_NonIso115/ElectronEfficiencies.root", Sys_EleTrigger)); 
+
+   //SF_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, wp_btag_loose, "jets", Sys_BTag)); // comment out when re-doing SF_btag
  
 
    cout << __LINE__ << endl; 
@@ -212,21 +234,23 @@ namespace uhh2examples {
    common->disable_jersmear();
    common->disable_jec();
    // common->switch_jetlepcleaner(true); // so that momentum from Leptons in Jets are not used twice
-   common->init(ctx, Sys_PU); // (ctx, Sys_PU) 
+   cout << __LINE__ << endl; 
+   common->init(ctx/*, Sys_PU*/); // (ctx, Sys_PU) 
 
 
    cout << __LINE__ << endl; 
-    
 
-    if(Sys_EleFake == "nominal")   h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEle");
-    else if(Sys_EleFake == "up")   h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEleUp");
-    else if(Sys_EleFake == "down") h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEleDown");
-    else throw runtime_error("Sys_EleFake is not one of the following: ['up', 'down', 'nominal']");
-    if(Sys_MuonFake == "nominal")   h_FakeRateWeightMu =ctx.get_handle<double>("FakeRateWeightMu");
-    else if(Sys_MuonFake == "up")   h_FakeRateWeightMu =ctx.get_handle<double>("FakeRateWeightMuUp");
-    else if(Sys_MuonFake == "down") h_FakeRateWeightMu =ctx.get_handle<double>("FakeRateWeightMuDown");
-    else throw runtime_error("Sys_MuonFake is not one of the following: ['up', 'down', 'nominal']");
 
+   /*
+     if(Sys_EleFake == "nominal")   h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEle");
+   else if(Sys_EleFake == "up")   h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEleUp");
+   else if(Sys_EleFake == "down") h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEleDown");
+   else throw runtime_error("Sys_EleFake is not one of the following: ['up', 'down', 'nominal']");
+   if(Sys_MuonFake == "nominal")   h_FakeRateWeightMu =ctx.get_handle<double>("FakeRateWeightMu");
+   else if(Sys_MuonFake == "up")   h_FakeRateWeightMu =ctx.get_handle<double>("FakeRateWeightMuUp");
+   else if(Sys_MuonFake == "down") h_FakeRateWeightMu =ctx.get_handle<double>("FakeRateWeightMuDown");
+   else throw runtime_error("Sys_MuonFake is not one of the following: ['up', 'down', 'nominal']");
+    */
 
 
    // 2. set up selections
@@ -239,8 +263,8 @@ namespace uhh2examples {
      dijet_sel.reset(new DijetSelection()); // see LQTopLepSelections, not sure if needed at all
      lumi_sel.reset(new LumiSelection(ctx)); // only events used with 'good working detectors'
    */
-    
-   nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, Btag_loose)); // >=1 b-Jet
+   nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, DeepjetLoose));
+   //nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, Btag_loose)); // >=1 b-Jet
    ht_lep_sel.reset(new HtLepSelection(stlep_value, -1)); // returns true if Ht>200
    inv_mass_veto.reset(new InvMassEleEleVeto(0., mee_value)); // returns true if M_ee>111 GeV
    exactly2ele_sel.reset(new NElectronSelection(2, 2));
@@ -269,7 +293,7 @@ namespace uhh2examples {
 
    h_invmass111.reset(new LQTopLepFullSelectionHists(ctx, "M_ee_111"));
 
-   //h_btageff_invmass111.reset(new BTagMCEfficiencyHists(ctx, "BTagEff_M_ee_111",wp_btag_loose));
+   //h_btageff_invmass111.reset(new BTagMCEfficiencyHists(ctx, "BTagEff_M_ee_111",DeepjetLoose));
 
    cout << __LINE__ << endl; 
 
@@ -387,7 +411,7 @@ namespace uhh2examples {
       if(event.muons->size() >=1) {
       cout << "my NeutrinoReconstruction: " << LQNeutrinoReconstruction(event.muons->at(0).v4(), event.met->v4()) << endl;
       cout << "old NeutrinoReconstruction: " << LQNeutrinoReconstruction(event.muons->at(0).v4(), event.met->v4()) << endl;
-    }
+      }
     */    
 
     // // 1. run all modules other modules.
@@ -397,6 +421,7 @@ namespace uhh2examples {
     // // 2. test selections and fill histograms
 
 
+    cout << __LINE__ << endl; 
     event.set(h_is_mlq_reconstructed, false);
     event.set(h_mlq_reco_mode, "none");
 
@@ -407,9 +432,9 @@ namespace uhh2examples {
     double n_matched_to_taus = 0, n_matched_to_muons = 0; // reason for this line?
 
     if(is_mc){
-      //cout <<endl << "NEW EVENT" << endl << "Before applying SF: weight = " << event.weight << endl;
-      SF_ele = event.get(h_FakeRateWeightEle);
-      if(event.electrons->size() == 0 && SF_ele != 1) throw runtime_error("There are no electrons in the event, still the fake-rate SF is != 1...");
+    //cout <<endl << "NEW EVENT" << endl << "Before applying SF: weight = " << event.weight << endl;
+    SF_ele = event.get(h_FakeRateWeightEle);
+    if(event.electrons->size() == 0 && SF_ele != 1) throw runtime_error("There are no electrons in the event, still the fake-rate SF is != 1...");
       event.weight *= SF_ele;
       //cout << "After ele fake rate weights: " << event.weight << endl;
       SF_mu = event.get(h_FakeRateWeightMu);
@@ -419,6 +444,7 @@ namespace uhh2examples {
     }
    
     */
+    cout << __LINE__ << endl; 
 
     // scale variations
     if(do_scale_variation) {
@@ -429,16 +455,22 @@ namespace uhh2examples {
       else if(dataset_version.Contains("LQtoT")) return false;
     }
    
+    cout << __LINE__ << endl; 
 
     common->process(event);
 
     SF_eleReco->process(event);
     SF_eleID->process(event);
+    cout << __LINE__ << endl; 
 
-    SF_muonID->process(event);
+    SF_muonID->process(event); 
+    cout << __LINE__ << endl; 
+
     SF_muonIso->process(event);
+    cout << __LINE__ << endl; 
 
     h_nocuts->fill(event);
+    cout << __LINE__ << endl; 
 
     if(!onlySelfmadePlots) {
       h_jets_nocuts->fill(event);
@@ -449,10 +481,14 @@ namespace uhh2examples {
       h_lumi_nocuts->fill(event);
     }
 
+    cout << __LINE__ << endl; 
     if(!(ele_trigger_sel1->passes(event) || ele_trigger_sel2->passes(event))) return false;
+    cout << __LINE__ << endl; 
     SF_eleTrigger->process(event);
-    SF_btag->process(event); // comment out when re-doing SF_btag
+    cout << __LINE__ << endl; 
+    //SF_btag->process(event); // comment out when re-doing SF_btag
 
+    cout << __LINE__ << endl; 
     h_trigger->fill(event);
     
     if(!onlySelfmadePlots) {
@@ -463,6 +499,7 @@ namespace uhh2examples {
       h_topjets_trigger->fill(event);
       h_lumi_trigger->fill(event);
     }
+    cout << __LINE__ << endl; 
 
     if(!nbtag_loose_sel->passes(event)) return false; // comment out when re-doing SF_btag
 
@@ -503,10 +540,12 @@ namespace uhh2examples {
       h_lumi_invmass111->fill(event);
     }
 
+    cout << __LINE__ << endl; 
 
-    h_btageff_invmass111->fill(event);
+    //h_btageff_invmass111->fill(event);
 
 
+    cout << __LINE__ << endl; 
 
     exactly2lep = (exactly2ele_sel->passes(event) && exactly0mu_sel->passes(event));
     /*
@@ -533,6 +572,7 @@ namespace uhh2examples {
     }
     */
 
+    cout << __LINE__ << endl; 
 
     // check for at least 1 electron pair with opposite charge
     bool charge_opposite = false;
@@ -548,6 +588,7 @@ namespace uhh2examples {
       }
     }
 
+    cout << __LINE__ << endl; 
 
     
     // reconstruct MLQ 
@@ -566,6 +607,7 @@ namespace uhh2examples {
     }
 
 
+    cout << __LINE__ << endl; 
     bool is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);
     //cout << "Final event weight: " << event.weight << endl;
 
@@ -578,7 +620,7 @@ namespace uhh2examples {
       h_event_finalselection->fill(event);
       h_lumi_finalselection->fill(event);
     }
-    h_PDF_variations->fill(event);
+    //h_PDF_variations->fill(event);
 
     if(is_mlq_reconstructed == true)
       {

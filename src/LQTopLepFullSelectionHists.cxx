@@ -18,6 +18,7 @@
 #include "UHH2/common/include/ElectronIds.h"
 #include "UHH2/common/include/MuonIds.h"
 #include "UHH2/common/include/JetIds.h"
+#include "UHH2/common/include/TopJetIds.h"
 // my own classes
 #include "UHH2/LQTopLep/include/LQTopLepSelections.h"
 #include "UHH2/LQTopLep/include/LQTopLepFullSelectionHists.h"
@@ -123,7 +124,8 @@ LQTopLepFullSelectionHists::LQTopLepFullSelectionHists(Context & ctx, const stri
   book<TH1F>("M_emu0to150", "M_{e#mu} [GeV]",30 , 0, 150);
 
   
-  // electron and muon fakes
+  // electron and muon fakes, not yet implemented
+  /*
   book<TH1F>("n_fake_ele", "number of fake electrons in all events", 1, -0.5, 0.5);
   book<TH1F>("n_fake_ele_MLQ", "number of fake electrons, MLQ reconstructed", 1, -0.5, 0.5);
   book<TH1F>("n_fake_ele_NoMLQ", "number of fake electrons, MLQ not reconstructed", 1, -0.5, 0.5);
@@ -131,7 +133,7 @@ LQTopLepFullSelectionHists::LQTopLepFullSelectionHists(Context & ctx, const stri
   book<TH1F>("n_fake_mu", "number of fake muons in all events", 1, -0.5, 0.5);
   book<TH1F>("n_fake_mu_MLQ", "number of fake muons, MLQ reconstructed", 1, -0.5, 0.5);
   book<TH1F>("n_fake_mu_NoMLQ", "number of fake muons, MLQ not reconstructed", 1, -0.5, 0.5);
-
+  */
   // primary vertices
   book<TH1F>("N_pv", "number of primary vertices", 50, 0, 50);
   book<TH1F>("N_pv2", "number of primary vertices", 80, 0, 80);
@@ -186,10 +188,12 @@ LQTopLepFullSelectionHists::LQTopLepFullSelectionHists(Context & ctx, const stri
   h_mlq_reco_mode = ctx.get_handle<TString>("mlq_reco_mode");
 
   is_mc = ctx.get("dataset_type") == "MC";
-
+  /*
   h_FakeRateWeightEleNominal =ctx.get_handle<double>("FakeRateWeightEle");
   h_FakeRateWeightMuNominal =ctx.get_handle<double>("FakeRateWeightMu");
+  */
 }
+
 
 
 void LQTopLepFullSelectionHists::fill(const Event & event){
@@ -249,9 +253,15 @@ void LQTopLepFullSelectionHists::fill(const Event & event){
 
   // b jets
   std::vector<Jet> bjets_loose, bjets_med, bjets_tight;
+  /*
   CSVBTag btag_loose = CSVBTag(CSVBTag::WP_LOOSE);
   CSVBTag btag_med = CSVBTag(CSVBTag::WP_MEDIUM);
   CSVBTag btag_tight = CSVBTag(CSVBTag::WP_TIGHT);
+  */
+  JetId btag_loose = BTag(BTag::DEEPJET, BTag::WP_LOOSE);  
+  JetId btag_med = BTag(BTag::DEEPJET, BTag::WP_MEDIUM);
+  JetId btag_tight = BTag(BTag::DEEPJET, BTag::WP_TIGHT);
+
 
   for (unsigned int i=0; i < jets->size(); i++) {
     if(btag_loose(jets->at(i), event)) {
@@ -471,11 +481,11 @@ void LQTopLepFullSelectionHists::fill(const Event & event){
     hist("mindr_elejet")->Fill(mindr_elejet,weight);
   }
 
-  // electron and muons fakes
-
+  // electron and muons fakes, not yet implemented
+  /*
   double SF_ele = 1;
   double SF_mu = 1;
-
+  
   if(is_mc) {
     
     SF_ele = event.get(h_FakeRateWeightEleNominal);
@@ -504,7 +514,7 @@ void LQTopLepFullSelectionHists::fill(const Event & event){
     }
     
   }
-
+  */
 
 }
 
