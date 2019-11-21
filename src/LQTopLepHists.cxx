@@ -13,6 +13,9 @@ LQTopLepHists::LQTopLepHists(Context & ctx, const string & dirname): Hists(ctx, 
   // book all histograms here
   // jets
   book<TH1F>("N_jets", "N_{jets}", 20, 0, 20);  
+  book<TH1F>("pt_jets", "p_{T}^{jets} [GeV]", 50, 0, 1600); // pt of all jets in one histogram
+  book<TH1F>("eta_jets", "#eta jets", 40, -2.5, 2.5);
+
   book<TH1F>("N_PU", "N_{PU}", 100, 0, 100);  
   book<TH1F>("eta_jet1", "#eta^{jet 1}", 40, -2.5, 2.5);
   book<TH1D>("pt_jet1", "#p_{T}^{jet 1}", 100, 0, 3000);
@@ -24,17 +27,25 @@ LQTopLepHists::LQTopLepHists(Context & ctx, const string & dirname): Hists(ctx, 
 
 
 
-  // leptons
+  // muons
   book<TH1F>("N_mu", "N^{#mu}", 10, 0, 10);
   book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV/c]", 40, 0, 200);
   book<TH1F>("eta_mu", "#eta^{#mu}", 40, -2.1, 2.1);
   book<TH1F>("reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
 
+  // electrons
+  
+  book<TH1F>("N_e", "number of electrons", 9, -0.5, 8.5);
+  book<TH1F>("pt_e", "p_{T}^{e} [GeV]", 50, 0, 1600);
+  book<TH1F>("eta_e", "#eta electrons", 40, -2.1, 2.1);
+  book<TH1F>("reliso_e", "e rel. Iso", 40, 0, 0.5);
+
+
   // primary vertices
   book<TH1F>("N_pv", "N^{PV}", 50, 0, 50);
 
   // general
-  book<TH1D>("H_T", "H_{T}", 100, 0, 5000);
+  book<TH1D>("S_T", "S_{T}", 100, 0, 5000);
   book<TH1D>("sum_event_weights", "BinContent = sum(eventweights)", 1, 0.5, 1.5);
 }
 
@@ -53,6 +64,10 @@ void LQTopLepHists::fill(const Event & event){
   hist("N_jets")->Fill(Njets, weight);
   if(!event.isRealData)  hist("N_PU")->Fill(event.genInfo->pileup_TrueNumInteractions(), weight);
 
+  for(int i=0; i <Njets; i++) {
+    hist("pt_jets")->Fill(jets->at(i).pt(), weight);
+    hist("eta_jets")->Fill(jets->at(i).eta(), weight);
+  }
   if(Njets>=1){
     hist("eta_jet1")->Fill(jets->at(0).eta(), weight);
   }
@@ -81,30 +96,40 @@ void LQTopLepHists::fill(const Event & event){
       hist("pt_mu")->Fill(thismu.pt(), weight);
       hist("eta_mu")->Fill(thismu.eta(), weight);
       hist("reliso_mu")->Fill(thismu.relIso(), weight);
+  } 
+  // Electrons  
+  //std::vector<Electron>* electronVector = event.electrons;
+
+  const int Nele = event.electrons->size();
+  hist("N_e")->Fill(Nele, weight);
+  for (const Electron & thise : *event.electrons) {
+    hist("pt_e")->Fill(thise.pt(), weight);
+    hist("eta_e")->Fill(thise.eta(), weight);
+    hist("reliso_e")->Fill(thise.relIso(), weight);
   }
-    //HT
+    //ST
   auto met = event.met->pt();
-  double ht = 0.0;
-  double ht_jets = 0.0;
-  double ht_lep = 0.0;
+  double st = 0.0;
+  double st_jets = 0.0;
+  double st_lep = 0.0;
   for(const auto & jet : *event.jets){
-    ht_jets += jet.pt();
+    st_jets += jet.pt();
   }
   //Bedeutung der for-Schleife
   /*const auto jets = event.jets;
     for(unsigned int i=0; i<jets.size();i++){
     Jet jet=jets[i];
-    ht +=jet.pt();
+    st +=jet.pt();
     }*/
   for(const auto & electron : *event.electrons){
-    ht_lep += electron.pt();
+    st_lep += electron.pt();
   }
   for(const auto & muon : *event.muons){
-    ht_lep += muon.pt();
+    st_lep += muon.pt();
   }
 
-  ht = ht_lep + ht_jets + met;
-  hist("H_T")->Fill(ht, weight);
+  st = st_lep + st_jets + met;
+  hist("S_T")->Fill(st, weight);
 
   int Npvs = event.pvs->size();
   hist("N_pv")->Fill(Npvs, weight);
