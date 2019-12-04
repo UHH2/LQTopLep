@@ -104,11 +104,10 @@ namespace uhh2examples {
     Sys_MuFakeRate = ctx.get("Systematic_MuFakeRate");
 
     
-    // ERROR: muonID for CMSSW10
     eleId = AndId<Electron>(ElectronID_Summer16_tight, PtEtaCut(30.0, 2.4)); // pT>= 30 GeV, |nu|<2.4    
     Year year = extract_year(ctx);
-    if (year == Year::is2016v2) muId = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(30.0, 2.4), MuonIso(0.15)); // loose for LQ->te, maybe change to tight at some point
-    else                        muId = AndId<Muon>(MuonID(Muon::CutBasedIdTight), PtEtaCut(30.0, 2.4), MuonIso(0.15)); // loose for LQ->te, maybe change to tight at some point
+    if (year == Year::is2016v2) muId = AndId<Muon>(MuonID(Muon::Loose), PtEtaCut(30.0, 2.4), MuonIso(0.15)); // loose for LQ->te, maybe change to tight at some point
+    else                        muId = AndId<Muon>(MuonID(Muon::CutBasedIdLoose), PtEtaCut(30.0, 2.4), MuonIso(0.15)); // loose for LQ->te, maybe change to tight at some point
     cout << __LINE__ << endl;
 
 
@@ -156,12 +155,12 @@ namespace uhh2examples {
 
     cout << __LINE__ << endl;
 
-    //FakeRateWeightEle = ctx.declare_event_output<double>("FakeRateWeightEle");
-    //FakeRateWeightEleUp = ctx.declare_event_output<double>("FakeRateWeightEleUp");
-    //FakeRateWeightEleDown = ctx.declare_event_output<double>("FakeRateWeightEleDown");
-    //FakeRateWeightMu = ctx.declare_event_output<double>("FakeRateWeightMu");
-    //FakeRateWeightMuUp = ctx.declare_event_output<double>("FakeRateWeightMuUp");
-    //FakeRateWeightMuDown = ctx.declare_event_output<double>("FakeRateWeightMuDown");
+    FakeRateWeightEle = ctx.declare_event_output<double>("FakeRateWeightEle");
+    FakeRateWeightEleUp = ctx.declare_event_output<double>("FakeRateWeightEleUp");
+    FakeRateWeightEleDown = ctx.declare_event_output<double>("FakeRateWeightEleDown");
+    FakeRateWeightMu = ctx.declare_event_output<double>("FakeRateWeightMu");
+    FakeRateWeightMuUp = ctx.declare_event_output<double>("FakeRateWeightMuUp");
+    FakeRateWeightMuDown = ctx.declare_event_output<double>("FakeRateWeightMuDown");
     cout << __LINE__ << endl;
 
 
@@ -229,15 +228,19 @@ namespace uhh2examples {
     SF_muFakeRate->process(event);
 
     }
-    else{
+    */
+
+    // for the Moment: no FakeRates
+
+    //else{
     event.set(FakeRateWeightEle,1.);
     event.set(FakeRateWeightEleUp,1.);
     event.set(FakeRateWeightEleDown,1.);
     event.set(FakeRateWeightMu,1.);
     event.set(FakeRateWeightMuUp,1.);
     event.set(FakeRateWeightMuDown,1.);
-    }
-    */
+    //}
+    
 
 
     bool pass_common = common->process(event); // check if event fulfills common criteria
