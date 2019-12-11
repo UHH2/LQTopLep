@@ -253,15 +253,6 @@ namespace uhh2examples {
     
    // 2. set up selections
     
-   /*
-     njet_sel.reset(new NJetSelection(2, -1)); // at least 2 Jets, see common/include/NSelections.h
-     nele_sel.reset(new NElectronSelection(2, -1)); // at leats 2 electrons
-     ht_sel.reset(new HtSelection(350)); // ST>= 350 GeV, possibly called StSelection
-
-     dijet_sel.reset(new DijetSelection()); // see LQTopLepSelections, not sure if needed at all
-     lumi_sel.reset(new LumiSelection(ctx)); // only events used with 'good working detectors'
-   */
-    
    invmass110_sel.reset(new InvMassEleEleSelection(1, 110));
    nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, DeepjetLoose));
    //nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, Btag_loose)); // >=1 b-Jet

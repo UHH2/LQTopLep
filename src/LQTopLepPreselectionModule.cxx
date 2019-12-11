@@ -25,7 +25,8 @@
 
 using namespace std;
 using namespace uhh2;
-
+// AT the moment: basically LQ->te
+// to include LQ->tmu: keep events with Ne>=2 or Nmu>=2
 namespace uhh2examples {
 
   /** \brief Basic analysis example of an AnalysisModule (formerly 'cycle') in UHH2
@@ -53,9 +54,9 @@ namespace uhh2examples {
    
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> njet_sel, nele_sel, dijet_sel, lumi_sel, ht_sel, ele_trigger_sel, mu_trigger_sel;
+    std::unique_ptr<Selection> njet_sel, nele_sel, nmuons_sel, dijet_sel, lumi_sel, ht_sel, ele_trigger_sel, mu_trigger_sel;
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_cleaner, h_2jets, h_2lep, h_st350;
+    std::unique_ptr<Hists> h_nocuts, h_cleaner, h_2jets, h_2ele, h_2muons, h_overlap, h_2lep, h_st350;
 
     ElectronId eleId;
     JetId jetId;
@@ -137,10 +138,10 @@ namespace uhh2examples {
 
     // 2. set up selections
     njet_sel.reset(new NJetSelection(2, -1)); // at least 2 Jets, see common/include/NSelections.h
-    nele_sel.reset(new NElectronSelection(2, -1)); // at leats 2 electrons
-    ht_sel.reset(new HtSelection(350)); // ST>= 350 GeV, possibly called StSelection
+    nele_sel.reset(new NElectronSelection(2, -1)); // LQ->te: at least 2 electrons
+    nmuons_sel.reset(new NMuonSelection(2, -1)); // LQ->tmu: at least 2 muons
+    ht_sel.reset(new HtSelection(350)); // ST>= 350 GeV
 
-    dijet_sel.reset(new DijetSelection()); // see LQTopLepSelections, not sure if needed at all
     lumi_sel.reset(new LumiSelection(ctx)); // only events used with 'good working detectors'
 
 
@@ -149,7 +150,10 @@ namespace uhh2examples {
     h_nocuts.reset(new LQTopLepHists(ctx, "NoCuts"));
     h_cleaner.reset(new LQTopLepHists(ctx, "Cleaner"));
     h_2jets.reset(new LQTopLepHists(ctx, "2Jets"));
-    h_2lep.reset(new LQTopLepHists(ctx, "2Leptons"));
+    h_2ele.reset(new LQTopLepHists(ctx, "2Electrons"));
+    h_2muons.reset(new LQTopLepHists(ctx, "2Muons"));
+    h_overlap.reset(new LQTopLepHists(ctx, "Overlap")); // Ne>=2 and Nmu>=2
+    h_2lep.reset(new LQTopLepHists(ctx, "2Leptons")); // Ne>=2 or Nmu>=2
     h_st350.reset(new LQTopLepHists(ctx, "ST350"));
 
 
@@ -246,14 +250,28 @@ namespace uhh2examples {
     bool pass_common = common->process(event); // check if event fulfills common criteria
 
 
+    // to include LQ->tmu:
+
     if(!pass_common) return false;
     h_cleaner->fill(event);
 
     if(!njet_sel->passes(event)) return false; // N_Jet>=2
     h_2jets->fill(event);
 
-    if(!nele_sel->passes(event)) return false; // N_el>=2
+
+    /* use this when including LQ->tmu
+    if(nele_sel->passes(event) && !nmuons_sel->passes(event)) h_2ele->fill(event);
+    if(!nele_sel->passes(event) && nmuons_sel->passes(event)) h_2muons->fill(event);
+    if(nele_sel->passes(event) && nmuons_sel->passes(event)) h_overlap->fill(event);
+
+    if(!nele_sel->passes(event) && !nmuons_sel->passes(event)) return false;
     h_2lep->fill(event);
+    */
+
+    if(!nele_sel->passes(event)) return false; // N_el>=2
+    h_2ele->fill(event);
+
+    
 
     if(!ht_sel->passes(event)) return false; // ST>=350 GeV
     h_st350->fill(event);

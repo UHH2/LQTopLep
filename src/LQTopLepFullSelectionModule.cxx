@@ -59,7 +59,7 @@ namespace uhh2examples {
    
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> nbtag_loose_sel, ht_lep_sel, inv_mass_veto, ele_trigger_sel1, ele_trigger_sel2, mu_trigger_sel, exactly2ele_sel, exactly0mu_sel, atLeast3ele_sel, atLeast1mu_sel, ht_sel;
+    std::unique_ptr<Selection> nbtag_loose_sel, ht_lep_sel, inv_mass_veto, ele_trigger_sel1, ele_trigger_sel2, mu_trigger_sel, nele_sel, nmuons_sel;
     // mu trigger not used
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
@@ -89,7 +89,6 @@ namespace uhh2examples {
     JetId Btag_loose;
     BTag::algo btag_algo;
     BTag::wp wp_btag_loose, wp_btag_medium, wp_btag_tight;
-    //CSVBTag::wp wp_btag_loose;
 
     bool is_mc, exactly2lep, do_permutations, do_scale_variation, do_pdf_variation;
     bool onlySelfmadePlots;
@@ -97,7 +96,7 @@ namespace uhh2examples {
     uhh2::Event::Handle<bool> h_is_mlq_reconstructed;
     uhh2::Event::Handle<TString> h_mlq_reco_mode;
 
-    // systematic errors
+    // systematic uncertainties
     string Sys_EleID, Sys_EleReco, Sys_EleTrigger;
     string Sys_MuonID, Sys_MuonIso, Sys_MuonTrigger;
     string Sys_BTag;
@@ -140,10 +139,6 @@ namespace uhh2examples {
     
 
 
-
-    //Btag_loose = CSVBTag(CSVBTag::WP_LOOSE);
-    //wp_btag_loose = CSVBTag::WP_LOOSE;
-
     btag_algo = BTag::DEEPJET;
     wp_btag_loose = BTag::WP_LOOSE;
     wp_btag_medium = BTag::WP_MEDIUM;
@@ -179,7 +174,6 @@ namespace uhh2examples {
 
    // initialize LQ reconstruction modules
    mlq_reco.reset(new HighMassInclusiveLQReconstruction(ctx, LQNeutrinoReconstruction));
-   //mlq_reco_test.reset(new HighMassInclusiveLQReconstruction(ctx, LQNeutrinoReconstructionOld));
    chi2_module.reset(new LQChi2Discriminator(ctx, "LQHypotheses"));
 
    cout << __LINE__ << endl; 
@@ -251,22 +245,12 @@ namespace uhh2examples {
 
    // 2. set up selections
     
-   /*
-     njet_sel.reset(new NJetSelection(2, -1)); // at least 2 Jets, see common/include/NSelections.h
-     nele_sel.reset(new NElectronSelection(2, -1)); // at leats 2 electrons
-     ht_sel.reset(new HtSelection(350)); // ST>= 350 GeV, possibly called StSelection
-
-     dijet_sel.reset(new DijetSelection()); // see LQTopLepSelections, not sure if needed at all
-     lumi_sel.reset(new LumiSelection(ctx)); // only events used with 'good working detectors'
-   */
    nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, DeepjetLoose));
-   //nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, Btag_loose)); // >=1 b-Jet
    ht_lep_sel.reset(new HtLepSelection(stlep_value, -1)); // returns true if Ht>200
    inv_mass_veto.reset(new InvMassEleEleVeto(0., mee_value)); // returns true if M_ee>111 GeV
-   exactly2ele_sel.reset(new NElectronSelection(2, 2));
-   exactly0mu_sel.reset(new NMuonSelection(0, 0));
-   atLeast3ele_sel.reset(new NElectronSelection(3, -1));
-   atLeast1mu_sel.reset(new NMuonSelection(1, -1));
+   // split analysis into LQ->te and LQ->tmu and create hists for both inside this module?
+   nele_sel.reset(new NElectronSelection(2, -1));
+   nmuons_sel.reset(new NMuonSelection(2, -1));
  
    syst_module.reset(new MCScaleVariation(ctx));
 
@@ -278,8 +262,6 @@ namespace uhh2examples {
 
 
    h_nocuts.reset(new LQTopLepFullSelectionHists(ctx, "NoCuts"));
-
-
 
    h_trigger.reset(new LQTopLepFullSelectionHists(ctx, "Trigger"));
 
@@ -527,32 +509,6 @@ namespace uhh2examples {
 
     //h_btageff_invmass111->fill(event);
 
-
-
-    exactly2lep = (exactly2ele_sel->passes(event) && exactly0mu_sel->passes(event));
-    /*
-    // Histograms for case 2 electrons, 0 muons
-    if(exactly2lep) {
-      h_exactly2e->fill(event);
-      h_jets_exactly2e->fill(event);
-      h_ele_exactly2e->fill(event);
-      h_mu_exactly2e->fill(event);
-      h_event_exactly2e->fill(event);
-      h_topjets_exactly2e->fill(event);
-      h_lumi_exactly2e->fill(event);
-    }
-
-    // Histograms for case 2 electrons + extra muons or electrons
-    if(!exactly2lep) {
-      h_2eAndExtraLep->fill(event);
-      h_jets_2eAndExtraLep->fill(event);
-      h_ele_2eAndExtraLep->fill(event);
-      h_mu_2eAndExtraLep->fill(event);
-      h_event_2eAndExtraLep->fill(event);
-      h_topjets_2eAndExtraLep->fill(event);
-      h_lumi_2eAndExtraLep->fill(event);
-    }
-    */
 
 
     // check for at least 1 electron pair with opposite charge
