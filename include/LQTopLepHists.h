@@ -5,7 +5,7 @@
 namespace uhh2examples {
 
 /**  \brief Example class for booking and filling histograms
- * 
+ *
  * NOTE: This class uses the 'hist' method to retrieve histograms.
  * This requires a string lookup and is therefore slow if you have
  * many histograms. Therefore, it is recommended to use histogram
@@ -18,6 +18,9 @@ public:
 
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~LQTopLepHists();
+
+private:
+  bool is_mc;
 };
 
 }
