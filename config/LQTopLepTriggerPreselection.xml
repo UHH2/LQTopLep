@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
-	  <!ENTITY TargetLumi      "35867">
+	  <!ENTITY TargetLumi      "35920">
 	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Trigger/Preselection">
 	  <!ENTITY b_Cacheable     "False">
 	  <!ENTITY NEVT            "-1">

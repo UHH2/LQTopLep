@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
-	  <!ENTITY TargetLumi      "35867">
-	  <!ENTITY SELdir          "/nfs/dust/cms/user/frahmmat/LQTopLep/FullSelection">
+	  <!ENTITY TargetLumi      "35920">
+	  <!ENTITY SELdir          "/nfs/dust/cms/user/reimersa/LQTopLep/FullSelection">
 	  <!ENTITY b_Cacheable     "False">
 	  <!ENTITY NEVT            "-1">
-	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/frahmmat/LQTopLep/Preselection">
+	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Preselection">
 	  <!ENTITY PRESELfilename  "uhh2.AnalysisModuleRunner"> 
 
 	  <!ENTITY DO_PERMUTATIONS "false">
