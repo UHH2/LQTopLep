@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
-	  <!ENTITY TargetLumi      "35867">
-	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Trigger/Preselection">
-		<!ENTITY SELdir          "/nfs/dust/cms/user/reimersa/LQTopLep/Trigger/Fullselection">
+	  <!ENTITY TargetLumi      "35920">
+	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Trigger/2016/Preselection">
+		<!ENTITY SELdir          "/nfs/dust/cms/user/reimersa/LQTopLep/Trigger/2016/Fullselection">
 	  <!ENTITY b_Cacheable     "False">
 	  <!ENTITY NEVT            "-1">
 		<!ENTITY PRESELfilename  "uhh2.AnalysisModuleRunner.">
@@ -16,7 +16,6 @@
 <!-- Background: TTbar, WJets, DYJets, SingleTop, Diboson, TTV, QCD -->
 
 <!ENTITY TTbar "&PRESELdir;/&PRESELfilename;MC.TTbar_2016v3.root">
-
 
 
 <!ENTITY WJetsToLNu_HT_70to100 "&PRESELdir;/&PRESELfilename;MC.WJetsToLNu_HT_70to100_2016v3.root">
@@ -138,7 +137,7 @@
   <Package Name="SUHH2LQTopLep.par" />
 
 
-<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;" >
+<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="&TargetLumi;" >
 
 
 
