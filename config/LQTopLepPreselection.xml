@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
-	  <!ENTITY TargetLumi      "35867">
-	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/frahmmat/LQTopLep/Preselection">
+	  <!ENTITY TargetLumi      "35920">
+	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Preselection">
 	  <!ENTITY b_Cacheable     "False">
 	  <!ENTITY NEVT            "-1">
 	  <!ENTITY PROOFdir        "/nfs/dust/cms/user/frahmmat/.proof2">
