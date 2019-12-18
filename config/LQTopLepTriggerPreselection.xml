@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
 	  <!ENTITY TargetLumi      "35920">
-	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Trigger/Preselection">
+	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Trigger/2016/Preselection">
 	  <!ENTITY b_Cacheable     "False">
 	  <!ENTITY NEVT            "-1">
 	  <!ENTITY PROOFdir        "/nfs/dust/cms/user/frahmmat/.proof2">
