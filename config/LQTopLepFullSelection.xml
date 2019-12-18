@@ -2,11 +2,11 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
 	  <!ENTITY TargetLumi      "35920">
-	  <!ENTITY SELdir          "/nfs/dust/cms/user/reimersa/LQTopLep/FullSelection">
+	  <!ENTITY SELdir          "/nfs/dust/cms/user/reimersa/LQTopLep/2016/Fullselection">
 	  <!ENTITY b_Cacheable     "False">
 	  <!ENTITY NEVT            "-1">
-	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/Preselection">
-	  <!ENTITY PRESELfilename  "uhh2.AnalysisModuleRunner"> 
+	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/2016/Preselection">
+	  <!ENTITY PRESELfilename  "uhh2.AnalysisModuleRunner">
 
 	  <!ENTITY DO_PERMUTATIONS "false">
 	  <!ENTITY PERMUTATION     "-2">
@@ -18,7 +18,7 @@
 
 
 <!-- LQ samples
-                                                                                
+
 
 <!ENTITY FullselTitle  "&PRESELdir;/&PRESELfilename;.MC.PreselTitle.root">
 
@@ -279,48 +279,48 @@
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
   </InputData>
-  
+
   <InputData Lumi="9314.9" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM300" Cacheable="&b_Cacheable;">
     &LQtoTEM300;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
   </InputData>
-  
+
   <InputData Lumi="42770.7" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM400" Cacheable="&b_Cacheable;">
     &LQtoTEM400;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
   </InputData>
- 
+
   <InputData Lumi="151116.9" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM500" Cacheable="&b_Cacheable;">
     &LQtoTEM500;
     <InputTree Name="AnalysisTree" />
-    <OutputTree Name="AnalysisTree" /> 
-  </InputData> 
+    <OutputTree Name="AnalysisTree" />
+  </InputData>
 
   <InputData Lumi="442508.9" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM600" Cacheable="&b_Cacheable;">
     &LQtoTEM600;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
   </InputData>
-  
+
   <InputData Lumi="1127901.2" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM700" Cacheable="&b_Cacheable;">
     &LQtoTEM700;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
-  </InputData> 
+  </InputData>
 
   <InputData Lumi="2745860.8" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM800" Cacheable="&b_Cacheable;">
     &LQtoTEM800;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
   </InputData>
-  
+
   <InputData Lumi="6093739.8" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM900" Cacheable="&b_Cacheable;">
     &LQtoTEM900;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
-  </InputData> 
+  </InputData>
 
   <InputData Lumi="12752389.1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM1000" Cacheable="&b_Cacheable;">
     &LQtoTEM1000;
@@ -344,13 +344,13 @@
     &LQtoTEM1700;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
-  </InputData> 
+  </InputData>
 
   <InputData Lumi="4831806451.6" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM2000" Cacheable="&b_Cacheable;">
     &LQtoTEM2000;
     <InputTree Name="AnalysisTree" />
     <OutputTree Name="AnalysisTree" />
-  </InputData> 
+  </InputData>
 
 
 -->
@@ -771,12 +771,12 @@
 
         <UserConfig>
             <!-- define which collections to read from the input. Only specify what you need to save I/O time -->
-            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" /> 
+            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
             <Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
-            <Item Name="MuonCollection" Value="slimmedMuonsUSER" /> 
+            <Item Name="MuonCollection" Value="slimmedMuonsUSER" />
             <Item Name="JetCollection" Value="jetsAk4CHS" />
             <Item Name="METName" Value="slimmedMETs" />
-            <Item Name="GenJetCollection" Value="slimmedGenJets" /> 
+            <Item Name="GenJetCollection" Value="slimmedGenJets" />
 	  <!--  <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />  -->  <!-- this might be important later (LQ mass reco?) -->
 	    <Item Name="GenParticleCollection" Value="GenParticles" />
 	    <Item Name="GenInfoName" Value="genInfo" />
@@ -786,9 +786,9 @@
 			<Item Name="lumihists_lumi_per_bin" Value="1000."/>
 
 
-            
+
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
-            
+
                  PrimaryVertexCollection
                  ElectronCollection
                  MuonCollection
@@ -797,45 +797,45 @@
                  JetCollection
                  TopJetCollection
                  METName
-                 
+
                  GenInfoName
                  GenJetCollection
                  GenTopJetCollection
                  GenParticleCollection
-                 
+
                  Note that the last four are only read in for MC (InputData Type="MC"), so it is save to specify
                  them for real data, although those branches do not exist.
-                 
+
                  As 'Value', always use the branch name (if in doubt, open the input file in ROOT).
-                 
+
                  By default, triggers are read. To explicitly disable reading triggers, use:
                  <Item Name="readTrigger" Value="false" />
 		 -->
-            
+
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="LQTopLepFullSelectionModule" /> 
-            
+            <Item Name="AnalysisModule" Value="LQTopLepFullSelectionModule" />
+
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
                  event weight assigned by MCLumiWeight is InputData.Lumi / Cycle.TargetLumi. -->
             <Item Name="use_sframe_weight" Value="false" />
-            
+
             <!-- configuration for MCPileupReweight (run as part of CommonModules): -->
 
 
 
-            <Item Name="pileup_directory" Value="/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MyMCPileupHistogram.root" /> 
+            <Item Name="pileup_directory" Value="/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MyMCPileupHistogram.root" />
 	    <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MyDataPileupHistogram.root" />
 	    <Item Name="pileup_directory_data_up" Value="/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MyDataPileupHistogram_72383.root" />
 	    <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MyDataPileupHistogram_66017.root" />
 
 	    <!-- <Item Name="MCBtagEfficiencies" Value="/nfs/dust/cms/user/frahmmat/LQTopLep/FullSelection/Plots/BTagMCEfficiencyHists.root" /> -->  <!-- doesnt exist yet -->
-	    
+
 	    <Item Name="BTagCalibration" Value="/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/CSVv2_Moriond17_B_H.csv" />
 
 
 	    <Item Name="PDFWeightPath" Value="/nfs/dust/cms/user/reimersa/LQToTopMu/Run2_80X_v3/PDFWeights/" />
-	    
+
 	    <!-- check -->
 
 
@@ -858,9 +858,9 @@
 
 	    <Item Name="ScaleVariationMuR"       Value="none" />
 	    <Item Name="ScaleVariationMuF"       Value="none" />
-	    
+
 	    <Item Name="ScaleVariationProcess"    Value="true" />
-	    
+
 	    <Item Name="Systematic_EleFake"        Value="nominal" />
 	    <Item Name="Systematic_MuonFake"       Value="nominal" />
 
@@ -870,7 +870,7 @@
 	    <Item Name="jersmear_direction" Value="nominal" />
 
 
-            
+
             <!-- Some test configuration; see LQToTopMuModule.cxx for how to access it: -->
             <Item Name="TestKey" Value="TestKeyValue" />
         </UserConfig>
