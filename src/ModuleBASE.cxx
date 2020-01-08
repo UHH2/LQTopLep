@@ -1,4 +1,4 @@
-#include <UHH2/SingleTth/include/ModuleBASE.h>
+#include <UHH2/LQTopLep/include/ModuleBASE.h>
 
 bool ModuleBASE::process(uhh2::Event&){
 
