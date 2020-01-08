@@ -36,20 +36,22 @@ using namespace uhh2;
 namespace uhh2examples {
 
   /** \brief Basic analysis example of an AnalysisModule (formerly 'cycle') in UHH2
-   * 
+   *
    * This is the central class which calls other AnalysisModules, Hists or Selection classes.
    * This AnalysisModule, in turn, is called (via AnalysisModuleRunner) by SFrame.
    */
   class LQTopLepPreselectionModule: public ModuleBASE {
   public:
-    
+
     explicit LQTopLepPreselectionModule(Context & ctx);
     virtual bool process(Event & event) override;
+    void book_histograms(uhh2::Context&, vector<string>);
+    void fill_histograms(uhh2::Event&, string);
 
   private:
-    
+
     std::unique_ptr<CommonModules> common;
-    
+
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<ElectronCleaner> electroncleaner;
     unique_ptr<MuonCleaner> muoncleaner;
@@ -58,7 +60,7 @@ namespace uhh2examples {
     ElectronId eleId;
     JetId jetId;
     MuonId muId;
-    
+
     bool is_mc;
     TString Sys_EleFakeRate, path_EleFakeRate, Sys_MuFakeRate, path_MuFakeRate;
 
@@ -79,7 +81,7 @@ namespace uhh2examples {
     */
   };
 
-  void LQTopLepTriggerPreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
+  void LQTopLepPreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
     for(const auto & tag : tags){
       cout << "booking histograms with tag " << tag << endl;
       string mytag = tag+"_General";
@@ -95,7 +97,7 @@ namespace uhh2examples {
     }
   }
 
-  void LQTopLepTriggerPreselectionModule::fill_histograms(uhh2::Event& event, string tag){
+  void LQTopLepPreselectionModule::fill_histograms(uhh2::Event& event, string tag){
     string mytag = tag+"_General";
     HFolder(mytag)->fill(event);
     mytag = tag+"_Muons";
@@ -115,12 +117,12 @@ namespace uhh2examples {
     for(auto & kv : ctx.get_all()){
       cout << " " << kv.first << " = " << kv.second << endl;
     }
-    
+
     is_mc = ctx.get("dataset_type") == "MC";
     Year year = extract_year(ctx);
 
     path_EleFakeRate = ctx.get("path_EleFakeRate");
-    Sys_EleFakeRate = ctx.get("Systematic_EleFakeRate"); 
+    Sys_EleFakeRate = ctx.get("Systematic_EleFakeRate");
     path_MuFakeRate = ctx.get("path_MuFakeRate");
     Sys_MuFakeRate = ctx.get("Systematic_MuFakeRate");
 
@@ -138,7 +140,7 @@ namespace uhh2examples {
     common->set_muon_id(muId);
     common->set_jet_id(PtEtaCut(30.0, 2.4));
     common->init(ctx);
-    
+
     electroncleaner.reset(new ElectronCleaner(eleId));
     muoncleaner.reset(new MuonCleaner(muId));
 
@@ -147,7 +149,7 @@ namespace uhh2examples {
     h_raw_genjets_ele = ctx.get_handle<vector<Particle>>("RawGenJetsEle");
 
     /*
-      SF_eleFakeRate.reset(new ElectronFakeRateWeights(ctx, JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC, path_EleFakeRate, Sys_EleFakeRate, "RawJetsEle", "RawGenJetsEle"));    
+      SF_eleFakeRate.reset(new ElectronFakeRateWeights(ctx, JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC, path_EleFakeRate, Sys_EleFakeRate, "RawJetsEle", "RawGenJetsEle"));
       SF_muFakeRate.reset(new MuonFakeRateWeights(ctx, path_MuFakeRate, Sys_MuFakeRate));
     */
 

@@ -78,35 +78,35 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
   // Denominator histograms
   TH1D* h_TTbar_before = (TH1D*)input_TTbar->Get(histname_before);
-  TH1D* h_ST_before    = (TH1D*)input_ST->Get(histname_before);
-  TH1D* h_DY_before    = (TH1D*)input_DY->Get(histname_before);
-  TH1D* h_WJ_before    = (TH1D*)input_WJ->Get(histname_before);
-  TH1D* h_DB_before    = (TH1D*)input_DB->Get(histname_before);
-  TH1D* h_QCD_before;
-  if(mode == "electron") h_QCD_before = (TH1D*)input_QCDMU->Get(histname_before);
-  else                   h_QCD_before = (TH1D*)input_QCDELE->Get(histname_before);
+  // TH1D* h_ST_before    = (TH1D*)input_ST->Get(histname_before);
+  // TH1D* h_DY_before    = (TH1D*)input_DY->Get(histname_before);
+  // TH1D* h_WJ_before    = (TH1D*)input_WJ->Get(histname_before);
+  // TH1D* h_DB_before    = (TH1D*)input_DB->Get(histname_before);
+  // TH1D* h_QCD_before;
+  // if(mode == "electron") h_QCD_before = (TH1D*)input_QCDMU->Get(histname_before);
+  // else                   h_QCD_before = (TH1D*)input_QCDELE->Get(histname_before);
   TH1D* h_MC_before = (TH1D*)h_TTbar_before->Clone("h_MC_before");
-  h_MC_before->Add(h_ST_before);
-  h_MC_before->Add(h_DY_before);
-  h_MC_before->Add(h_WJ_before);
-  h_MC_before->Add(h_DB_before);
-  h_MC_before->Add(h_QCD_before);
+  // h_MC_before->Add(h_ST_before);
+  // h_MC_before->Add(h_DY_before);
+  // h_MC_before->Add(h_WJ_before);
+  // h_MC_before->Add(h_DB_before);
+  // h_MC_before->Add(h_QCD_before);
 
   // Numerator histograms
   TH1D* h_TTbar_after  = (TH1D*)input_TTbar->Get(histname_after);
-  TH1D* h_ST_after     = (TH1D*)input_ST->Get(histname_after);
-  TH1D* h_DY_after     = (TH1D*)input_DY->Get(histname_after);
-  TH1D* h_WJ_after     = (TH1D*)input_WJ->Get(histname_after);
-  TH1D* h_DB_after     = (TH1D*)input_DB->Get(histname_after);
-  TH1D* h_QCD_after;
-  if(mode == "electron") h_QCD_after = (TH1D*)input_QCDMU->Get(histname_after);
-  else                   h_QCD_after = (TH1D*)input_QCDELE->Get(histname_after);
+  // TH1D* h_ST_after     = (TH1D*)input_ST->Get(histname_after);
+  // TH1D* h_DY_after     = (TH1D*)input_DY->Get(histname_after);
+  // TH1D* h_WJ_after     = (TH1D*)input_WJ->Get(histname_after);
+  // TH1D* h_DB_after     = (TH1D*)input_DB->Get(histname_after);
+  // TH1D* h_QCD_after;
+  // if(mode == "electron") h_QCD_after = (TH1D*)input_QCDMU->Get(histname_after);
+  // else                   h_QCD_after = (TH1D*)input_QCDELE->Get(histname_after);
   TH1D* h_MC_after = (TH1D*)h_TTbar_after->Clone("h_MC_after");
-  h_MC_after->Add(h_ST_after);
-  h_MC_after->Add(h_DY_after);
-  h_MC_after->Add(h_WJ_after);
-  h_MC_after->Add(h_DB_after);
-  h_MC_after->Add(h_QCD_after);
+  // h_MC_after->Add(h_ST_after);
+  // h_MC_after->Add(h_DY_after);
+  // h_MC_after->Add(h_WJ_after);
+  // h_MC_after->Add(h_DB_after);
+  // h_MC_after->Add(h_QCD_after);
   TH1D* h_DATA_before, *h_DATA_after;
   if(mode == "electron"){
     h_DATA_before = (TH1D*)input_DATAMU->Get(histname_before);
@@ -191,6 +191,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
     SF_y_high.push_back(sqrt(pow(DATA_y_high/y_MC,2) + pow(y_DATA/y_MC/y_MC*MC_y_low,2)));
 
     // cout << "x-data: " << x_DATA << ", x-mc: " << x_MC << ", x-sf: " << SF_x.back() << endl;
+    // cout << "y-data: " << y_DATA << ", y-mc: " << y_MC << ", y-sf: " << SF_y.back() << endl;
     at_in_mc++;
     at_in_data++;
     n_points++;
@@ -213,7 +214,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   p_top->cd();
   gr_mc->GetYaxis()->SetRangeUser(0.0001,1.1);
   gr_mc->GetYaxis()->SetTitle("Trigger efficiency");
-  gr_mc->GetXaxis()->SetLimits(0,gr_ratio->GetXaxis()->GetXmax());
+  gr_mc->GetXaxis()->SetLimits(gr_ratio->GetXaxis()->GetXmin(),gr_ratio->GetXaxis()->GetXmax());
   gr_mc->Draw("APZ");
   gr_data->Draw("PZ SAME");
 
@@ -226,14 +227,14 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
   p_bot->cd();
   gr_ratio->GetYaxis()->SetRangeUser(0.65, 1.35);
-  gr_ratio->GetXaxis()->SetTitle("p_{T}^{e} [GeV]");
+  gr_ratio->GetXaxis()->SetTitle(h_DATA_before->GetTitle());
   gr_ratio->GetYaxis()->SetTitle("DATA / MC");
   gr_ratio->GetYaxis()->SetTitleSize(15);
   gr_ratio->SetLineColor(kBlack);
   gr_ratio->SetTitle("");
   gr_ratio->Draw("APZ");
 
-  TLine* l_unity = new TLine(0, 1, gr_ratio->GetXaxis()->GetXmax(), 1);
+  TLine* l_unity = new TLine(gr_ratio->GetXaxis()->GetXmin(), 1, gr_ratio->GetXaxis()->GetXmax(), 1);
   l_unity->SetLineColor(kRed-4);
   l_unity->SetLineWidth(2);
   l_unity->SetLineStyle(2);
