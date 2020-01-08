@@ -15,34 +15,50 @@
 using namespace std;
 
 
-void CalculateEffForVar(TString mode, TString varname, TString base_path, TString trigger_tag, TString year, TString yeartag);
+void CalculateEffForVar(TString mode, TString varname, TString base_path, TString trigger_tag, TString year, TString yeartag, TString ptlow, TString pthigh);
 
 
 void AnalysisTool::CalculateTriggerEfficiencies(){
 
-  CalculateEffForVar("electron", "pt_ele_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("electron", "pt_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("electron", "eta_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("electron", "eta_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("electron", "dR_ele_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("electron", "dRmin_ele_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("electron", "dRmin_ele_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
+  vector<pair<TString,TString>> pt_regions = {
+    make_pair("",    ""),
+    make_pair("30",  "50"),
+    make_pair("50",  "100"),
+    make_pair("100", "200"),
+    make_pair("200", "Inf"),
+    make_pair("100", "Inf"),
+    make_pair("30",  "200"),
+    make_pair("50",  "200"),
+  };
 
-  CalculateEffForVar("muon", "pt_mu_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("muon", "pt_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("muon", "eta_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("muon", "eta_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("muon", "dR_mu_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("muon", "dRmin_mu_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
-  CalculateEffForVar("muon", "dRmin_mu_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag);
+  for(size_t i=0; i<pt_regions.size(); i++){
 
+    TString ptlow = pt_regions[i].first;
+    TString pthigh = pt_regions[i].second;
+
+    CalculateEffForVar("electron", "pt_ele_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron", "pt_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron", "eta_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron", "eta_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron", "dR_ele_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron", "dRmin_ele_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron", "dRmin_ele_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+
+    CalculateEffForVar("muon", "pt_mu_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon", "pt_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon", "eta_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon", "eta_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon", "dR_mu_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon", "dRmin_mu_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon", "dRmin_mu_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+  }
 
 }
 
 
-void CalculateEffForVar(TString mode, TString varname, TString base_path, TString trigger_tag, TString year, TString yeartag){
+void CalculateEffForVar(TString mode, TString varname, TString base_path, TString trigger_tag, TString year, TString yeartag, TString ptlow="", TString pthigh=""){
 
-
+  gErrorIgnoreLevel = kError;
   gStyle->SetPadTickX(1);
   gStyle->SetPadTickY(1);
   if(mode != "electron" && mode != "muon") throw runtime_error("Only 'electron' or 'muon' allowed as value for 'mode'.");
@@ -67,13 +83,26 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   // ===============================
 
   TString histname_before = "", histname_after = "";
+  bool is_inclusive = false;
+  if(ptlow == "" || pthigh == ""){
+    if(!(ptlow == "" && pthigh == "")) throw runtime_error("If one pt threshold is '', the other must be as well.");
+    is_inclusive = true;
+  }
   if(mode == "electron"){
-    histname_before = "ElectronTriggerBefore_Trigger/" + varname;
-    histname_after = "ElectronTriggerAfter_Trigger/" + varname;
+    histname_before = "ElectronTriggerBefore";
+    if(!is_inclusive) histname_before += "_pt" + ptlow + "to" + pthigh;
+    histname_before += "_Trigger/" + varname;
+    histname_after = "ElectronTriggerAfter";
+    if(!is_inclusive) histname_after += "_pt" + ptlow + "to" + pthigh;
+    histname_after += "_Trigger/" + varname;
   }
   else{
-    histname_before = "MuonTriggerBefore_Trigger/" + varname;
-    histname_after = "MuonTriggerAfter_Trigger/" + varname;
+    histname_before = "MuonTriggerBefore";
+    if(!is_inclusive) histname_before += "_pt" + ptlow + "to" + pthigh;
+    histname_before += "_Trigger/" + varname;
+    histname_after = "MuonTriggerAfter";
+    if(!is_inclusive) histname_after += "_pt" + ptlow + "to" + pthigh;
+    histname_after += "_Trigger/" + varname;
   }
 
   // Denominator histograms
@@ -116,7 +145,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
     h_DATA_before = (TH1D*)input_DATAELE->Get(histname_before);
     h_DATA_after   = (TH1D*)input_DATAELE->Get(histname_after);
   }
-  cout << "done loading histograms" << endl;
+  // cout << "done loading histograms" << endl;
 
 
 
@@ -232,6 +261,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   gr_ratio->GetYaxis()->SetTitleSize(15);
   gr_ratio->SetLineColor(kBlack);
   gr_ratio->SetTitle("");
+  gr_ratio->SetName("ScaleFactors");
   gr_ratio->Draw("APZ");
 
   TLine* l_unity = new TLine(gr_ratio->GetXaxis()->GetXmin(), 1, gr_ratio->GetXaxis()->GetXmax(), 1);
@@ -251,12 +281,38 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   text1->SetY(0.995);
   text1->Draw("SAME");
 
+  TString pttext = ptlow + " GeV < p_{T}^{e} < " + pthigh + " GeV";
+  if(pthigh == "Inf") pttext = " p_{T}^{e} > " + ptlow + " GeV";
+  if(mode != "electron") pttext.ReplaceAll("^{e}", "^{#mu}");
+  TLatex *text2 = new TLatex(3.5, 24, pttext);
+  text2->SetNDC();
+  // text2->SetTextAlign(33);
+  text2->SetX(0.3);
+  text2->SetTextFont(43);
+  text2->SetTextSize(14);
+  text2->SetY(0.32);
+  if(!is_inclusive) text2->Draw("SAME");
+
+  gErrorIgnoreLevel = kInfo;
   TString plotname = "";
   if(mode == "electron") plotname += "Electron";
   else                   plotname += "Muon";
   plotname += "TriggerEfficiency_" + varname;
+  if(!is_inclusive) plotname += "_pt" + ptlow + "to" + pthigh;
   // c->SaveAs(base_path + year + "/" + trigger_tag + "Fullselection/" + plotname + ".eps");
   c->SaveAs(base_path + year + "/" + trigger_tag + "Fullselection/" + plotname + ".pdf");
 
+
+  // Write SFs to root-file
+  // ======================
+
+  if(varname.Contains("eta") && varname.Contains("binned")){
+    unique_ptr<TFile> fout;
+    TString outfilename = base_path + year + "/" + trigger_tag + "Fullselection/" + plotname + ".root";
+    outfilename.ReplaceAll("TriggerEfficiency", "TriggerScaleFactors");
+    fout.reset(new TFile(outfilename, "RECREATE"));
+    gr_ratio->Write();
+    fout->Close();
+  }
 
 }
