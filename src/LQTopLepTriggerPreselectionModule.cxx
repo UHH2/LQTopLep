@@ -22,7 +22,7 @@
 #include "UHH2/LQTopLep/include/LQTopLepSelections.h"
 #include "UHH2/LQTopLep/include/LQTopLepHists.h"
 //#include "UHH2/LQTopLep/include/LQTopLepModules.h"
-#include <UHH2/SingleTth/include/ModuleBASE.h>
+#include <UHH2/LQTopLep/include/ModuleBASE.h>
 
 
 using namespace std;

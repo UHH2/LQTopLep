@@ -5,6 +5,7 @@
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/CommonModules.h"
 #include "UHH2/common/include/CleaningModules.h"
+#include "UHH2/common/include/MCWeight.h"
 //hists
 #include "UHH2/common/include/ElectronHists.h"
 #include "UHH2/common/include/MuonHists.h"
@@ -22,7 +23,7 @@
 #include "UHH2/LQTopLep/include/LQTopLepSelections.h"
 #include "UHH2/LQTopLep/include/LQTopLepHists.h"
 #include "UHH2/LQTopLep/include/LQTopLepTriggerHists.h"
-#include <UHH2/SingleTth/include/ModuleBASE.h>
+#include <UHH2/LQTopLep/include/ModuleBASE.h>
 
 
 using namespace std;
@@ -152,7 +153,7 @@ namespace uhh2examples {
 
 
     // Book histograms
-    vector<string> histogram_tags = {"Cleaner", "Electron1", "Muon1", "LeptonSF", "ElectronTriggerBefore", "ElectronTriggerAfter", "MuonTriggerBefore", "MuonTriggerAfter"};
+    vector<string> histogram_tags = {"Cleaner", "Electron1", "Muon1", "LeptonSF", "ElectronTriggerBefore", "ElectronTriggerBefore_pt30to200", "ElectronTriggerBefore_pt30to50", "ElectronTriggerBefore_pt50to200", "ElectronTriggerBefore_pt50to100", "ElectronTriggerBefore_pt100to200", "ElectronTriggerBefore_pt200toInf", "ElectronTriggerAfter", "ElectronTriggerAfter_pt30to200", "ElectronTriggerAfter_pt30to50", "ElectronTriggerAfter_pt50to200", "ElectronTriggerAfter_pt50to100", "ElectronTriggerAfter_pt100to200", "ElectronTriggerAfter_pt200toInf", "MuonTriggerBefore", "MuonTriggerBefore_pt30to200", "MuonTriggerBefore_pt30to50", "MuonTriggerBefore_pt50to200", "MuonTriggerBefore_pt50to100", "MuonTriggerBefore_pt100to200", "MuonTriggerBefore_pt200toInf", "MuonTriggerAfter", "MuonTriggerAfter_pt30to200", "MuonTriggerAfter_pt30to50", "MuonTriggerAfter_pt50to200", "MuonTriggerAfter_pt50to100", "MuonTriggerAfter_pt100to200", "MuonTriggerAfter_pt200toInf"};
     book_histograms(ctx, histogram_tags);
 
 
@@ -184,8 +185,22 @@ namespace uhh2examples {
     if(pass_muon_trigger){
       fill_histograms(event,"ElectronTriggerBefore");
 
+      if(event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerBefore_pt30to200");
+      if(event.electrons->at(0).pt() < 50) fill_histograms(event, "ElectronTriggerBefore_pt30to50");
+      if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 100) fill_histograms(event, "ElectronTriggerBefore_pt50to100");
+      if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerBefore_pt50to200");
+      if(event.electrons->at(0).pt() > 100 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerBefore_pt100to200");
+      if(event.electrons->at(0).pt() > 200) fill_histograms(event, "ElectronTriggerBefore_pt200toInf");
+
       if(pass_electron_trigger){
         fill_histograms(event, "ElectronTriggerAfter");
+
+        if(event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerAfter_pt30to200");
+        if(event.electrons->at(0).pt() < 50) fill_histograms(event, "ElectronTriggerAfter_pt30to50");
+        if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 100) fill_histograms(event, "ElectronTriggerAfter_pt50to100");
+        if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerAfter_pt50to200");
+        if(event.electrons->at(0).pt() > 100 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerAfter_pt100to200");
+        if(event.electrons->at(0).pt() > 200) fill_histograms(event, "ElectronTriggerAfter_pt200toInf");
       }
     }
 
@@ -193,8 +208,22 @@ namespace uhh2examples {
     if(pass_electron_trigger){
       fill_histograms(event,"MuonTriggerBefore");
 
+      if(event.muons->at(0).pt() < 200) fill_histograms(event, "MuonTriggerBefore_pt30to200");
+      if(event.muons->at(0).pt() < 50) fill_histograms(event, "MuonTriggerBefore_pt30to50");
+      if(event.muons->at(0).pt() > 50 && event.muons->at(0).pt() < 100) fill_histograms(event, "MuonTriggerBefore_pt50to100");
+      if(event.muons->at(0).pt() > 50 && event.muons->at(0).pt() < 200) fill_histograms(event, "MuonTriggerBefore_pt50to200");
+      if(event.muons->at(0).pt() > 100 && event.muons->at(0).pt() < 200) fill_histograms(event, "MuonTriggerBefore_pt100to200");
+      if(event.muons->at(0).pt() > 200) fill_histograms(event, "MuonTriggerBefore_pt200toInf");
+
       if(pass_muon_trigger){
         fill_histograms(event, "MuonTriggerAfter");
+
+        if(event.muons->at(0).pt() < 200) fill_histograms(event, "MuonTriggerAfter_pt30to200");
+        if(event.muons->at(0).pt() < 50) fill_histograms(event, "MuonTriggerAfter_pt30to50");
+        if(event.muons->at(0).pt() > 50 && event.muons->at(0).pt() < 100) fill_histograms(event, "MuonTriggerAfter_pt50to100");
+        if(event.muons->at(0).pt() > 50 && event.muons->at(0).pt() < 200) fill_histograms(event, "MuonTriggerAfter_pt50to200");
+        if(event.muons->at(0).pt() > 100 && event.muons->at(0).pt() < 200) fill_histograms(event, "MuonTriggerAfter_pt100to200");
+        if(event.muons->at(0).pt() > 200) fill_histograms(event, "MuonTriggerAfter_pt200toInf");
       }
     }
 

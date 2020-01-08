@@ -2,7 +2,6 @@
 #include <memory>
 
 
-#include <UHH2/SingleTth/include/ModuleBASE.h>
 #include "UHH2/core/include/AnalysisModule.h"
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/CommonModules.h"
@@ -26,10 +25,12 @@
 // my own classes
 #include "UHH2/LQTopLep/include/LQTopLepSelections.h"
 #include "UHH2/LQTopLep/include/LQTopLepFullSelectionHists.h"
+#include "UHH2/LQTopLep/include/LQTopLepHists.h"
 #include "UHH2/LQTopLep/include/LQTopLepModules.h"
 #include "UHH2/LQTopLep/include/LQMassReconstruction.h"
 #include "UHH2/LQTopLep/include/LQReconstructionHypothesis.h"
 #include "UHH2/LQTopLep/include/LQReconstructionHypothesisDiscriminators.h"
+#include <UHH2/LQTopLep/include/ModuleBASE.h>
 
 #include "UHH2/LQTopLep/include/LQTopLepPDFHists.h"
 
@@ -41,27 +42,29 @@ namespace uhh2examples {
 
   class LQTopLepDYJetsRegion: public ModuleBASE {
   public:
-    
+
     explicit LQTopLepDYJetsRegion(Context & ctx); // constructor
-    virtual bool process(Event & event) override; 
+    virtual bool process(Event & event) override;
+    void book_histograms(uhh2::Context&, vector<string>);
+    void fill_histograms(uhh2::Event&, string);
 
   private:
-    
+
     std::unique_ptr<CommonModules> common;
-    
+
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<ElectronCleaner> electroncleaner;
 
     unique_ptr<AnalysisModule> SF_eleReco, SF_eleID, SF_muonIso, SF_muonID, SF_btag, SF_btagMedium;
     std::unique_ptr<AnalysisModule> syst_module; // for renormalization and factorization scales mu_r, mu_f
     unique_ptr<ElectronTriggerWeights> SF_eleTrigger;
-   
+
     std::unique_ptr<Selection> nbtag_loose_sel, ht_lep_sel, inv_mass_veto, ele_trigger_sel1, ele_trigger_sel2,  ht_sel, invmass110_sel;
-    
+
     unique_ptr<HighMassInclusiveLQReconstruction> mlq_reco;
 
     unique_ptr<LQChi2Discriminator> chi2_module;
-    
+
     JetId Btag_loose;
     BTag::algo btag_algo;
     BTag::wp wp_btag_loose, wp_btag_medium, wp_btag_tight;
@@ -85,7 +88,7 @@ namespace uhh2examples {
   };
 
 
-  void LQTopLepTriggerFullselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
+  void LQTopLepDYJetsRegion::book_histograms(uhh2::Context& ctx, vector<string> tags){
     for(const auto & tag : tags){
       cout << "booking histograms with tag " << tag << endl;
       string mytag = tag+"_General";
@@ -101,7 +104,7 @@ namespace uhh2examples {
     }
   }
 
-  void LQTopLepTriggerFullselectionModule::fill_histograms(uhh2::Event& event, string tag){
+  void LQTopLepDYJetsRegion::fill_histograms(uhh2::Event& event, string tag){
     string mytag = tag+"_General";
     HFolder(mytag)->fill(event);
     mytag = tag+"_Muons";
@@ -117,14 +120,14 @@ namespace uhh2examples {
 
 
   LQTopLepDYJetsRegion::LQTopLepDYJetsRegion(Context & ctx){
-    cout << __LINE__ << endl; 
+    cout << __LINE__ << endl;
 
 
     cout << "Hello World from LQTopLepDYJetsRegion!" << endl;
     for(auto & kv : ctx.get_all()){
       cout << " " << kv.first << " = " << kv.second << endl;
     }
-    cout << __LINE__ << endl; 
+    cout << __LINE__ << endl;
 
 
 
@@ -151,16 +154,7 @@ namespace uhh2examples {
     int permutation = stoi(s_permutation, nullptr, 10);
     cout << "permutation: " << permutation << endl;
     if (permutation < 0 && do_permutations) throw runtime_error("Invalid value for permutation");
-    
-    btag_algo = BTag::DEEPJET;
-    wp_btag_loose = BTag::WP_LOOSE;
-    wp_btag_medium = BTag::WP_MEDIUM;
-    wp_btag_tight = BTag::WP_TIGHT;
 
-    JetId DeepjetLoose = BTag(btag_algo, wp_btag_loose);
-    JetId DeepjetMedium = BTag(btag_algo, wp_btag_medium);
-    JetId DeepjetTight = BTag(btag_algo, wp_btag_tight);
-    
     int btag_value = 1;
     double stlep_value = 0.;
     double mee_max_value = 110; // should not be Mee>110 GeV
@@ -174,7 +168,7 @@ namespace uhh2examples {
       vector<double> mee_max_values = {110., 110., 110.};
       vector<double> mee_min_values = {72., 60., 50.};
       vector<double> stlep_values = {0., 100., 200.};
-    
+
       int btag_idx = permutation % btag_values.size();
       int mee_idx = (permutation / btag_values.size()) % mee_min_values.size();
       int stlep_idx = (permutation / btag_values.size() / mee_min_values.size()) % stlep_values.size();
@@ -184,8 +178,8 @@ namespace uhh2examples {
       mee_min_value = mee_min_values[mee_idx];
       stlep_value = stlep_values[stlep_idx];
     }
-    
-    
+
+
     // electron triggers
     ele_trigger_sel1.reset(new TriggerSelection("HLT_Ele27_WPTight_Gsf_v*"));
     ele_trigger_sel2.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
@@ -209,20 +203,20 @@ namespace uhh2examples {
     Sys_MuonFake = ctx.get("Systematic_MuonFake");
 
 
-    do_scale_variation = (ctx.get("ScaleVariationMuR") == "up" || ctx.get("ScaleVariationMuR") == "down" ||  ctx.get("ScaleVariationMuF") == "up" || ctx.get("ScaleVariationMuF") == "down"); 
+    do_scale_variation = (ctx.get("ScaleVariationMuR") == "up" || ctx.get("ScaleVariationMuR") == "down" ||  ctx.get("ScaleVariationMuF") == "up" || ctx.get("ScaleVariationMuF") == "down");
     do_pdf_variation = (ctx.get("ScaleVariationProcess") == "true");
     dataset_version = ctx.get("dataset_version");
 
-    cout << __LINE__ << endl; 
+    cout << __LINE__ << endl;
 
 
 
     // Scale Factors for MonteCarlo
-   // SFs for trigger: have to be remade
-   SF_eleTrigger.reset(new ElectronTriggerWeights(ctx, "/nfs/dust/cms/user/reimersa/LQToTopMu/Run2_80X_v3/TagProbe/Optimization/35867fb_Iso27_NonIso115/ElectronEfficiencies.root", Sys_EleTrigger)); 
+    // SFs for trigger: have to be remade
+    SF_eleTrigger.reset(new ElectronTriggerWeights(ctx, "/nfs/dust/cms/user/reimersa/LQToTopMu/Run2_80X_v3/TagProbe/Optimization/35867fb_Iso27_NonIso115/ElectronEfficiencies.root", Sys_EleTrigger));
 
-   // SFs for Id, Reco, Iso: copied from SingleTthAnalysisModule.cxx
- 
+    // SFs for Id, Reco, Iso: copied from SingleTthAnalysisModule.cxx
+
     SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 0., "id", false, Sys_MuonID));
     SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt", 0., "iso", false, Sys_MuonIso));
 
@@ -238,7 +232,7 @@ namespace uhh2examples {
     common->disable_jersmear();
     common->disable_jec();
     common->init(ctx/*, Sys_PU*/);
-    
+
     /*
     if(Sys_EleFake == "nominal")   h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEle");
     else if(Sys_EleFake == "up")   h_FakeRateWeightEle =ctx.get_handle<double>("FakeRateWeightEleUp");
@@ -250,24 +244,24 @@ namespace uhh2examples {
     else throw runtime_error("Sys_MuonFake is not one of the following: ['up', 'down', 'nominal']");
     */
 
-    
-   // Selections
-    
-   invmass110_sel.reset(new InvMassEleEleSelection(1, 110));
-   nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, DeepjetLoose));
-   //nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, Btag_loose)); // >=1 b-Jet
-   ht_lep_sel.reset(new HtLepSelection(stlep_value, -1)); // returns true if Ht>200
-   inv_mass_veto.reset(new InvMassEleEleSelection(mee_min_value, mee_max_value));
 
-   syst_module.reset(new MCScaleVariation(ctx));
-   
+    // Selections
 
-   cout << __LINE__ << endl; 
+    invmass110_sel.reset(new InvMassEleEleSelection(1, 110));
+    nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, DeepjetLoose));
+    //nbtag_loose_sel.reset(new NJetSelection(btag_value, -1, Btag_loose)); // >=1 b-Jet
+    ht_lep_sel.reset(new HtLepSelection(stlep_value, -1)); // returns true if Ht>200
+    inv_mass_veto.reset(new InvMassEleEleSelection(mee_min_value, mee_max_value));
+
+    syst_module.reset(new MCScaleVariation(ctx));
 
 
+    cout << __LINE__ << endl;
 
-   // Book histograms
-   vector<string> histogram_tags = {"Cleaner", "Trigger", "invmass110", "Nbtag", "STlep", "EleInvMass", /*BTagEff_M_ee,*/ "Finalselection", "Finalselection_mlqtrue", "Finalselection_mlqfalse" /*, "PDF_variations"*/};
+
+
+    // Book histograms
+    vector<string> histogram_tags = {"Cleaner", "Trigger", "invmass110", "Nbtag", "STlep", "EleInvMass", /*BTagEff_M_ee,*/ "Finalselection", "Finalselection_mlqtrue", "Finalselection_mlqfalse" /*, "PDF_variations"*/};
     book_histograms(ctx, histogram_tags);
   }
 
@@ -283,116 +277,112 @@ namespace uhh2examples {
     double SF_ele = 1, SF_mu = 1;
     double n_matched_to_taus = 0, n_matched_to_muons = 0; // reason for this line?
     if(is_mc){
-      //cout <<endl << "NEW EVENT" << endl << "Before applying SF: weight = " << event.weight << endl;
-      SF_ele = event.get(h_FakeRateWeightEle);
-      if(event.electrons->size() == 0 && SF_ele != 1) throw runtime_error("There are no electrons in the event, still the fake-rate SF is != 1...");
-      event.weight *= SF_ele;
-      SF_mu = event.get(h_FakeRateWeightMu);
-      if(event.muons->size() == 0 && SF_mu != 1) throw runtime_error("There are no muons in the event, still the fake-rate SF is != 1...");
-      event.weight *= SF_mu;
+    //cout <<endl << "NEW EVENT" << endl << "Before applying SF: weight = " << event.weight << endl;
+    SF_ele = event.get(h_FakeRateWeightEle);
+    if(event.electrons->size() == 0 && SF_ele != 1) throw runtime_error("There are no electrons in the event, still the fake-rate SF is != 1...");
+    event.weight *= SF_ele;
+    SF_mu = event.get(h_FakeRateWeightMu);
+    if(event.muons->size() == 0 && SF_mu != 1) throw runtime_error("There are no muons in the event, still the fake-rate SF is != 1...");
+    event.weight *= SF_mu;
+  }
+  */
+
+  // scale variations
+  if(do_scale_variation) {
+    if(dataset_version.Contains("TTbar") || dataset_version.Contains("DYJets") || dataset_version.Contains("SingleTop") || dataset_version.Contains("WJets") ||  dataset_version.Contains("Diboson") || dataset_version.Contains("TTV")) {
+
+      syst_module->process(event);
     }
-    */
-    
-    // scale variations
-    if(do_scale_variation) {
-      if(dataset_version.Contains("TTbar") || dataset_version.Contains("DYJets") || dataset_version.Contains("SingleTop") || dataset_version.Contains("WJets") ||  dataset_version.Contains("Diboson") || dataset_version.Contains("TTV")) {
-	
-	syst_module->process(event);
-      }
-      else if(dataset_version.Contains("LQtoT")) return false;
-    }
-   
+    else if(dataset_version.Contains("LQtoT")) return false;
+  }
 
 
-    bool pass_common = common->process(event);
-    if(!pass_common) return false;
 
-    SF_eleReco->process(event);
-    SF_eleID->process(event);
-    SF_muonID->process(event);
-    SF_muonIso->process(event);
+  bool pass_common = common->process(event);
+  if(!pass_common) return false;
 
-    fill_histograms(event,"Cleaner");
+  SF_eleReco->process(event);
+  SF_eleID->process(event);
+  SF_muonID->process(event);
+  SF_muonIso->process(event);
 
-
-    if(!(ele_trigger_sel1->passes(event) || ele_trigger_sel2->passes(event))) return false;
-    SF_eleTrigger->process(event);
-    //SF_btag->process(event); // comment out when re-doing SF_btag
-    fill_histograms(event,"Trigger");
+  fill_histograms(event,"Cleaner");
 
 
-    if(!invmass110_sel->passes(event)) return false;
-    fill_histograms(event,"invmass110");
-
-    if(!inv_mass_veto->passes(event)) return false;
-    fill_histograms(event,"EleInvMass");
-
-    if(!nbtag_loose_sel->passes(event)) return false; // comment out when re-doing SF_btag
-    fill_histograms(event,"Nbtag");
-
-    if(!ht_lep_sel->passes(event)) return false;
-    fill_histograms(event,"STlep");
+  if(!(ele_trigger_sel1->passes(event) || ele_trigger_sel2->passes(event))) return false;
+  SF_eleTrigger->process(event);
+  //SF_btag->process(event); // comment out when re-doing SF_btag
+  fill_histograms(event,"Trigger");
 
 
-    //h_btageff->fill(event);
+  if(!invmass110_sel->passes(event)) return false;
+  fill_histograms(event,"invmass110");
 
-    // check for at least 1 electron pair with opposite charge
-    bool charge_opposite = false;
-    unsigned int nmax = event.electrons->size(); // only check first 3 electrons
-    if(nmax >3) nmax=3;
-    for(unsigned int i=0; i<nmax; i++){
-      for(unsigned int j=0; j<nmax; j++){
-        if(j>i){
-          if(event.electrons->at(i).charge() != event.electrons->at(j).charge()) {
-            charge_opposite = true;
-          }
+  if(!inv_mass_veto->passes(event)) return false;
+  fill_histograms(event,"EleInvMass");
+
+  if(!nbtag_loose_sel->passes(event)) return false; // comment out when re-doing SF_btag
+  fill_histograms(event,"Nbtag");
+
+  if(!ht_lep_sel->passes(event)) return false;
+  fill_histograms(event,"STlep");
+
+
+  //h_btageff->fill(event);
+
+  // check for at least 1 electron pair with opposite charge
+  bool charge_opposite = false;
+  unsigned int nmax = event.electrons->size(); // only check first 3 electrons
+  if(nmax >3) nmax=3;
+  for(unsigned int i=0; i<nmax; i++){
+    for(unsigned int j=0; j<nmax; j++){
+      if(j>i){
+        if(event.electrons->at(i).charge() != event.electrons->at(j).charge()) {
+          charge_opposite = true;
         }
       }
     }
-
-
-    
-    // reconstruct MLQ 
-    // to reconstruct the LQ mass, at least 1 extra lepton in addition to the two electrons is needed
-    // if there is an additional muon and electron, the muon is used to reconstruct the LQ mass.
-    bool reconstructMLQ_mu = (event.electrons->size() >= 2 && event.muons->size() >= 1 && charge_opposite); 
-    bool reconstructMLQ_e = (event.electrons->size() >=3 && event.muons->size() == 0 && charge_opposite);
-    // bool reconstructMLQ = reconstructMLQ_mu || reconstructMLQ_e;
-    if(reconstructMLQ_mu) event.set(h_mlq_reco_mode, "muon");
-    else if(reconstructMLQ_e) event.set(h_mlq_reco_mode, "ele");
-    if(event.get(h_mlq_reco_mode) != "none" && event.get(h_mlq_reco_mode) != "ele" && event.get(h_mlq_reco_mode) != "muon") throw runtime_error("'h_mlq_reco_mode' contains an invalid value!");
-
-    if(event.get(h_mlq_reco_mode) == "ele" || event.get(h_mlq_reco_mode) == "muon") {
-      mlq_reco->process(event);
-      chi2_module->process(event);
-    }
+  }
 
 
 
+  // reconstruct MLQ
+  // to reconstruct the LQ mass, at least 1 extra lepton in addition to the two electrons is needed
+  // if there is an additional muon and electron, the muon is used to reconstruct the LQ mass.
+  bool reconstructMLQ_mu = (event.electrons->size() >= 2 && event.muons->size() >= 1 && charge_opposite);
+  bool reconstructMLQ_e = (event.electrons->size() >=3 && event.muons->size() == 0 && charge_opposite);
+  // bool reconstructMLQ = reconstructMLQ_mu || reconstructMLQ_e;
+  if(reconstructMLQ_mu) event.set(h_mlq_reco_mode, "muon");
+  else if(reconstructMLQ_e) event.set(h_mlq_reco_mode, "ele");
+  if(event.get(h_mlq_reco_mode) != "none" && event.get(h_mlq_reco_mode) != "ele" && event.get(h_mlq_reco_mode) != "muon") throw runtime_error("'h_mlq_reco_mode' contains an invalid value!");
 
-    bool is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);
+  if(event.get(h_mlq_reco_mode) == "ele" || event.get(h_mlq_reco_mode) == "muon") {
+    mlq_reco->process(event);
+    chi2_module->process(event);
+  }
 
-    fill_histograms(event,"Finalselection");
 
-    
-    //h_PDF_variations->fill(event);
 
-    if(is_mlq_reconstructed == true)
-      {
-	fill_histograms(event,"Finalselection_mlqtrue");
-      }
-    else
-      {
-	fill_histograms(event,"Finalselection_mlqfalse");
-		
-	h_finalselection_mlqfalse->fill(event);
-      }
 
-    return true;
-   }
+  bool is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);
 
-   // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
-   // make sure the LQTopLepDYJetsRegion is found by class name. This is ensured by this macro:
-  UHH2_REGISTER_ANALYSIS_MODULE(LQTopLepDYJetsRegion)
+  fill_histograms(event,"Finalselection");
+
+
+  //h_PDF_variations->fill(event);
+
+  if(is_mlq_reconstructed){
+    fill_histograms(event,"Finalselection_mlqtrue");
+  }
+  else{
+    fill_histograms(event,"Finalselection_mlqfalse");
+  }
+
+  return true;
+}
+
+// as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
+// make sure the LQTopLepDYJetsRegion is found by class name. This is ensured by this macro:
+UHH2_REGISTER_ANALYSIS_MODULE(LQTopLepDYJetsRegion)
 
 }
