@@ -52,8 +52,8 @@ LQTopLepHists::LQTopLepHists(Context & ctx, const string & dirname): Hists(ctx, 
   book<TH1F>("eta_mu1", "#eta^{#mu 1}", 50, -2.5, 2.5);
   book<TH1F>("eta_mu2", "#eta^{#mu 2}", 50, -2.5, 2.5);
   book<TH1F>("phi_mu", "#phi^{#mu}", 35, -3.5, 3.5);
-  book<TH1F>("phi_mu1", "#phi^{#mu 1}", 35, 3.5, 3.5);
-  book<TH1F>("phi_mu2", "#phi^{#mu 2}", 35, 3.5, 3.5);
+  book<TH1F>("phi_mu1", "#phi^{#mu 1}", 35, -3.5, 3.5);
+  book<TH1F>("phi_mu2", "#phi^{#mu 2}", 35, -3.5, 3.5);
   book<TH1F>("reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
   book<TH1F>("reliso_mu1", "#mu 1 rel. Iso", 40, 0, 0.5);
   book<TH1F>("reliso_mu2", "#mu 2 rel. Iso", 40, 0, 0.5);

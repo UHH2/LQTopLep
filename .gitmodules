@@ -1,0 +1,4 @@
+[submodule "SFramePlotter"]
+	path = SFramePlotter
+	url = https://github.com/UHH2/SFramePlotter.git
+	branch = RunII_102X_v1
