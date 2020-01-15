@@ -12,6 +12,21 @@
 
 
 
+class MuonTriggerWeights: public uhh2::AnalysisModule{
+
+ public:
+  explicit MuonTriggerWeights(uhh2::Context & ctx, TString path_);
+  virtual bool process(uhh2::Event & event) override;
+
+ private:
+  TString path;
+  std::unique_ptr<TGraphAsymmErrors> g_sf_30to50, g_sf_50to100, g_sf_100to200, g_sf_200toinf;
+  uhh2::Event::Handle<float> h_muon_weight, h_muon_weight_up, h_muon_weight_down;
+
+};
+
+
+
 class ElectronTriggerWeights: public uhh2::AnalysisModule{
 
  public:
@@ -26,11 +41,11 @@ class ElectronTriggerWeights: public uhh2::AnalysisModule{
 
 class JetCorrectorVariable: public JetCorrector{
 
- public: 
+ public:
   explicit JetCorrectorVariable(uhh2::Context & ctx, const std::vector<std::string> & JEC_files);
   bool correct_collection(uhh2::Event & event, std::vector<Jet> & jets);
 
-  
+
 };
 /*
 class ElectronFakeRateWeights: public uhh2::AnalysisModule{
