@@ -65,7 +65,6 @@ namespace uhh2examples {
     std::unique_ptr<Selection> nbtag_loose_sel, ht_lep_sel, inv_mass_veto, ele_trigger_sel1, ele_trigger_sel2, nele_sel, nmuons_sel;
 
     unique_ptr<HighMassInclusiveLQReconstruction> mlq_reco;
-
     unique_ptr<LQChi2Discriminator> chi2_module;
 
     JetId Btag_loose;
@@ -75,7 +74,8 @@ namespace uhh2examples {
     bool is_mc, do_permutations, do_scale_variation, do_pdf_variation;
     string s_permutation;
     uhh2::Event::Handle<bool> h_is_mlq_reconstructed;
-    uhh2::Event::Handle<TString> h_mlq_reco_mode;
+    uhh2::Event::Handle<float> h_mlq, h_chi2;
+    uhh2::Event::Handle<TString> h_mlq_reco_mode_lq, h_mlq_reco_mode_top;
 
     // systematic uncertainties
     string Sys_EleID, Sys_EleReco, Sys_EleTrigger;
@@ -131,8 +131,11 @@ namespace uhh2examples {
       cout << " " << kv.first << " = " << kv.second << endl;
     }
 
-    h_is_mlq_reconstructed = ctx.get_handle<bool>("is_mlq_reconstructed");
-    h_mlq_reco_mode = ctx.get_handle<TString>("mlq_reco_mode");
+    h_is_mlq_reconstructed = ctx.declare_event_output<bool>("is_mlq_reconstructed");
+    h_mlq = ctx.declare_event_output<float>("mlq");
+    h_chi2 = ctx.declare_event_output<float>("chi2");
+    h_mlq_reco_mode_lq = ctx.declare_event_output<TString>("mlq_reco_mode_lq");
+    h_mlq_reco_mode_top = ctx.declare_event_output<TString>("mlq_reco_mode_top");
 
 
     is_mc = ctx.get("dataset_type") == "MC";
@@ -270,7 +273,10 @@ namespace uhh2examples {
 
 
     event.set(h_is_mlq_reconstructed, false);
-    event.set(h_mlq_reco_mode, "none");
+    event.set(h_mlq, -1.);
+    event.set(h_chi2, -1.);
+    event.set(h_mlq_reco_mode_lq, "none");
+    event.set(h_mlq_reco_mode_top, "none");
 
 
     /*
@@ -331,36 +337,36 @@ namespace uhh2examples {
 
 
 
-  // check for at least 1 electron pair with opposite charge
-  bool charge_opposite = false;
-  unsigned int nmax = event.electrons->size(); // only check first 3 electrons
-  if(nmax >3) nmax=3;
-  for(unsigned int i=0; i<nmax; i++){
-    for(unsigned int j=0; j<nmax; j++){
-      if(j>i) {
-        if(event.electrons->at(i).charge() != event.electrons->at(j).charge()) {
-          charge_opposite = true;
-        }
-      }
-    }
-  }
-
-
-
-  // reconstruct MLQ
-  // to reconstruct the LQ mass, at least 1 extra lepton in addition to the two electrons is needed
-  // if there is an additional muon and electron, the muon is used to reconstruct the LQ mass.
-  bool reconstructMLQ_mu = (event.electrons->size() >= 2 && event.muons->size() >= 1 && charge_opposite);
-  bool reconstructMLQ_e = (event.electrons->size() >=3 && event.muons->size() == 0 && charge_opposite);
-  // bool reconstructMLQ = reconstructMLQ_mu || reconstructMLQ_e;
-  if(reconstructMLQ_mu) event.set(h_mlq_reco_mode, "muon");
-  else if(reconstructMLQ_e) event.set(h_mlq_reco_mode, "ele");
-  if(event.get(h_mlq_reco_mode) != "none" && event.get(h_mlq_reco_mode) != "ele" && event.get(h_mlq_reco_mode) != "muon") throw runtime_error("'h_mlq_reco_mode' contains an invalid value!");
-
-  if(event.get(h_mlq_reco_mode) == "ele" || event.get(h_mlq_reco_mode) == "muon") {
+  // // check for at least 1 electron pair with opposite charge
+  // bool charge_opposite = false;
+  // unsigned int nmax = event.electrons->size(); // only check first 3 electrons
+  // if(nmax >3) nmax=3;
+  // for(unsigned int i=0; i<nmax; i++){
+  //   for(unsigned int j=0; j<nmax; j++){
+  //     if(j>i) {
+  //       if(event.electrons->at(i).charge() != event.electrons->at(j).charge()) {
+  //         charge_opposite = true;
+  //       }
+  //     }
+  //   }
+  // }
+  //
+  //
+  //
+  // // reconstruct MLQ
+  // // to reconstruct the LQ mass, at least 1 extra lepton in addition to the two electrons is needed
+  // // if there is an additional muon and electron, the muon is used to reconstruct the LQ mass.
+  // bool reconstructMLQ_mu = (event.electrons->size() >= 2 && event.muons->size() >= 1 && charge_opposite);
+  // bool reconstructMLQ_e = (event.electrons->size() >=3 && event.muons->size() == 0 && charge_opposite);
+  // // bool reconstructMLQ = reconstructMLQ_mu || reconstructMLQ_e;
+  // if(reconstructMLQ_mu) event.set(h_mlq_reco_mode, "muon");
+  // else if(reconstructMLQ_e) event.set(h_mlq_reco_mode, "ele");
+  // if(event.get(h_mlq_reco_mode) != "none" && event.get(h_mlq_reco_mode) != "ele" && event.get(h_mlq_reco_mode) != "muon") throw runtime_error("'h_mlq_reco_mode' contains an invalid value!");
+  //
+  // if(event.get(h_mlq_reco_mode) == "ele" || event.get(h_mlq_reco_mode) == "muon") {
     mlq_reco->process(event);
     chi2_module->process(event);
-  }
+  // }
 
 
   bool is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);

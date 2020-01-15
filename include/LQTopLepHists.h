@@ -1,6 +1,9 @@
 #pragma once
 
 #include "UHH2/core/include/Hists.h"
+#include "UHH2/core/include/Event.h"
+#include "UHH2/LQTopLep/include/LQReconstructionHypothesisDiscriminators.h"
+#include "UHH2/LQTopLep/include/LQReconstructionHypothesis.h"
 
 namespace uhh2examples {
 
@@ -21,6 +24,8 @@ public:
 
 private:
   bool is_mc;
+  uhh2::Event::Handle<bool> h_is_mlq_reconstructed;
+  uhh2::Event::Handle<float> h_mlq, h_chi2;
 };
 
 }
