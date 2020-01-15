@@ -9,7 +9,7 @@ using namespace std;
 
 
 DijetSelection::DijetSelection(float dphi_min_, float third_frac_max_): dphi_min(dphi_min_), third_frac_max(third_frac_max_){}
-    
+
 bool DijetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
@@ -27,7 +27,7 @@ bool DijetSelection::passes(const Event & event){
 HtSelection::HtSelection(double ht_min_, double ht_max_):ht_min(ht_min_), ht_max(ht_max_) {}
 bool HtSelection::passes(const Event & event) {
   auto met = event.met->pt();
-  
+
   bool pass = false;
   double ht = 0.0;
   double ht_jets = 0.0;
@@ -46,7 +46,7 @@ bool HtSelection::passes(const Event & event) {
   ht = ht_lep + ht_jets + met;
 
   pass = ht > ht_min && (ht_max < 0 || ht < ht_max);
-  
+
   return pass;
 }
 
@@ -55,7 +55,7 @@ HtLepSelection::HtLepSelection(double ht_min_, double ht_max_):ht_min(ht_min_), 
 bool HtLepSelection::passes(const Event & event) {
 
   //auto met = event.met->pt();
-  
+
   bool pass = false;
   //double ht = 0.0;
   double ht_lep = 0.0;
@@ -69,7 +69,7 @@ bool HtLepSelection::passes(const Event & event) {
 
 
   pass = ht_lep > ht_min && (ht_max < 0 || ht_lep < ht_max);
-  
+
   return pass;
 
 }
@@ -114,6 +114,29 @@ bool InvMassEleEleVeto::passes(const Event & event) {
 	if(M_ee > m_min && M_ee < m_max) {
 	  pass = false;
 	  return pass;
+      }
+    }
+  }
+  return pass;
+}
+
+InvMass2MuVeto::InvMass2MuVeto(double m_min_, double m_max_):m_min(m_min_), m_max(m_max_){}
+bool InvMass2MuVeto::passes(const Event & event){
+
+  bool pass = true;
+  int Nmuons = event.muons->size();
+  double M_mumu;
+  LorentzVector muons[Nmuons];
+  for(int i=0; i<Nmuons; i++){
+    muons[i] = event.muons->at(i).v4();
+  }
+  for(int i=0; i<Nmuons; i++){
+    for(int j=0; j<Nmuons; j++){
+      if(j > i){
+	M_mumu = (muons[i] + muons[j]).M();
+	if(M_mumu > m_min && M_mumu < m_max){
+	  pass = false;
+	}
       }
     }
   }
@@ -171,4 +194,3 @@ bool InvMassEleEleSelection::passes(const Event & event) {
   }
   return pass;
 }
-

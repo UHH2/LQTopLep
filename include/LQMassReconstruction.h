@@ -26,11 +26,12 @@ private:
     NeutrinoReconstructionMethod m_neutrinofunction;
     uhh2::Event::Handle<std::vector<LQReconstructionHypothesis>> h_recohyps;
     uhh2::Event::Handle<bool> h_is_mlq_reconstructed;
-    uhh2::Event::Handle<TString> h_mlq_reco_mode;
+    uhh2::Event::Handle<TString> h_mlq_reco_mode_lq, h_mlq_reco_mode_top;
 };
+
+
 
 
 
 std::vector<LorentzVector> LQNeutrinoReconstruction(const LorentzVector & lepton, const LorentzVector & met);
 std::vector<LorentzVector> LQNeutrinoReconstructionOld(const LorentzVector & lepton, const LorentzVector & met);
-

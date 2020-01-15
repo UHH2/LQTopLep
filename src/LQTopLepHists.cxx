@@ -89,6 +89,8 @@ LQTopLepHists::LQTopLepHists(Context & ctx, const string & dirname): Hists(ctx, 
   book<TH1F>("ST_rebin", "S_{T} [GeV]", 200, 0, 5000);
   book<TH1F>("ST_rebin2", "S_{T} [GeV]", 100, 0, 5000);
   book<TH1F>("ST_rebin3", "S_{T} [GeV]", 50, 0, 5000);
+  vector<float> bins_st_limits = {0,175,350,525,700,875,1050,1225,1400,1575,1750,1925,2100,2450,2800,3000};
+  book<TH1F>("ST_rebinlimit", "S_{T} [GeV]", bins_st_limits.size()-1, &bins_st_limits[0]);
   book<TH1F>("STjets", "S_{T}^{jets} [GeV]", 50, 0, 7000);
   book<TH1F>("STjets_rebin", "S_{T}^{jets} [GeV]", 200, 0, 5000);
   book<TH1F>("STjets_rebin2", "S_{T}^{jets} [GeV]", 100, 0, 5000);
@@ -98,9 +100,25 @@ LQTopLepHists::LQTopLepHists(Context & ctx, const string & dirname): Hists(ctx, 
   book<TH1F>("STlep_rebin2", "S_{T}^{lep} [GeV]", 30, 0, 1500);
   book<TH1F>("STlep_rebin3", "S_{T}^{lep} [GeV]", 15, 0, 1500);
 
+  double bins_mlq_low[17] = {100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,1000,2000};
+  double bins_mlq_low2[6] = {0,200,400,600,800,1000};
+  double bins_mlq_low3[7] = {0,250,350,450,600,750,1000};
+  book<TH1F>("MLQ", "M_{LQ}^{rec} [GeV]", 60, 0, 3000);
+  book<TH1F>("MLQ_rebin", "M_{LQ}^{rec} [GeV]", 16, bins_mlq_low);
+  book<TH1F>("MLQ_rebin2", "M_{LQ}^{rec} [GeV]", 5, bins_mlq_low2);
+  book<TH1F>("MLQ_rebinlimit", "M_{LQ}^{rec} [GeV]", 6, bins_mlq_low3);
+  book<TH1F>("chi2", "#chi^{2}", 100, 0,200);
+  book<TH1F>("chi2_rebin", "#chi^{2}", 40, 0,200);
+  book<TH1F>("chi2_rebin2", "#chi^{2}", 20, 0,200);
+  book<TH1F>("chi2_rebin3", "#chi^{2}", 10, 0,200);
+
   book<TH1F>("sum_event_weights", "BinContent = sum(eventweights)", 1, 0.5, 1.5);
 
   is_mc = ctx.get("dataset_type") == "MC";
+
+  h_is_mlq_reconstructed = ctx.get_handle<bool>("is_mlq_reconstructed");
+  h_mlq = ctx.get_handle<float>("mlq");
+  h_chi2 = ctx.get_handle<float>("chi2");
 
 }
 
@@ -295,6 +313,8 @@ void LQTopLepHists::fill(const Event & event){
   hist("ST_rebin")->Fill(st, weight);
   hist("ST_rebin2")->Fill(st, weight);
   hist("ST_rebin3")->Fill(st, weight);
+  if(st <= 2900) hist("ST_rebinlimit")->Fill(st, weight);
+  else hist("ST_rebinlimit")->Fill(2900., weight);
   hist("STjets")->Fill(st_jets, weight);
   hist("STjets_rebin")->Fill(st_jets, weight);
   hist("STjets_rebin2")->Fill(st_jets, weight);
@@ -303,6 +323,27 @@ void LQTopLepHists::fill(const Event & event){
   hist("STlep_rebin")->Fill(st_lep, weight);
   hist("STlep_rebin2")->Fill(st_lep, weight);
   hist("STlep_rebin3")->Fill(st_lep, weight);
+
+  bool is_mlq_reconstructed = false;
+  if(event.is_valid(h_is_mlq_reconstructed)){
+    is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);
+  }
+
+  if(is_mlq_reconstructed){
+    double chi2 = event.get(h_chi2);
+    hist("chi2")->Fill(chi2,weight);
+    hist("chi2_rebin")->Fill(chi2,weight);
+    hist("chi2_rebin2")->Fill(chi2,weight);
+    hist("chi2_rebin3")->Fill(chi2,weight);
+
+    double mlq = event.get(h_mlq);
+    hist("MLQ")->Fill(mlq, weight);
+    hist("MLQ_rebin")->Fill(mlq, weight);
+    if(mlq < 900)   hist("MLQ_rebin2")->Fill(mlq, weight);
+    else                   hist("MLQ_rebin2")->Fill(900., weight);
+    if(mlq < 900)   hist("MLQ_rebinlimit")->Fill(mlq, weight);
+    else                   hist("MLQ_rebinlimit")->Fill(900., weight);
+  }
 
 
 } //Methode
