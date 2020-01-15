@@ -17,9 +17,10 @@ public:
 
   // Main functions
   void CalculateTriggerEfficiencies();
+  void PDFRMS();
 
 private:
-  TString base_path, trigger_tag;
+  TString base_path, trigger_tag, final_tag;
   TString year;
   TString yeartag;
 
