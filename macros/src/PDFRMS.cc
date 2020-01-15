@@ -106,14 +106,14 @@ void FindRMS(TString infolder, map<TString, TString> samplemap, TString sample){
     TClass *cl = gROOT->GetClass(key->GetClassName());
     if(cl->InheritsFrom("TDirectoryFile")){
       TString name = key->ReadObj()->GetName();
-      if(name != "SFrame" && name.Contains("pdf")){
+      if(name != "SFrame" && name.Contains("_pdf")){
         foldernames.emplace_back(name);
 
         // make dirs without "pdf"
         TString makedirname = name;
-        makedirname.ReplaceAll("pdf", "pdf_up");
+        makedirname.ReplaceAll("_pdf", "_pdf_up");
         outfile->mkdir(makedirname);
-        makedirname.ReplaceAll("pdf_up", "pdf_down");
+        makedirname.ReplaceAll("_pdf_up", "_pdf_down");
         outfile->mkdir(makedirname);
       }
     }
@@ -164,7 +164,7 @@ void FindRMS(TString infolder, map<TString, TString> samplemap, TString sample){
 
       // nominal histograms (1)
       TString foldername_nom = foldername;
-      foldername_nom.ReplaceAll("pdf", "nominal");
+      foldername_nom.ReplaceAll("_pdf", "_nominal");
       TString histname_nom = histname;
       histname_nom.ReplaceAll("_PDF", "");
       TString readoutname = foldername_nom + "/" + histname_nom;
@@ -208,12 +208,12 @@ void FindRMS(TString infolder, map<TString, TString> samplemap, TString sample){
 
     // Write histograms into file, chosing the correct folder
     TString writefoldername = foldername;
-    writefoldername.ReplaceAll("pdf", "pdf_up");
+    writefoldername.ReplaceAll("_pdf", "_pdf_up");
     outfile->cd(writefoldername);
     for(size_t j=0; j<hists_up.size(); j++){
       hists_up[j]->Write();
     }
-    writefoldername.ReplaceAll("pdf_up", "pdf_down");
+    writefoldername.ReplaceAll("_pdf_up", "_pdf_down");
     outfile->cd(writefoldername);
     for(size_t j=0; j<hists_down.size(); j++){
       hists_down[j]->Write();

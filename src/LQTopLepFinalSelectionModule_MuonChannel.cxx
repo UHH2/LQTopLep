@@ -74,11 +74,11 @@ namespace uhh2examples {
   void LQTopLepFinalSelectionModule_MuonChannel::book_histograms(uhh2::Context& ctx, vector<string> tags){
     for(const auto & tag : tags){
       cout << "booking histograms with tag " << tag << endl;
-      string mytag = tag;
+      string mytag = "FinalSelection_" + tag;
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
-      mytag = tag + "_catA";
+      mytag = "FinalSelection_catA_" + tag;
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
-      mytag = tag + "_catB";
+      mytag = "FinalSelection_catB_" + tag;
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
     }
   }
@@ -86,20 +86,20 @@ namespace uhh2examples {
   void LQTopLepFinalSelectionModule_MuonChannel::book_pdf_histograms(uhh2::Context& ctx, vector<string> tags){
     for(const auto & tag : tags){
       cout << "booking pdf histograms with tag " << tag << endl;
-      string mytag = tag;
+      string mytag = "FinalSelection_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
-      mytag = tag + "_catA";
+      mytag = "FinalSelection_catA_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
-      mytag = tag + "_catB";
+      mytag = "FinalSelection_catB_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
     }
   }
 
   void LQTopLepFinalSelectionModule_MuonChannel::fill_histograms(uhh2::Event& event, string tag, bool is_mlq_reconstructed){
-    string mytag = tag;
+    string mytag = "FinalSelection_" + tag;
     HFolder(mytag)->fill(event);
-    if(is_mlq_reconstructed) mytag = tag + "_catA";
-    else                     mytag = tag + "_catB";
+    if(is_mlq_reconstructed) mytag = "FinalSelection_catA_" + tag;
+    else                     mytag = "FinalSelection_catB_" + tag;
     HFolder(mytag)->fill(event);
   }
 

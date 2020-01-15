@@ -18,6 +18,7 @@ public:
   // Main functions
   void CalculateTriggerEfficiencies();
   void PDFRMS();
+  void ScaleVariationEnvelope();
 
 private:
   TString base_path, trigger_tag, final_tag;
