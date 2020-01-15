@@ -10,6 +10,10 @@ AnalysisTool::AnalysisTool(TString year_) : year(year_)
 {
   base_path = "/nfs/dust/cms/user/reimersa/LQTopLep/";
   trigger_tag = "Trigger/";
+  final_tag = "Finalselection/MuonChannel/";
+
+
+
   yeartag = "";
   if(year == "2016") yeartag = "2016v3";
   else if (year == "2017") yeartag = "2017v2";

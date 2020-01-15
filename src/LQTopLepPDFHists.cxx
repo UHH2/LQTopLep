@@ -104,13 +104,9 @@ void LQTopLepPDFHists::fill(const Event & event){
       TString name_st = histo_names1[i];
       TString name_mlq = histo_names2[i];
 
-      if(is_mlq_reconstructed){
-        hist(name_mlq)->Fill(mlq, fillweight);
-      }
-      else{
-        if(st<2900) hist(name_st)->Fill(st, fillweight);
-        else        hist(name_st)->Fill(2900, fillweight);
-      }
+      if(is_mlq_reconstructed)  hist(name_mlq)->Fill(mlq, fillweight);
+      if(st<2900) hist(name_st)->Fill(st, fillweight);
+      else        hist(name_st)->Fill(2900, fillweight);
     }
   }
   else{
@@ -120,13 +116,9 @@ void LQTopLepPDFHists::fill(const Event & event){
       TString name_st = histo_names1[i];
       TString name_mlq = histo_names2[i];
 
-      if(is_mlq_reconstructed){
-        hist(name_mlq)->Fill(mlq, fillweight);
-      }
-      else{
-        if(st<2900) hist(name_st)->Fill(st, fillweight);
-        else        hist(name_st)->Fill(2900, fillweight);
-      }
+      if(is_mlq_reconstructed) hist(name_mlq)->Fill(mlq, fillweight);
+      if(st<2900) hist(name_st)->Fill(st, fillweight);
+      else        hist(name_st)->Fill(2900, fillweight);
     }
   }
 }

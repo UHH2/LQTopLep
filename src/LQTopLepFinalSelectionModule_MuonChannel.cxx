@@ -50,7 +50,7 @@ namespace uhh2examples {
     virtual bool process(Event & event) override;
     void book_histograms(uhh2::Context&, vector<string>);
     void book_pdf_histograms(uhh2::Context&, vector<string>);
-    void fill_histograms(uhh2::Event&, string);
+    void fill_histograms(uhh2::Event&, string, bool);
 
   private:
 
@@ -74,17 +74,12 @@ namespace uhh2examples {
   void LQTopLepFinalSelectionModule_MuonChannel::book_histograms(uhh2::Context& ctx, vector<string> tags){
     for(const auto & tag : tags){
       cout << "booking histograms with tag " << tag << endl;
-      // string mytag = tag+"_General";
       string mytag = tag;
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
-      // mytag = tag+"_Muons";
-      // book_HFolder(mytag, new MuonHists(ctx,mytag));
-      // mytag = tag+"_Electrons";
-      // book_HFolder(mytag, new ElectronHists(ctx,mytag));
-      // mytag = tag+"_Jets";
-      // book_HFolder(mytag, new JetHists(ctx,mytag));
-      // mytag = tag+"_Event";
-      // book_HFolder(mytag, new EventHists(ctx,mytag));
+      mytag = tag + "_catA";
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = tag + "_catB";
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
     }
   }
 
@@ -93,21 +88,19 @@ namespace uhh2examples {
       cout << "booking pdf histograms with tag " << tag << endl;
       string mytag = tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = tag + "_catA";
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = tag + "_catB";
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
     }
   }
 
-  void LQTopLepFinalSelectionModule_MuonChannel::fill_histograms(uhh2::Event& event, string tag){
-    // string mytag = tag+"_General";
-      string mytag = tag;
+  void LQTopLepFinalSelectionModule_MuonChannel::fill_histograms(uhh2::Event& event, string tag, bool is_mlq_reconstructed){
+    string mytag = tag;
     HFolder(mytag)->fill(event);
-    // mytag = tag+"_Muons";
-    // HFolder(mytag)->fill(event);
-    // mytag = tag+"_Electrons";
-    // HFolder(mytag)->fill(event);
-    // mytag = tag+"_Jets";
-    // HFolder(mytag)->fill(event);
-    // mytag = tag+"_Event";
-    // HFolder(mytag)->fill(event);
+    if(is_mlq_reconstructed) mytag = tag + "_catA";
+    else                     mytag = tag + "_catB";
+    HFolder(mytag)->fill(event);
   }
 
 
@@ -137,6 +130,8 @@ namespace uhh2examples {
     if(systnames.size() != handlenames.size()) throw runtime_error("In LQTopLepFinalModule.cxx: Length of systnames and handlenames is not equal.");
 
     histogramtags = {};
+    histogramtags.emplace_back("nominal");
+
     for(unsigned int i=0; i<systnames.size(); i++){
       for(unsigned int j=0; j<systshift.size(); j++){
 
@@ -167,9 +162,6 @@ namespace uhh2examples {
       }
     }
 
-    histogramtags.emplace_back("nominal");
-    histogramtags.emplace_back("nominal_catA");
-    histogramtags.emplace_back("nominal_catB");
 
     //book all the histogram folders
     book_histograms(ctx, histogramtags);
@@ -206,9 +198,7 @@ namespace uhh2examples {
 
     // Fill histograms once with nominal weights
     event.weight = weight_nominal;
-    fill_histograms(event, "nominal");
-    if(is_mlq_reconstructed) fill_histograms(event,"nominal_catA");
-    else                     fill_histograms(event,"nominal_catB");
+    fill_histograms(event, "nominal", is_mlq_reconstructed);
 
     // Loop over easy systematics
     for(unsigned int i=0; i<systnames.size(); i++){
@@ -219,7 +209,7 @@ namespace uhh2examples {
         event.weight = weight_nominal * systweight / sfweight;
 
         TString tag = systnames[i] + "_" + systshift[j];
-        fill_histograms(event, (string)tag);
+        fill_histograms(event, (string)tag, is_mlq_reconstructed);
       }
     }
 
@@ -230,12 +220,12 @@ namespace uhh2examples {
       event.weight = weight_nominal * systweight;
 
       TString tag = "scale_" + systshift_scale[j];
-      fill_histograms(event, (string)tag);
+      fill_histograms(event, (string)tag, is_mlq_reconstructed);
     }
 
     // Fill PDF histograms
     event.weight = weight_nominal;
-    fill_histograms(event, "pdf");
+    fill_histograms(event, "pdf", is_mlq_reconstructed);
 
 
 

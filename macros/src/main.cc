@@ -9,7 +9,8 @@ int main(){
   cout << "Hello from main()." << endl;
 
   AnalysisTool Analysis16("2016");
-  Analysis16.CalculateTriggerEfficiencies();
+  // Analysis16.CalculateTriggerEfficiencies();
+  Analysis16.PDFRMS();
 
   cout << "Finished main(). cya." << endl;
 }
