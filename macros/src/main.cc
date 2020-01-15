@@ -10,7 +10,8 @@ int main(){
 
   AnalysisTool Analysis16("2016");
   // Analysis16.CalculateTriggerEfficiencies();
-  Analysis16.PDFRMS();
+  // Analysis16.PDFRMS();
+  Analysis16.ScaleVariationEnvelope();
 
   cout << "Finished main(). cya." << endl;
 }
