@@ -19,9 +19,11 @@ public:
   void CalculateTriggerEfficiencies();
   void PDFRMS();
   void ScaleVariationEnvelope();
+  void ProduceThetaHistograms_mc_fullsyst_much();
+  void PlotLimits();
 
 private:
-  TString base_path, trigger_tag, final_tag;
+  TString base_path, theta_path, trigger_tag, final_tag;
   TString year;
   TString yeartag;
 

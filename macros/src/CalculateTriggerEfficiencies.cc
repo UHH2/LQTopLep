@@ -271,7 +271,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   l_unity->Draw("SAME");
 
   p_top->cd();
-  TString infotext = infotexts[year];
+  TString infotext = infotexts.at(year);
   TLatex *text1 = new TLatex(3.5, 24, infotext);
   text1->SetNDC();
   text1->SetTextAlign(33);
