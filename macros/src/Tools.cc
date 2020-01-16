@@ -9,6 +9,7 @@ using namespace std;
 AnalysisTool::AnalysisTool(TString year_) : year(year_)
 {
   base_path = "/nfs/dust/cms/user/reimersa/LQTopLep/";
+  theta_path = "/nfs/dust/cms/user/reimersa/theta_LQTopLep/utils2/Limits_MC/";
   trigger_tag = "Trigger/";
   final_tag = "Finalselection/MuonChannel/";
 
