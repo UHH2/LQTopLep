@@ -6,7 +6,7 @@
 #include <TStyle.h>
 #include <TFile.h>
 #include <TH1.h>
-#include <TH1D.h>
+#include <TH1F.h>
 #include <TF1.h>
 #include <TCanvas.h>
 #include <TText.h>
@@ -59,26 +59,26 @@ void AnalysisTool::ScaleVariationEnvelope(){
           f_out->mkdir(histfolder + "_scale_up");
           f_out->mkdir(histfolder + "_scale_down");
 
-          unique_ptr<TH1D> h_uu, h_un, h_nu, h_nd, h_dn, h_dd, h_nom;
+          unique_ptr<TH1F> h_uu, h_un, h_nu, h_nd, h_dn, h_dd, h_nom;
           TString histname = "";
           f_in->cd(histfolder+"_nominal");
           TDirectory* dir = gDirectory;
           TIter iter(dir->GetListOfKeys());
           TKey *key;
-          TH1D* h;
+          TH1F* h;
           while ((key = (TKey*)iter())) {
             TClass *cl = gROOT->GetClass(key->GetClassName());
             if (!cl->InheritsFrom("TH1")) continue;
-            h = (TH1D*)key->ReadObj();
+            h = (TH1F*)key->ReadObj();
             histname = h->GetName();
             std::cout<<"histname  "<<histname<<std::endl;
-            h_uu.reset((TH1D*)f_in->Get(histfolder + "_scale_upup/" + histname));
-            h_un.reset((TH1D*)f_in->Get(histfolder + "_scale_upnone/" + histname));
-            h_nu.reset((TH1D*)f_in->Get(histfolder + "_scale_noneup/" + histname));
-            h_nd.reset((TH1D*)f_in->Get(histfolder + "_scale_nonedown/" + histname));
-            h_dn.reset((TH1D*)f_in->Get(histfolder + "_scale_downnone/" + histname));
-            h_dd.reset((TH1D*)f_in->Get(histfolder + "_scale_downdown/" + histname));
-            h_nom.reset((TH1D*)f_in->Get(histfolder + "_nominal/" + histname));
+            h_uu.reset((TH1F*)f_in->Get(histfolder + "_scale_upup/" + histname));
+            h_un.reset((TH1F*)f_in->Get(histfolder + "_scale_upnone/" + histname));
+            h_nu.reset((TH1F*)f_in->Get(histfolder + "_scale_noneup/" + histname));
+            h_nd.reset((TH1F*)f_in->Get(histfolder + "_scale_nonedown/" + histname));
+            h_dn.reset((TH1F*)f_in->Get(histfolder + "_scale_downnone/" + histname));
+            h_dd.reset((TH1F*)f_in->Get(histfolder + "_scale_downdown/" + histname));
+            h_nom.reset((TH1F*)f_in->Get(histfolder + "_nominal/" + histname));
 
 
             const int nbins = h_nom->GetNbinsX();
@@ -106,15 +106,15 @@ void AnalysisTool::ScaleVariationEnvelope(){
               bins_low.push_back(h_nom->GetBinLowEdge(ii));
             }
 
-            unique_ptr<TH1D> hist_out_up, hist_out_dn;
-            hist_out_up.reset(new TH1D(histname,"",  nbins, &bins_low[0]));
+            unique_ptr<TH1F> hist_out_up, hist_out_dn;
+            hist_out_up.reset(new TH1F(histname,"",  nbins, &bins_low[0]));
             for(int ii=1; ii<h_nom->GetNbinsX()+1; ii++){
               hist_out_up->SetBinContent(ii,max_bins[ii-1]);
               hist_out_up->SetBinError(ii, max_err[ii-1]);
             }
 
 
-            hist_out_dn.reset(new TH1D(histname,"",  nbins, &bins_low[0]));
+            hist_out_dn.reset(new TH1F(histname,"",  nbins, &bins_low[0]));
             for(int ii=1; ii<h_nom->GetNbinsX()+1; ii++){
               hist_out_dn->SetBinContent(ii,min_bins[ii-1]);
               hist_out_dn->SetBinError(ii, min_err[ii-1]);

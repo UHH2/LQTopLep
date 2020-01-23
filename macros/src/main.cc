@@ -13,7 +13,8 @@ int main(){
   // Analysis16.PDFRMS();
   // Analysis16.ScaleVariationEnvelope();
   // Analysis16.ProduceThetaHistograms_mc_fullsyst_much();
-  Analysis16.PlotLimits();
+  Analysis16.ProduceCombineHistograms_mc_fullsyst_much();
+  // Analysis16.PlotLimits();
 
   cout << "Finished main(). cya." << endl;
 }
