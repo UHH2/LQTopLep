@@ -1,0 +1,38 @@
+Combination of ST=/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/st.txt  MLQ=/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/mlq.txt
+imax 2 number of bins
+jmax 5 number of processes minus 1
+kmax 20 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *    MLQ  /nfs/dust/cms/user/reimersa/theta_LQTopLep/utils2/Limits_MC/input/combine_histograms_mc_fullsyst_much.root MLQ_catA__$PROCESS_2016v3 MLQ_catA__$PROCESS_2016v3__$SYSTEMATIC
+shapes *    ST   /nfs/dust/cms/user/reimersa/theta_LQTopLep/utils2/Limits_MC/input/combine_histograms_mc_fullsyst_much.root ST_catB__$PROCESS_2016v3 ST_catB__$PROCESS_2016v3__$SYSTEMATIC
+----------------------------------------------------------------------------------------------------------------------------------
+bin          ST     MLQ
+observation  -1     -1
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                  ST           ST           ST           ST           ST           ST           MLQ          MLQ          MLQ          MLQ          MLQ          MLQ
+process                              LQtoTMuM200  Diboson      TTV          TTbar        DYJets       SingleTop    LQtoTMuM200  Diboson      TTV          TTbar        DYJets       SingleTop
+process                              0            1            2            3            4            5            0            1            2            3            4            5
+rate                                 -1           -1           -1           -1           -1           -1           -1           -1           -1           -1           -1           -1
+----------------------------------------------------------------------------------------------------------------------------------
+btag_bc                 shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+btag_udsg               shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+eleid                   shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+elereco                 shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+lumi                    lnN          1.025        1.025        1.025        1.025        1.025        1.025        1.025        1.025        1.025        1.025        1.025        1.025
+muid                    shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+muiso                   shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+mutrigger               shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+pdf                     shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+pu                      shape        1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0          1.0
+rate_diboson            lnN          -            1.2          -            -            -            -            -            1.2          -            -            -            -
+rate_dy                 lnN          -            -            -            -            1.1          -            -            -            -            -            1.1          -
+rate_singletop          lnN          -            -            -            -            -            1.1          -            -            -            -            -            1.1
+rate_ttbar              lnN          -            -            -            1.056        -            -            -            -            -            1.056        -            -
+rate_ttv                lnN          -            -            1.25         -            -            -            -            -            1.25         -            -            -
+scale_DYJets            shape        -            -            -            -            1.0          -            -            -            -            -            1.0          -
+scale_Diboson           shape        -            1.0          -            -            -            -            -            1.0          -            -            -            -
+scale_SingleTop         shape        -            -            -            -            -            1.0          -            -            -            -            -            1.0
+scale_TTV               shape        -            -            1.0          -            -            -            -            -            1.0          -            -            -
+scale_TTbar             shape        -            -            -            1.0          -            -            -            -            -            1.0          -            -
+MLQ autoMCStats 1 0 1
+ST autoMCStats 1 0 1
