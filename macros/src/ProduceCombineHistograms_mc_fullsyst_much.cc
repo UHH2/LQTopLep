@@ -66,7 +66,7 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst_much(){
 
   TString filename_base = "uhh2.AnalysisModuleRunner.";
 
-  TString outfilename = AnalysisTool::theta_path + "input/combine_histograms_mc_fullsyst_much.root";
+  TString outfilename = AnalysisTool::combine_path + "input/combine_histograms_mc_fullsyst_much.root";
   TFile* f_out = new TFile(outfilename, "RECREATE");
 
 
@@ -78,28 +78,31 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst_much(){
         cout << "============ Syst: " << syst << endl;
 
         for(unsigned int m=0; m<syst_shift.size(); m++){
-          TString dir = dir_base;
+          TString dir_nom = dir_base;
+          TString dir_scale = dir_base;
+          TString dir_pdf = dir_base;
+          TString dir_jerc = dir_base;
+
           if(syst == "nominal" && m > 0) break;
-
-          if(!(syst == "JEC" || syst == "JER" || syst == "pdf" || syst.Contains("scale"))) dir += "Finalselection/MuonChannel/NOMINAL/";
-          else if(syst == "JEC" || syst == "JER") dir += "Fullselection/MuonChannel/" + syst + "_" + syst_shift[m] + "/";
-          else if(syst == "pdf") dir += "Finalselection/MuonChannel/" + syst + "/";
-          else if(syst.Contains("scale")) dir += "Finalselection/MuonChannel/scale/";
-
+          dir_nom += "Finalselection/MuonChannel/NOMINAL/";
+          dir_jerc += "Fullselection/MuonChannel/" + syst + "_" + syst_shift[m] + "/";
+          dir_pdf += "Finalselection/MuonChannel/" + syst + "/";
+          dir_scale += "Finalselection/MuonChannel/scale/";
 
           for(unsigned int i=0; i<samples.size(); i++){
+            bool force_nominal = false;
             TString sample_in = samples[i];
             TString sample_out = samples[i];
-            if(sample_out == "DATA") sample_out = "data_obs" + AnalysisTool::yeartag;
+            if(sample_out == "DATA") sample_out = "data_obs_" + AnalysisTool::yeartag;
             cout << "-- Sample: " << sample_in << endl;
 
-            if(sample_in == "DATA" && syst != "nominal") continue;
-            if(!sample_in.Contains("TTbar") && syst == "scale_TTbar") continue;
-            if(!sample_in.Contains("SingleTop") && syst == "scale_SingleTop") continue;
-            if(!sample_in.Contains("DYJets") && syst == "scale_DYJets") continue;
-            if(!sample_in.Contains("Diboson") && syst == "scale_Diboson") continue;
-            if(!sample_in.Contains("TTV") && syst == "scale_TTV") continue;
-            if(!sample_in.Contains("WJets") && syst == "scale_WJets") continue;
+            if(sample_in == "DATA" && syst != "nominal") force_nominal = true;
+            if(!sample_in.Contains("TTbar") && syst == "scale_TTbar") force_nominal = true;
+            if(!sample_in.Contains("SingleTop") && syst == "scale_SingleTop") force_nominal = true;
+            if(!sample_in.Contains("DYJets") && syst == "scale_DYJets") force_nominal = true;
+            if(!sample_in.Contains("Diboson") && syst == "scale_Diboson") force_nominal = true;
+            if(!sample_in.Contains("TTV") && syst == "scale_TTV") force_nominal = true;
+            if(!sample_in.Contains("WJets") && syst == "scale_WJets") force_nominal = true;
 
             TString type = "MC.";
             if(sample_in == "DATA") type = "DATA.";
@@ -110,26 +113,29 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst_much(){
               sample_in += "_" + AnalysisTool::yeartag;
             }
 
-            TString filename = dir + filename_base + type + sample_in + ".root";
-            if(syst.Contains("scale_")) filename = dir + sample_in + ".root";
-            if(syst == "pdf") filename = dir + sample_in + ".root";
-            // else if((syst == "JEC" || syst == "JER") && (sample_in.Contains("TTbar") || sample_in.Contains("SingleTop"))){
-            //
-            //
-            //   filename = dir + sample_in + "_" + channel_tags[channel] + "_" + region_tags[region] + ".root";
-            //   // cout << "filename: " << filename << endl;
-            //
-            // }
+            TString filename = dir_nom + filename_base + type + sample_in + ".root";
+            if(!force_nominal){
+              if(syst.Contains("scale_")) filename = dir_scale + sample_in + ".root";
+              if(syst == "pdf") filename = dir_pdf + sample_in + ".root";
+              // else if((syst == "JEC" || syst == "JER") && (sample_in.Contains("TTbar") || sample_in.Contains("SingleTop"))){
+              //
+              //
+              //   filename = dir_jerc + sample_in + "_" + channel_tags[channel] + "_" + region_tags[region] + ".root";
+              //   // cout << "filename: " << filename << endl;
+              //
+              // }
+            }
             TFile* f_in = new TFile(filename, "READ");
 
-            TString histname_in =  histfolder_base + "_" + region_tags[region] + "_" + syst;
-            if(syst != "nominal") histname_in += "_" + syst_shift[m];
+            TString histname_in = "";
+            histname_in =  histfolder_base + "_" + region_tags[region] + "_" + syst;
+            if(force_nominal) histname_in = histfolder_base + "_" + region_tags[region] + "_nominal";
+            if(syst != "nominal" && !force_nominal) histname_in += "_" + syst_shift[m];
             histname_in += "/" + histinname_base[region];
             // if(syst == "JEC" || syst == "JER") histname_in = histfolder_base + "_" + region_tags[region] + "/" + histinname_base[region];
-            if(syst.Contains("scale")) histname_in = histfolder_base + "_" + region_tags[region] + "_scale_" + syst_shift[m] +  "/" + histinname_base[region];
+            if(syst.Contains("scale") && !force_nominal) histname_in = histfolder_base + "_" + region_tags[region] + "_scale_" + syst_shift[m] +  "/" + histinname_base[region];
             TString histname_out =  histoutname_base[region] + "_" + region_tags[region] + "__" + sample_out;
             if(syst != "nominal") histname_out += "__" + syst + syst_shift_combine[m];
-            if(samples[i] == "DATA") histname_out.ReplaceAll("DATA", "data_obs_" + AnalysisTool::yeartag);
 
             TH1F* h_in = (TH1F*)f_in->Get(histname_in);
             h_in->SetName(histname_out);

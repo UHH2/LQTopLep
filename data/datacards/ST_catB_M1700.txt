@@ -1,0 +1,45 @@
+# Datacard for variable ST in category B for masspoint 1700 
+
+# HEADER
+imax 1
+jmax 7
+kmax *
+-----------------------------
+
+# CHANNELS
+bin ST_catB
+observation -1
+-----------------------------
+
+# INPUT
+shapes * * input/combine_histograms_mc_fullsyst_much.root $CHANNEL__$PROCESS_2016v3 $CHANNEL__$PROCESS_2016v3__$SYSTEMATIC
+# PROCESSES
+bin        ST_catB  ST_catB  ST_catB  ST_catB  ST_catB  ST_catB  ST_catB  ST_catB  
+process    LQtoTMuM1700  TTbar  DYJets  SingleTop  TTV  Diboson  WJets  QCDMu  
+process    0  1  2  3  4  5  6  7  
+rate       -1  -1  -1  -1  -1  -1  -1  -1  
+# SYSTEMATICS
+lumi  lnN  1.025  1.025  1.025  1.025  1.025  1.025  1.025  1.025  
+rate_ttbar  lnN  -  1.056  -  -  -  -  -  -  
+rate_dy  lnN  -  -  1.1  -  -  -  -  -  
+rate_ttv  lnN  -  -  -  -  1.25  -  -  -  
+rate_diboson  lnN  -  -  -  -  -  1.2  -  -  
+rate_singletop  lnN  -  -  -  1.1  -  -  -  -  
+rate_wjets  lnN  -  -  -  -  -  -  1.25  -  
+rate_qcd  lnN  -  -  -  -  -  -  -  1.5  
+pu  shape  1  1  1  1  1  1  1  1  
+pdf  shape  1  1  1  1  1  1  1  1  
+muid  shape  1  1  1  1  1  1  1  1  
+muiso  shape  1  1  1  1  1  1  1  1  
+mutrigger  shape  1  1  1  1  1  1  1  1  
+eleid  shape  1  1  1  1  1  1  1  1  
+elereco  shape  1  1  1  1  1  1  1  1  
+btag_bc  shape  1  1  1  1  1  1  1  1  
+btag_udsg  shape  1  1  1  1  1  1  1  1  
+scale_TTbar  shape  -  1  -  -  -  -  -  -  
+scale_DYJets  shape  -  -  1  -  -  -  -  -  
+scale_TTV  shape  -  -  -  -  1  -  -  -  
+scale_Diboson  shape  -  -  -  -  -  1  -  -  
+scale_SingleTop  shape  -  -  -  1  -  -  -  -  
+# STATISTICS
+* autoMCStats 1 0 1
