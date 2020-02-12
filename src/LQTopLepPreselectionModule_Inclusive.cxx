@@ -41,7 +41,7 @@ namespace uhh2examples {
   private:
 
     std::unique_ptr<CommonModules> common;
-    std::unique_ptr<Selection> njet_sel, nmuons_sel, nmuons_sel_ttbar, nelectrons_sel_ttbar, st_sel;
+    std::unique_ptr<Selection> njet_sel, nmuons_sel, nelectrons_sel, nmuons_sel_ttbar, nelectrons_sel_ttbar, st_sel;
 
     ElectronId EleId;
     JetId Jet_ID;
@@ -110,13 +110,14 @@ namespace uhh2examples {
     // Selections
     njet_sel.reset(new NJetSelection(2, -1));
     nmuons_sel.reset(new NMuonSelection(2, -1));
+    nelectrons_sel.reset(new NElectronSelection(2, -1));
     nmuons_sel_ttbar.reset(new NMuonSelection(1, 1));
     nelectrons_sel_ttbar.reset(new NElectronSelection(1, 1));
     st_sel.reset(new HtSelection(350));
 
 
     // Book histograms
-    vector<string> histogram_tags = {"NoCuts", "Cleaner", "2Jets", "ST350", "2Muons", "1Muon1Electron"};
+    vector<string> histogram_tags = {"NoCuts", "Cleaner", "2Jets", "ST350", "2Muons", "2Electrons", "1Muon1Electron"};
     book_histograms(ctx, histogram_tags);
   }
 
@@ -135,14 +136,16 @@ namespace uhh2examples {
     if(!st_sel->passes(event)) return false;
     fill_histograms(event,"ST350");
 
-    if(!nmuons_sel->passes(event) && !(nmuons_sel_ttbar->passes(event) && nelectrons_sel_ttbar->passes(event))) return false;
+    if(!nmuons_sel->passes(event) && !(nmuons_sel_ttbar->passes(event)) && !(nelectrons_sel_ttbar->passes(event))) return false;
     if(nmuons_sel->passes(event)){
       fill_histograms(event,"2Muons");
     }
-    else{
+    else if(nelectrons_sel->passes(event)){
+        fill_histograms(event,"2Electrons");
+    }
+    else {
         fill_histograms(event,"1Muon1Electron");
     }
-
 
 
     return true;
