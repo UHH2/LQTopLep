@@ -11,8 +11,7 @@
 
 
 
-<!-- LQ samples -->
-
+<!--  LQ mu mu samples -->
 <!ENTITY LQtoTMuM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMu_M-200_P8M1_Summer16_v2.xml">
 <!ENTITY LQtoTMuM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMu_M-300_P8M1_Summer16_v2.xml">
 <!ENTITY LQtoTMuM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMu_M-400_P8M1_Summer16_v2.xml">
@@ -27,6 +26,51 @@
 <!ENTITY LQtoTMuM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMu_M-1700_P8M1_Summer16_v2.xml">
 <!ENTITY LQtoTMuM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMu_M-2000_P8M1_Summer16_v2.xml">
 
+<!--  LQ e e samples -->
+<!ENTITY LQtoTEM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-200_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-300_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTEM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-400_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM500 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-500_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM600 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-600_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-700_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM800 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-800_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM900 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-900_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM1000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-1000_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM1200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-1200_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM1400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-1400_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-1700_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTEM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopE_M-2000_P8M1_Summer16_v2.xml">
+
+<!--  LQ tau tau samples -->
+<!ENTITY LQtoTTauM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-200_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-300_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-400_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM500 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-500_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM600 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-600_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-700_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM800 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-800_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM900 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-900_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM1000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-1000_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM1200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-1200_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM1400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-1400_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-1700_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTTauM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopTau_M-2000_P8M1_Summer16_v2.xml">
+
+
+<!-- LQ mu tau samples -->
+<!ENTITY LQtoTMuTTauM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-200_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-300_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-400_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM500 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-500_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM600 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-600_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-700_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM800 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-800_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM900 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-900_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM1000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-1000_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM1200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-1200_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM1400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-1400_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-1700_P8M1_Summer16_v2.xml">
+<!ENTITY LQtoTMuTTauM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-2000_P8M1_Summer16_v2.xml">
 
 
 <!-- Background: TTbar, WJets, DYJets, SingleTop, Diboson, TTV, QCD -->
@@ -312,6 +356,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
+<!-- LQ Top mu -->
 
 		<InputData Lumi="1237.62" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuM200_2016v3" Cacheable="&b_Cacheable;">
 			&LQtoTMuM200;
@@ -394,7 +439,252 @@
 
 
 
+<!-- LQ Top e -->
 
+		<InputData Lumi="1237.62" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM200_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM200;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="9328.36" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM300_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM300;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="42978.74" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM400_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM400;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="150649.19" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM500_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM500;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="443786.98" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM600_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM600;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1145864.20" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM700_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM700;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="2683516.48" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM800_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM800;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="6097560.98" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM900_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM900;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="12779863.48" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM1000_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM1000;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="49852000.00" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM1200_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM1200;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="173127314.81" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM1400_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM1400;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="970245795.60" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM1700_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM1700;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="4809032258.06" NEventsMax="&NEVT;" Type="MC" Version="LQtoTEM2000_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTEM2000;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+<!-- LQ TopTau -->
+
+		<InputData Lumi="1226.95" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM200_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM200;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="9328.36" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM300_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM300;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="42791.95" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM400_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM400;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="150576.61" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM500_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM500;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="443786.98" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM600_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM600;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1157407.41" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM700_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM700;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="2747252.75" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM800_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM800;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="6097560.98" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM900_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM900;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="12798634.81" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM1000_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM1000;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="49692000.00" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM1200_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM1200;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="172981481.48" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM1400_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM1400;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="960090556.27" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM1700_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM1700;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="482948370.97" NEventsMax="&NEVT;" Type="MC" Version="LQtoTTauM2000_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTTauM2000;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+
+<!-- LQ Top mu Top tau -->
+
+		<InputData Lumi="2448.73" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM200_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM200;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="18315.30" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM300_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM300;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="86206.90" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM400_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM400;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="296645.16" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM500_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM500;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="887573.96" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM600_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM600;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="2308425.93" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM700_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM700;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="5494505.49" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM800_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM800;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="12195121.95" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM900_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM900;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="25285836.18" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM1000_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM1000;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="100000000.00" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM1200_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM1200;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="345430555.56" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM1400_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM1400;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1925226390.00" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM1700_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM1700;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="9645290322.58" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuTTauM2000_2016v3" Cacheable="&b_Cacheable;">
+		  &LQtoTMuTTauM2000;
+		  <InputTree Name="AnalysisTree" />
+		  <OutputTree Name="AnalysisTree" />
+		</InputData>
+
+
+
+
+
+<!-- background -->
 
 		<InputData Lumi="92260.16399" NEventsMax="&NEVT;" Type="MC" Version="TTbar_2016v3" Cacheable="&b_Cacheable;">
 			&TTbar;
