@@ -185,7 +185,7 @@ namespace uhh2examples {
     nbtag_loose_sel.reset(new NJetSelection(1, -1, DeepjetLoose));
     st_lep_sel.reset(new HtLepSelection(200, -1));
     inv_mass_veto.reset(new InvMass2MuVeto(0., 110));
-    inv_mass_sel.reset(new InvMass2MuVeto(70., 110.));
+    inv_mass_sel.reset(new InvMass2MuSelection(70., 110.));
     inv_mass_muele_veto.reset(new InvMassEleMuVeto(0., 110.));
 
 
