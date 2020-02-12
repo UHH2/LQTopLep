@@ -12,7 +12,9 @@ AnalysisTool::AnalysisTool(int year_)
   theta_path = "/nfs/dust/cms/user/reimersa/theta_LQTopLep/utils2/Limits_MC/";
   combine_path = "../data/datacards/";
   trigger_tag = "Trigger/";
-  final_tag = "Finalselection/MuonChannel/";
+  final_tag = "Finalselection/Inclusive/";
+  full_tag = final_tag;
+  full_tag.ReplaceAll("Finalselection", "Fullselection");
 
 
   year = "";

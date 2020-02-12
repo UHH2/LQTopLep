@@ -14,6 +14,8 @@
 #include <TGraph.h>
 #include <TStyle.h>
 #include <TGraphAsymmErrors.h>
+#include <TTreeReader.h>
+#include <TTreeReaderValue.h>
 #include <TLegend.h>
 #include <TLegendEntry.h>
 #include <TROOT.h>
@@ -24,9 +26,10 @@
 
 using namespace std;
 
+void cosmetics();
 
 
-void AnalysisTool::PlotLimits(){
+void AnalysisTool::PlotLimitsCombine(){
   /*
   ==========================================
   |                                          |
@@ -39,118 +42,99 @@ void AnalysisTool::PlotLimits(){
   bool with_data = true;
 
 
-
-
-
-
-
   //0) general cosmetics
-  gStyle->SetTitleFont(42, "XYZ");
-  gStyle->SetTitleSize(0.055, "XYZ");
-  gStyle->SetTitleXOffset(0.9);
-  gStyle->SetTitleYOffset(1.25);
-  gStyle->SetLabelFont(42, "XYZ");
-  gStyle->SetLabelOffset(0.007, "XYZ");
-  gStyle->SetLabelSize(0.05, "XYZ");
-  gStyle->SetStripDecimals(kTRUE);
-  gStyle->SetTickLength(0.03, "XYZ");
-  gStyle->SetNdivisions(505, "XYZ");
-  gStyle->SetPadTickX(1);
-  gStyle->SetPadTickY(1);
+  cosmetics();
 
 
 
-
-
-  //1) define masspoints
-  // vector<double> x_theo, x = {200,300,400,500,600,700,800,900,1000,1200,1400,1700,2000};
-  vector<double> x_theo = {};
-  // const int n_points = x.size();
-  for(unsigned int i=0; i<73; i++) x_theo.emplace_back(200+i*25);
-
-  vector<double> theory = {0.606E+02, 0.342E+02, 0.203E+02, 0.126E+02, 0.804E+01, 0.531E+01, 0.359E+01, 0.248E+01, 0.174E+01, 0.125E+01, 0.906E+00, 0.666E+00, 0.496E+00, 0.374E+00, 0.284E+00, 0.218E+00, 0.169E+00, 0.132E+00, 0.103E+00, 0.815E-01, 0.648E-01, 0.518E-01, 0.416E-01, 0.336E-01, 0.273E-01, 0.222E-01, 0.182E-01, 0.150E-01, 0.123E-01, 0.102E-01, 0.845E-02, 0.702E-02, 0.586E-02, 0.490E-02, 0.411E-02, 0.346E-02, 0.291E-02, 0.246E-02, 0.208E-02, 0.177E-02, 0.150E-02, 0.128E-02, 0.109E-02, 0.931E-03, 0.796E-03, 0.682E-03, 0.585E-03, 0.503E-03, 0.432E-03, 0.372E-03, 0.322E-03, 0.277E-03, 0.240E-03, 0.208E-03, 0.180E-03, 0.156E-03, 0.135E-03, 0.117E-03, 0.102E-03, 0.889E-04, 0.773E-04, 0.675E-04, 0.588E-04, 0.513E-04, 0.449E-04, 0.392E-04, 0.343E-04, 0.300E-04, 0.262E-04, 0.230E-04, 0.201E-04, 0.177E-04, 0.155E-04};
-  vector<double> theory_up = {68.6864639986, 38.7088357699, 23.1231188427, 14.2801931437, 9.14775674225, 6.04086866125, 4.09812990465, 2.83180818637, 1.9961249695, 1.43768324379, 1.04699304947, 0.773002289695, 0.577606127221, 0.435769248012, 0.332616458119, 0.255952075042, 0.198680970335, 0.155762154784, 0.12268146336, 0.0973445574252, 0.0775882758807, 0.0622727455808, 0.0502401678224, 0.0407359372195, 0.0331566970214, 0.0271049362891, 0.0222659070329, 0.0183911797357, 0.0151915220905, 0.0126239636961, 0.0105073040611, 0.00877316856006, 0.00735372018799, 0.00617455874717, 0.00519687625791, 0.00438793534258, 0.00371076525899, 0.00314667969243, 0.00267687854711, 0.00227986370728, 0.00194594170023, 0.00166354791096, 0.00142431123224, 0.00122124472433, 0.00104854900515, 0.000902791757093, 0.000776838473722, 0.000671433963321, 0.000579827602294, 0.000501096862859, 0.000434605506082, 0.000376929775342, 0.000327542903767, 0.000284878410493, 0.000247770273719, 0.000215703936219, 0.000188235420539, 0.000164100849249, 0.000143299394669, 0.000125427386986, 0.000109745030436, 9.61832703854e-05, 8.43211676849e-05, 7.39753169768e-05, 6.50156655371e-05, 5.70070210872e-05, 5.02100597108e-05, 4.4108862463e-05, 3.87574678976e-05, 3.4168258593e-05, 3.00616062962e-05, 2.65696166772e-05, 2.34120161779e-05};
-  vector<double> theory_down = {52.7986603714, 29.6911642301, 17.5686999433, 10.8299579101, 6.91468893189, 4.53626296457, 3.05680585149, 2.10387635012, 1.46797058983, 1.04696059496, 0.756708205182, 0.554602109535, 0.41009563457, 0.307378381887, 0.232662294558, 0.1774, 0.136736088272, 0.106355507414, 0.0826933508426, 0.0649298461081, 0.0514156808167, 0.0408638946603, 0.0325599502214, 0.0261857164878, 0.0211144604116, 0.0170796093899, 0.0139231319871, 0.0114027649507, 0.00930652375991, 0.00764751101863, 0.00629923269506, 0.00520382269588, 0.00430951620453, 0.00358771192187, 0.00298621176372, 0.00249570543919, 0.00208675945192, 0.00174674759026, 0.00146994754324, 0.00123852939874, 0.00104112746868, 0.000883756388064, 0.000746976677178, 0.000632234205438, 0.000536577564579, 0.000455635250094, 0.000387693132405, 0.000330692135989, 0.000281119252388, 0.000239901551864, 0.000206047423487, 0.000175211199044, 0.000150290691676, 0.000128966526079, 0.000110827678946, 9.49053193805e-05, 8.1055491475e-05, 6.95501317178e-05, 5.99922626175e-05, 5.16450674407e-05, 4.44231084194e-05, 3.83215833192e-05, 3.29214374433e-05, 2.83348089492e-05, 2.44977942369e-05, 2.11387154388e-05, 1.82024846638e-05, 1.57052457174e-05, 1.35189117186e-05, 1.17106244637e-05, 1.00186508839e-05, 8.70944384368e-06, 7.49937502441e-06};
-
-  //2) Read in vector LQ cross sections
+  //2) Read in LQ cross sections
   TFile* f_vectortheory = new TFile("include/LQxsecs.root", "READ");
-  TGraph* g_vectortheory_k1 = (TGraph*)f_vectortheory->Get("vlqxsec");
-  TGraph* g_vectortheory_k1_up = (TGraph*)f_vectortheory->Get("vlqxsecUp");
-  TGraph* g_vectortheory_k1_down = (TGraph*)f_vectortheory->Get("vlqxsecDown");
-  TGraph* g_vectortheory_k0 = (TGraph*)f_vectortheory->Get("vlqxsec_k0");
-  TGraph* g_vectortheory_k0_up = (TGraph*)f_vectortheory->Get("vlqxsecUp_k0");
-  TGraph* g_vectortheory_k0_down = (TGraph*)f_vectortheory->Get("vlqxsecDown_k0");
+  TGraph* g_theory_vector_k1 = (TGraph*)f_vectortheory->Get("vlqxsec");
+  TGraph* g_theory_vector_k1_up = (TGraph*)f_vectortheory->Get("vlqxsecUp");
+  TGraph* g_theory_vector_k1_down = (TGraph*)f_vectortheory->Get("vlqxsecDown");
+  TGraph* g_theory_vector_k0 = (TGraph*)f_vectortheory->Get("vlqxsec_k0");
+  TGraph* g_theory_vector_k0_up = (TGraph*)f_vectortheory->Get("vlqxsecUp_k0");
+  TGraph* g_theory_vector_k0_down = (TGraph*)f_vectortheory->Get("vlqxsecDown_k0");
+  TFile* f_scalartheory = new TFile("include/LQxsecs_scalar.root", "READ");
+  TGraph* g_theory = (TGraph*)f_scalartheory->Get("slqxsec");
+  TGraph* g_theory_up = (TGraph*)f_scalartheory->Get("slqxsecUp");
+  TGraph* g_theory_down = (TGraph*)f_scalartheory->Get("slqxsecDown");
 
-  vector<double> theory_vector_k1, theory_vector_k1_up, theory_vector_k1_down, theory_vector_k0, theory_vector_k0_up, theory_vector_k0_down;
-  for(unsigned int i=0; i<x_theo.size(); i++){
-    theory_vector_k1.emplace_back(g_vectortheory_k1->Eval(x_theo[i]));
-    theory_vector_k1_up.emplace_back(g_vectortheory_k1_up->Eval(x_theo[i]));
-    theory_vector_k1_down.emplace_back(g_vectortheory_k1_down->Eval(x_theo[i]));
-    theory_vector_k0.emplace_back(g_vectortheory_k0->Eval(x_theo[i]));
-    theory_vector_k0_up.emplace_back(g_vectortheory_k0_up->Eval(x_theo[i]));
-    theory_vector_k0_down.emplace_back(g_vectortheory_k0_down->Eval(x_theo[i]));
+  vector<double> x_theo = {};
+  for(int i=0; i<g_theory->GetN(); i++){
+    double x, y;
+    g_theory->GetPoint(i, x, y);
+    x_theo.emplace_back(x);
   }
 
-  delete g_vectortheory_k0_down;
-  delete g_vectortheory_k0_up;
-  delete g_vectortheory_k0;
-  delete g_vectortheory_k1_down;
-  delete g_vectortheory_k1_up;
-  delete g_vectortheory_k1;
-  delete f_vectortheory;
+  // Store cross sections to vectors (to find the mass limit later)
+  vector<double> theory, theory_up, theory_down, theory_vector_k1, theory_vector_k1_up, theory_vector_k1_down, theory_vector_k0, theory_vector_k0_up, theory_vector_k0_down;
+  for(unsigned int i=0; i<x_theo.size(); i++){
+    theory.emplace_back(g_theory->Eval(x_theo[i]));
+    theory_up.emplace_back(g_theory_up->Eval(x_theo[i]));
+    theory_down.emplace_back(g_theory_down->Eval(x_theo[i]));
+    theory_vector_k1.emplace_back(g_theory_vector_k1->Eval(x_theo[i]));
+    theory_vector_k1_up.emplace_back(g_theory_vector_k1_up->Eval(x_theo[i]));
+    theory_vector_k1_down.emplace_back(g_theory_vector_k1_down->Eval(x_theo[i]));
+    theory_vector_k0.emplace_back(g_theory_vector_k0->Eval(x_theo[i]));
+    theory_vector_k0_up.emplace_back(g_theory_vector_k0_up->Eval(x_theo[i]));
+    theory_vector_k0_down.emplace_back(g_theory_vector_k0_down->Eval(x_theo[i]));
+  }
 
 
 
 
-  TString filename = AnalysisTool::theta_path + "output/";
+  // Read in limits
+  TString path = AnalysisTool::combine_path + "output/";
 
-  TString txtname = "expected_limits_mc_fullsyst_much";
-  txtname += ".txt";
-  cout << "txtname: " << txtname << endl;
-  filename += txtname;
-  cout << "filename: " << filename << endl;
-  ifstream myfile(filename);
+  // Get limit masspoints
+  TString txtname = path + "masspoints_LQtoTMu.txt";
+  ifstream myfile(txtname);
 
-  vector<double> mass, expected, expected_low_68, expected_high_68, expected_low_95, expected_high_95, observed;
-  float val;
+  int n_points = -1;
+  vector<double> mass;
+  myfile >> n_points;
+  double val = -1.;
   while(!myfile.eof()){
     myfile >> val;
     mass.emplace_back(val);
-    myfile >> val;
-    expected.emplace_back(val);
-    myfile >> val;
-    expected_low_95.emplace_back(val);
-    myfile >> val;
-    expected_high_95.emplace_back(val);
-    myfile >> val;
-    expected_low_68.emplace_back(val);
-    myfile >> val;
-    expected_high_68.emplace_back(val);
   }
   myfile.clear();
 
-  for(unsigned int i=0; i<expected.size(); i++){
-    cout << "Mass: " << mass[i] << ", expected: " << expected[i] << endl;
+  // Read limits from rootfiles
+  vector<double> expected, expected_high_68, expected_high_95, expected_low_68, expected_low_95, observed;
+  for(int i=0; i<n_points; i++){
+    TString filename = path + "higgsCombineLQtoTMu.AsymptoticLimits.mH";
+    filename += mass[i];
+    filename += ".root";
+    TFile* infile = new TFile(filename, "READ");
+
+    TTreeReader Reader("limit", infile);
+    TTreeReaderValue<float> quantile(Reader, "quantileExpected");
+    TTreeReaderValue<double> r(Reader, "limit");
+
+    while (Reader.Next()) {
+      float q = *quantile;
+      double rr = *r;
+
+      // Convert r values in cross section limits (multiply by cross section)
+      if(mass[i] != 300 && mass[i] != 400){
+        rr *= g_theory->Eval(mass[i]);
+      }
+      else{ //300 and 400 masspoints were scaled down by 10 when reading out histograms for combine
+        rr /= 10.;
+        rr *= g_theory->Eval(mass[i]);
+      }
+
+      if(q<0.) observed.emplace_back(rr);
+      else if(q<0.1) expected_low_95.emplace_back(rr);
+      else if(q<0.4) expected_low_68.emplace_back(rr);
+      else if(q<0.8) expected.emplace_back(rr);
+      else if(q<0.9) expected_high_68.emplace_back(rr);
+      else           expected_high_95.emplace_back(rr);
+    }
   }
 
-  filename.ReplaceAll("expected_limits", "observed_limits");
-  myfile = ifstream(filename);
-  while(!myfile.eof()){
-    myfile >> val; // Skip the mass-line, jump to the observed limit directly
-    myfile >> val;
-    observed.emplace_back(val);
-    myfile >> val; // Skip the uncertainty on obs
-  }
-
-  const int n_points = mass.size();
-  //
-  // //3) observed limits
-  // vector<double> expected = {0.699,0.00749,0.00353,0.00233,0.00188,0.00144,0.00118,0.00085,0.000699,0.000514,0.000376,0.000323,0.000281};
-  // vector<double> observed = {1.51,0.0115,0.00383,0.00227,0.00145,0.000853,0.000738,0.000613,0.00056,0.000446,0.000349,0.000316,0.000276};
-  // vector<double> expected_low_68 = {0.461,0.00507,0.0024,0.00158,0.00129,0.000984,0.000798,0.000582,0.000477,0.000342,0.000253,0.000213,0.000182};
-  // vector<double> expected_high_68 = {1.1,0.0112,0.00526,0.00348,0.00281,0.00217,0.00176,0.00127,0.00102,0.000784,0.000579,0.000504,0.000434};
-  // vector<double> expected_low_95 = {0.325,0.00356,0.00172,0.00114,0.000905,0.000688,0.00059,0.00042,0.000351,0.000246,0.000181,0.000151,0.000131};
-  // vector<double> expected_high_95 = {1.84,0.016,0.00735,0.00509,0.00404,0.00299,0.00251,0.00183,0.00145,0.00112,0.000824,0.000759,0.000659};
 
 
 
@@ -182,7 +166,6 @@ void AnalysisTool::PlotLimits(){
 
   //find intersection -- Obs
   for(unsigned int j=0; j<x_theo.size(); j++){
-    //cout << "Mass: " << x_theo[j] << ", theory: " << theory[j] << ", observed: " << observed_fine[j] << endl;
     if(theory[j] < observed_fine[j] && !obsfound && x_theo[j] >= 300){
       idx_obs_low  = j-1;
       idx_obs_high = j;
@@ -203,7 +186,6 @@ void AnalysisTool::PlotLimits(){
       idx_obs_high_vector_k0 = j;
       obsfound_vector_k0 = true;
     }
-    //cout << "theo v k1: " << theory_vector_k1[j] << ", obs: " << observed_fine[j] << ", excluded?: " << (theory_vector_k1[j] < observed_fine[j]) << endl;
   }
 
 
@@ -235,15 +217,9 @@ void AnalysisTool::PlotLimits(){
   TGraphAsymmErrors* g_expected_68 = new TGraphAsymmErrors(n_points,&mass[0],&expected[0],0,0,&expected_down_68[0], &expected_up_68[0]);
   TGraphAsymmErrors* g_expected_95 = new TGraphAsymmErrors(n_points,&mass[0],&expected[0],0,0,&expected_down_95[0], &expected_up_95[0]);
 
-  TGraph* g_theory = new TGraph(theory.size(),&x_theo[0],&theory[0]);
-  TGraph* g_theory_up = new TGraph(theory.size(),&x_theo[0],&theory_up[0]);
-  TGraph* g_theory_down = new TGraph(theory.size(),&x_theo[0],&theory_down[0]);
-  TGraph* g_theory_vector_k1 = new TGraph(theory_vector_k1.size(),&x_theo[0],&theory_vector_k1[0]);
-  TGraph* g_theory_vector_k1_up = new TGraph(theory_vector_k1.size(),&x_theo[0],&theory_vector_k1_up[0]);
-  TGraph* g_theory_vector_k1_down = new TGraph(theory_vector_k1.size(),&x_theo[0],&theory_vector_k1_down[0]);
-  TGraph* g_theory_vector_k0 = new TGraph(theory_vector_k0.size(),&x_theo[0],&theory_vector_k0[0]);
-  TGraph* g_theory_vector_k0_up = new TGraph(theory_vector_k0.size(),&x_theo[0],&theory_vector_k0_up[0]);
-  TGraph* g_theory_vector_k0_down = new TGraph(theory_vector_k0.size(),&x_theo[0],&theory_vector_k0_down[0]);
+  // TGraph* g_theory = new TGraph(theory.size(),&x_theo[0],&theory[0]);
+  // TGraph* g_theory_up = new TGraph(theory.size(),&x_theo[0],&theory_up[0]);
+  // TGraph* g_theory_down = new TGraph(theory.size(),&x_theo[0],&theory_down[0]);
   TGraph* g_expected = new TGraph(n_points,&mass[0],&expected[0]);
   TGraph* g_observed = new TGraph(n_points,&mass[0],&observed[0]);
 
@@ -290,6 +266,9 @@ void AnalysisTool::PlotLimits(){
   //8) Draw Graphs
   TCanvas* c = new TCanvas("c", "Nice limit plot", 800,600);
   gPad->SetLogy();
+  // gPad->SetBottomMargin(0.13);
+  // gPad->SetLeftMargin(0.16);
+  // gPad->SetRightMargin(0.06);
   g_expected_95->Draw("A3");
   g_expected_68->Draw("3 SAME");
   g_expected->Draw("SAME");
@@ -385,8 +364,25 @@ void AnalysisTool::PlotLimits(){
   gPad->SetBottomMargin(0.11);
 
 
-  c->SaveAs(AnalysisTool::theta_path + "output/limitplot_mc_fullsyst_much.eps");
-  c->SaveAs(AnalysisTool::theta_path + "output/limitplot_mc_fullsyst_much.pdf");
+  c->SaveAs(AnalysisTool::theta_path + "output/limitplot_combine_mc_fullsyst_much.eps");
+  c->SaveAs(AnalysisTool::theta_path + "output/limitplot_combine_mc_fullsyst_much.pdf");
 
 
+}
+
+
+void cosmetics(){
+
+  gStyle->SetTitleFont(42, "XYZ");
+  gStyle->SetTitleSize(0.055, "XYZ");
+  gStyle->SetTitleXOffset(0.9);
+  gStyle->SetTitleYOffset(1.25);
+  gStyle->SetLabelFont(42, "XYZ");
+  gStyle->SetLabelOffset(0.007, "XYZ");
+  gStyle->SetLabelSize(0.05, "XYZ");
+  gStyle->SetStripDecimals(kTRUE);
+  gStyle->SetTickLength(0.03, "XYZ");
+  gStyle->SetNdivisions(505, "XYZ");
+  gStyle->SetPadTickX(1);
+  gStyle->SetPadTickY(1);
 }

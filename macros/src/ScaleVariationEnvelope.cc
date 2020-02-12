@@ -43,7 +43,7 @@ void AnalysisTool::ScaleVariationEnvelope(){
     f_in.reset (new TFile(path + "NOMINAL/uhh2.AnalysisModuleRunner.MC." + process  + ".root","READ"));
 
     vector<TString> histfolders = {"FinalSelection"};
-    vector<TString> channel_tags = {"dummy"}; //"ech", "much"
+    vector<TString> channel_tags = {"srmu", "ttbar"}; //"ech", "much"
     vector<TString> region_tags = {"catA", "catB"};
 
 
@@ -54,7 +54,11 @@ void AnalysisTool::ScaleVariationEnvelope(){
       for(unsigned int j=0; j<region_tags.size(); j++){
         for(unsigned int k=0; k<histfolders.size(); k++){
 
-          TString histfolder = histfolders[k] /*+ "_" + channel_tags[i]*/ + "_" + region_tags[j];
+          // Exceptions for combinations of channels and regions
+          if(channel_tags[i] == "ttbar" && region_tags[j] == "catA") continue;
+
+
+          TString histfolder = histfolders[k] + "_" + channel_tags[i] + "_" + region_tags[j];
 
           f_out->mkdir(histfolder + "_scale_up");
           f_out->mkdir(histfolder + "_scale_down");
