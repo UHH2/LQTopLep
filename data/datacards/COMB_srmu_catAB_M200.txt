@@ -1,16 +1,16 @@
-Combination of /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/MLQ_catA_M700.txt  /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/ST_catB_M700.txt
+Combination of /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/MLQ_srmu_catA_M200.txt  /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/ST_srmu_catB_M200.txt
 imax 2 number of bins
 jmax 7 number of processes minus 1
 kmax 22 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
-shapes *    ch1  /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/input/combine_histograms_mc_fullsyst_much.root MLQ_catA__$PROCESS_2016v3 MLQ_catA__$PROCESS_2016v3__$SYSTEMATIC
-shapes *    ch2  /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/input/combine_histograms_mc_fullsyst_much.root ST_catB__$PROCESS_2016v3 ST_catB__$PROCESS_2016v3__$SYSTEMATIC
+shapes *    ch1  /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/input/combine_histograms_mc_fullsyst_incl.root MLQ_srmu_catA__$PROCESS_2016v3 MLQ_srmu_catA__$PROCESS_2016v3__$SYSTEMATIC
+shapes *    ch2  /nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/datacards/input/combine_histograms_mc_fullsyst_incl.root ST_srmu_catB__$PROCESS_2016v3 ST_srmu_catB__$PROCESS_2016v3__$SYSTEMATIC
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          ch1    ch2  
 observation  -1     -1   
 ----------------------------------------------------------------------------------------------------------------------------------
 bin                                  ch1          ch1          ch1          ch1          ch1          ch1          ch2          ch2          ch2          ch2          ch2          ch2          ch2          ch2        
-process                              LQtoTMuM700  Diboson      TTV          TTbar        DYJets       SingleTop    LQtoTMuM700  Diboson      TTV          WJets        QCDMu        TTbar        DYJets       SingleTop  
+process                              LQtoTMuM200  Diboson      TTV          TTbar        DYJets       SingleTop    LQtoTMuM200  Diboson      TTV          WJets        QCDMu        TTbar        DYJets       SingleTop  
 process                              0            1            2            3            4            5            0            1            2            6            7            3            4            5          
 rate                                 -1           -1           -1           -1           -1           -1           -1           -1           -1           -1           -1           -1           -1           -1         
 ----------------------------------------------------------------------------------------------------------------------------------
