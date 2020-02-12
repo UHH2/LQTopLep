@@ -53,6 +53,14 @@ namespace uhh2examples {
     double m_min, m_max;
   };
 
+  class InvMass2MuSelection: public uhh2::Selection {
+  public:
+    explicit InvMass2MuSelection(double m_min = 70., double m_max = 110.);
+    virtual bool passes(const uhh2::Event & event);
+  private:
+    double m_min, m_max;
+  };
+
   class InvMassEleMuVeto: public uhh2::Selection {
   public:
     explicit InvMassEleMuVeto(double m_min = 0, double m_max = 0);

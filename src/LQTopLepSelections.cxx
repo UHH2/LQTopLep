@@ -11,16 +11,16 @@ using namespace std;
 DijetSelection::DijetSelection(float dphi_min_, float third_frac_max_): dphi_min(dphi_min_), third_frac_max(third_frac_max_){}
 
 bool DijetSelection::passes(const Event & event){
-    assert(event.jets); // if this fails, it probably means jets are not read in
-    if(event.jets->size() < 2) return false;
-    const auto & jet0 = event.jets->at(0);
-    const auto & jet1 = event.jets->at(1);
-    auto dphi = deltaPhi(jet0, jet1);
-    if(dphi < dphi_min) return false;
-    if(event.jets->size() == 2) return true;
-    const auto & jet2 = event.jets->at(2);
-    auto third_jet_frac = jet2.pt() / (0.5 * (jet0.pt() + jet1.pt()));
-    return third_jet_frac < third_frac_max;
+  assert(event.jets); // if this fails, it probably means jets are not read in
+  if(event.jets->size() < 2) return false;
+  const auto & jet0 = event.jets->at(0);
+  const auto & jet1 = event.jets->at(1);
+  auto dphi = deltaPhi(jet0, jet1);
+  if(dphi < dphi_min) return false;
+  if(event.jets->size() == 2) return true;
+  const auto & jet2 = event.jets->at(2);
+  auto third_jet_frac = jet2.pt() / (0.5 * (jet0.pt() + jet1.pt()));
+  return third_jet_frac < third_frac_max;
 }
 
 
@@ -78,22 +78,22 @@ bool HtLepSelection::passes(const Event & event) {
 // returns false if M_ee in [m_min, m_max]
 InvMassEleEleVeto::InvMassEleEleVeto(double m_min_, double m_max_):m_min(m_min_), m_max(m_max_){}
 bool InvMassEleEleVeto::passes(const Event & event){
-  bool pass = true;
-  int Nelectrons = event.electrons->size();
-  double M_ee;
-  for(int i=0; i<Nelectrons; i++) {
-    const auto & ele0 = event.electrons->at(i);
-    for(int j=i; j<Nelectrons; j++) {
-	const auto & ele1 = event.electrons->at(j);
-        const auto& diele = ele0.v4()+ele1.v4();
-        M_ee = diele.M(); // calculate M_ee for every pair of electrons
-	if(M_ee > m_min && M_ee < m_max) {
-	  pass = false;
-	  return pass;
-      }
-    }
-  }
-  return pass;
+bool pass = true;
+int Nelectrons = event.electrons->size();
+double M_ee;
+for(int i=0; i<Nelectrons; i++) {
+const auto & ele0 = event.electrons->at(i);
+for(int j=i; j<Nelectrons; j++) {
+const auto & ele1 = event.electrons->at(j);
+const auto& diele = ele0.v4()+ele1.v4();
+M_ee = diele.M(); // calculate M_ee for every pair of electrons
+if(M_ee > m_min && M_ee < m_max) {
+pass = false;
+return pass;
+}
+}
+}
+return pass;
 }
 */
 
@@ -109,11 +109,11 @@ bool InvMassEleEleVeto::passes(const Event & event) {
   }
   for(int i=0; i<Nelectrons; i++) {
     for(int j=i; j<Nelectrons; j++) {
-        const auto& diele = electrons[i]+electrons[j];
-        M_ee = diele.M(); // calculate M_ee for every pair of electrons
-	if(M_ee > m_min && M_ee < m_max) {
-	  pass = false;
-	  return pass;
+      const auto& diele = electrons[i]+electrons[j];
+      M_ee = diele.M(); // calculate M_ee for every pair of electrons
+      if(M_ee > m_min && M_ee < m_max) {
+        pass = false;
+        return pass;
       }
     }
   }
@@ -133,10 +133,34 @@ bool InvMass2MuVeto::passes(const Event & event){
   for(int i=0; i<Nmuons; i++){
     for(int j=0; j<Nmuons; j++){
       if(j > i){
-	M_mumu = (muons[i] + muons[j]).M();
-	if(M_mumu > m_min && M_mumu < m_max){
-	  pass = false;
-	}
+        M_mumu = (muons[i] + muons[j]).M();
+        if(M_mumu > m_min && M_mumu < m_max){
+          pass = false;
+        }
+      }
+    }
+  }
+  return pass;
+}
+
+
+// returns true if there is a M_mumu in [m_min, m_max]
+InvMass2MuSelection::InvMass2MuSelection(double m_min_, double m_max_):m_min(m_min_), m_max(m_max_){}
+bool InvMass2MuSelection::passes(const Event & event) {
+  bool pass = false;
+  int Nmuons = event.muons->size();
+  LorentzVector muons[Nmuons];
+  double M_mumu;
+  for(int i=0; i<Nmuons; i++) {
+    muons[i] = event.muons->at(i).v4();
+  }
+  for(int i=0; i<Nmuons; i++) {
+    for(int j=i; j<Nmuons; j++) {
+      const auto& dimu = muons[i]+muons[j];
+      M_mumu = dimu.M(); // calculate M_mumu for every pair of muons
+      if(M_mumu > m_min && (M_mumu < m_max || m_max < 0.)) {
+        pass = true;
+        return pass;
       }
     }
   }
@@ -160,11 +184,11 @@ bool InvMassEleMuVeto::passes(const Event & event) {
   }
   for(int i=0; i<Nelectrons; i++) {
     for(int j=i; j<Nmuons; j++) {
-        const auto& diele = electrons[i]+muons[j];
-        M_emu = diele.M(); // calculate M_emu for every pair of leptons
-	if(M_emu > m_min && M_emu < m_max) {
-	  pass = false;
-	  return pass;
+      const auto& diele = electrons[i]+muons[j];
+      M_emu = diele.M(); // calculate M_emu for every pair of leptons
+      if(M_emu > m_min && M_emu < m_max) {
+        pass = false;
+        return pass;
       }
     }
   }
@@ -184,11 +208,11 @@ bool InvMassEleEleSelection::passes(const Event & event) {
   }
   for(int i=0; i<Nelectrons; i++) {
     for(int j=i; j<Nelectrons; j++) {
-        const auto& diele = electrons[i]+electrons[j];
-        M_ee = diele.M(); // calculate M_ee for every pair of electrons
-	if(M_ee > m_min && M_ee < m_max) {
-	  pass = true;
-	  return pass;
+      const auto& diele = electrons[i]+electrons[j];
+      M_ee = diele.M(); // calculate M_ee for every pair of electrons
+      if(M_ee > m_min && M_ee < m_max) {
+        pass = true;
+        return pass;
       }
     }
   }

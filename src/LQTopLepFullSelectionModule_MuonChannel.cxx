@@ -213,7 +213,7 @@ namespace uhh2examples {
     event.set(h_mlq_reco_mode_lq, "none");
     event.set(h_mlq_reco_mode_top, "none");
 
-
+    if(event.muons->size() < 2) return false;
     bool pass_common = common->process(event);
     if(!pass_common) return false;
 

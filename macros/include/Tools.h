@@ -22,9 +22,10 @@ public:
   void ProduceThetaHistograms_mc_fullsyst_much();
   void ProduceCombineHistograms_mc_fullsyst_much();
   void PlotLimits();
+  void PlotLimitsCombine();
 
 private:
-  TString base_path, theta_path, combine_path, trigger_tag, final_tag;
+  TString base_path, theta_path, combine_path, trigger_tag, full_tag, final_tag;
   TString year;
   TString yeartag;
 

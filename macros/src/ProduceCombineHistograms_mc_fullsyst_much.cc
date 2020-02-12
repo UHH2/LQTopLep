@@ -57,7 +57,7 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst_much(){
   vector<TString> histinname_base = {"MLQ_rebinlimit", "ST_rebinlimit"};
   vector<TString> histoutname_base = {"MLQ", "ST"};
   // vector<TString> channel_tags = {"ech", "much"};
-  vector<TString> channel_tags = {"much"};
+  vector<TString> channel_tags = {"srmu", "ttbar"};
 
 
   vector<TString> syst_shift = {"up", "down"};
@@ -66,12 +66,13 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst_much(){
 
   TString filename_base = "uhh2.AnalysisModuleRunner.";
 
-  TString outfilename = AnalysisTool::combine_path + "input/combine_histograms_mc_fullsyst_much.root";
+  TString outfilename = AnalysisTool::combine_path + "input/combine_histograms_mc_fullsyst_incl.root";
   TFile* f_out = new TFile(outfilename, "RECREATE");
 
 
   for(unsigned int region=0; region<region_tags.size(); region++){
     for(unsigned int channel=0; channel<channel_tags.size(); channel++){
+      if(channel_tags[channel] == "ttbar" && region_tags[region] == "catA") continue;
 
       for(unsigned int k=0; k<systematics.size(); k++){
         TString syst = systematics[k];
@@ -84,10 +85,10 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst_much(){
           TString dir_jerc = dir_base;
 
           if(syst == "nominal" && m > 0) break;
-          dir_nom += "Finalselection/MuonChannel/NOMINAL/";
-          dir_jerc += "Fullselection/MuonChannel/" + syst + "_" + syst_shift[m] + "/";
-          dir_pdf += "Finalselection/MuonChannel/" + syst + "/";
-          dir_scale += "Finalselection/MuonChannel/scale/";
+          dir_nom += AnalysisTool::final_tag + "NOMINAL/";
+          dir_jerc += AnalysisTool::full_tag + syst + "_" + syst_shift[m] + "/";
+          dir_pdf += AnalysisTool::final_tag + "pdf/";
+          dir_scale += AnalysisTool::final_tag + "scale/";
 
           for(unsigned int i=0; i<samples.size(); i++){
             bool force_nominal = false;
@@ -128,16 +129,20 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst_much(){
             TFile* f_in = new TFile(filename, "READ");
 
             TString histname_in = "";
-            histname_in =  histfolder_base + "_" + region_tags[region] + "_" + syst;
-            if(force_nominal) histname_in = histfolder_base + "_" + region_tags[region] + "_nominal";
+            histname_in = histfolder_base + "_" + channel_tags[channel] + "_" + region_tags[region] + "_" + syst;
+            if(force_nominal) histname_in = histfolder_base + "_" + channel_tags[channel] + "_" + region_tags[region] + "_nominal";
             if(syst != "nominal" && !force_nominal) histname_in += "_" + syst_shift[m];
             histname_in += "/" + histinname_base[region];
             // if(syst == "JEC" || syst == "JER") histname_in = histfolder_base + "_" + region_tags[region] + "/" + histinname_base[region];
-            if(syst.Contains("scale") && !force_nominal) histname_in = histfolder_base + "_" + region_tags[region] + "_scale_" + syst_shift[m] +  "/" + histinname_base[region];
-            TString histname_out =  histoutname_base[region] + "_" + region_tags[region] + "__" + sample_out;
+            if(syst.Contains("scale") && !force_nominal) histname_in = histfolder_base + "_" + channel_tags[channel] + "_" + region_tags[region] + "_scale_" + syst_shift[m] +  "/" + histinname_base[region];
+
+            TString histname_out =  histoutname_base[region] + "_" + channel_tags[channel] + "_" + region_tags[region] + "__" + sample_out;
             if(syst != "nominal") histname_out += "__" + syst + syst_shift_combine[m];
 
             TH1F* h_in = (TH1F*)f_in->Get(histname_in);
+            if(sample_in.Contains("LQtoTMuM300") || sample_in.Contains("LQtoTMuM400")){
+              h_in->Scale(1./10.);
+            }
             h_in->SetName(histname_out);
             f_out->cd();
             h_in->Write();

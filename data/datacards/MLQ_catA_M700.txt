@@ -12,7 +12,7 @@ observation -1
 -----------------------------
 
 # INPUT
-shapes * * input/combine_histograms_mc_fullsyst_much.root $CHANNEL__$PROCESS_2016v3 $CHANNEL__$PROCESS_2016v3__$SYSTEMATIC
+shapes * * input/combine_histograms_mc_fullsyst_incl.root $CHANNEL__$PROCESS_2016v3 $CHANNEL__$PROCESS_2016v3__$SYSTEMATIC
 # PROCESSES
 bin        MLQ_catA  MLQ_catA  MLQ_catA  MLQ_catA  MLQ_catA  MLQ_catA  
 process    LQtoTMuM700  TTbar  DYJets  SingleTop  TTV  Diboson  

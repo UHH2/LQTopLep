@@ -24,8 +24,6 @@
 
 using namespace std;
 
-void cosmetics();
-
 
 
 void AnalysisTool::PlotLimits(){
@@ -47,7 +45,22 @@ void AnalysisTool::PlotLimits(){
 
 
   //0) general cosmetics
-  cosmetics();
+  gStyle->SetTitleFont(42, "XYZ");
+  gStyle->SetTitleSize(0.055, "XYZ");
+  gStyle->SetTitleXOffset(0.9);
+  gStyle->SetTitleYOffset(1.25);
+  gStyle->SetLabelFont(42, "XYZ");
+  gStyle->SetLabelOffset(0.007, "XYZ");
+  gStyle->SetLabelSize(0.05, "XYZ");
+  gStyle->SetStripDecimals(kTRUE);
+  gStyle->SetTickLength(0.03, "XYZ");
+  gStyle->SetNdivisions(505, "XYZ");
+  gStyle->SetPadTickX(1);
+  gStyle->SetPadTickY(1);
+
+
+
+
 
   //1) define masspoints
   // vector<double> x_theo, x = {200,300,400,500,600,700,800,900,1000,1200,1400,1700,2000};
@@ -331,10 +344,10 @@ void AnalysisTool::PlotLimits(){
   TLatex *text1 = new TLatex(3.5, 24, infotext);
   text1->SetNDC();
   text1->SetTextAlign(33);
-  text1->SetX(0.94);
+  text1->SetX(0.965);
   text1->SetTextFont(42);
-  text1->SetTextSize(0.045);
-  text1->SetY(1.);
+  text1->SetTextSize(0.046);
+  text1->SetY(0.99);
   text1->Draw();
 
   TString cmstext = "CMS";
@@ -366,6 +379,7 @@ void AnalysisTool::PlotLimits(){
   h->GetYaxis()->SetTitleSize(0.048);
   h->GetYaxis()->SetTitleOffset(1.05);
   h->Draw("AXIS SAME");
+  gPad->SetTopMargin(0.06);
   gPad->SetLeftMargin(0.11);
   gPad->SetRightMargin(0.035);
   gPad->SetBottomMargin(0.11);
@@ -375,155 +389,4 @@ void AnalysisTool::PlotLimits(){
   c->SaveAs(AnalysisTool::theta_path + "output/limitplot_mc_fullsyst_much.pdf");
 
 
-}
-
-
-
-
-void cosmetics(){
-  TStyle *thesisStyle = new TStyle("thesisStyle","Style for Thesis"); //hard
-
-
-  // For the canvas:
-  thesisStyle->SetCanvasBorderMode(0);
-  thesisStyle->SetCanvasColor(kWhite);
-  thesisStyle->SetCanvasDefH(600); //Height of canvas
-  thesisStyle->SetCanvasDefW(600); //Width of canvas
-  thesisStyle->SetCanvasDefX(0);   //POsition on screen
-  thesisStyle->SetCanvasDefY(0);
-
-  // For the Pad:
-  thesisStyle->SetPadBorderMode(0);
-  // thesisStyle->SetPadBorderSize(Width_t size = 1);
-  thesisStyle->SetPadColor(kWhite);
-  thesisStyle->SetPadGridX(false);
-  thesisStyle->SetPadGridY(false);
-  thesisStyle->SetGridColor(0);
-  thesisStyle-> SetPadTickX(1);
-  thesisStyle->   SetPadTickY(1);
-  //thesisStyle->SetGridStyle(3);
-  //thesisStyle->SetGridWidth(1);
-
-  // For the frame:
-  thesisStyle->SetFrameBorderMode(0);
-  thesisStyle->SetFrameBorderSize(3);
-  thesisStyle->SetFrameFillColor(0);
-  thesisStyle->SetFrameFillStyle(0);
-  thesisStyle->SetFrameLineColor(1);
-  thesisStyle->SetFrameLineStyle(1);
-  thesisStyle->SetFrameLineWidth(3);
-
-  // For the histo:
-  // thesisStyle->SetHistFillColor(1);
-  // thesisStyle->SetHistFillStyle(0);
-  thesisStyle->SetHistLineColor(1);
-  thesisStyle->SetHistLineStyle(0);
-  thesisStyle->SetHistLineWidth(3);
-  // thesisStyle->SetLegoInnerR(Float_t rad = 0.5);
-  // thesisStyle->SetNumberContours(Int_t number = 20);
-
-  thesisStyle->SetEndErrorSize(2);
-  //  thesisStyle->SetErrorMarker(20);
-  thesisStyle->SetErrorX(0.);
-
-  thesisStyle->SetMarkerStyle(20);
-
-  //For the fit/function:
-  thesisStyle->SetOptFit(0);
-  thesisStyle->SetFitFormat("5.4g");
-  thesisStyle->SetFuncColor(2);
-  thesisStyle->SetFuncStyle(1);
-  thesisStyle->SetFuncWidth(3);
-
-  //For the date:
-  thesisStyle->SetOptDate(0);
-  // thesisStyle->SetDateX(Float_t x = 0.01);
-  // thesisStyle->SetDateY(Float_t y = 0.01);
-
-  // For the statistics box:
-  thesisStyle->SetOptFile(0);
-  thesisStyle->SetOptStat(0); // To display the mean and RMS:   SetOptStat("mr");
-  thesisStyle->SetStatColor(kWhite);
-  thesisStyle->SetStatFont(42);
-  thesisStyle->SetStatFontSize(0.025);
-  thesisStyle->SetStatTextColor(1);
-  thesisStyle->SetStatFormat("6.4g");
-  thesisStyle->SetStatBorderSize(1);
-  thesisStyle->SetStatH(0.1);
-  thesisStyle->SetStatW(0.15);
-  // thesisStyle->SetStatStyle(Style_t style = 1001);
-  // thesisStyle->SetStatX(Float_t x = 0);
-  // thesisStyle->SetStatY(Float_t y = 0);
-
-  // Margins:
-  thesisStyle->SetPadTopMargin(0.05);
-  thesisStyle->SetPadBottomMargin(0.13);
-  thesisStyle->SetPadLeftMargin(0.16);
-  thesisStyle->SetPadRightMargin(0.06);
-
-  // For the Global title:
-
-  thesisStyle->SetOptTitle(0);
-  thesisStyle->SetTitleFont(42);
-  thesisStyle->SetTitleColor(1);
-  thesisStyle->SetTitleTextColor(1);
-  thesisStyle->SetTitleFillColor(10);
-  thesisStyle->SetTitleFontSize(0.05);
-  // thesisStyle->SetTitleH(0); // Set the height of the title box
-  // thesisStyle->SetTitleW(0); // Set the width of the title box
-  // thesisStyle->SetTitleX(0); // Set the position of the title box
-  // thesisStyle->SetTitleY(0.985); // Set the position of the title box
-  // thesisStyle->SetTitleStyle(Style_t style = 1001);
-  // thesisStyle->SetTitleBorderSize(2);
-
-  // For the axis titles:
-
-  thesisStyle->SetTitleColor(1, "XYZ");
-  thesisStyle->SetTitleFont(42, "XYZ");
-  thesisStyle->SetTitleSize(0.055, "XYZ");
-  // thesisStyle->SetTitleXSize(Float_t size = 0.02); // Another way to set the size?
-  // thesisStyle->SetTitleYSize(Float_t size = 0.02);
-  thesisStyle->SetTitleXOffset(0.9);//0.9
-  thesisStyle->SetTitleYOffset(1.25);//1.35
-  // thesisStyle->SetTitleOffset(1.1, "Y"); // Another way to set the Offset
-
-  // For the axis labels:
-
-  thesisStyle->SetLabelColor(1, "XYZ");
-  thesisStyle->SetLabelFont(42, "XYZ");
-  thesisStyle->SetLabelOffset(0.007, "XYZ");
-  thesisStyle->SetLabelSize(0.05, "XYZ");
-
-  // For the axis:
-
-  thesisStyle->SetAxisColor(1, "XYZ");
-  thesisStyle->SetStripDecimals(kTRUE);
-  thesisStyle->SetTickLength(0.03, "XYZ");
-  thesisStyle->SetNdivisions(505, "XYZ");//510
-  //thesisStyle->SetPadTickX(1);  // To get tick marks on the opposite side of the frame
-  //thesisStyle->SetPadTickY(1);
-  thesisStyle->SetPadTickX(1);
-  thesisStyle->SetPadTickY(1);
-  thesisStyle->SetNdivisions(510, "Z");//510
-
-  // Change for log plots:
-  thesisStyle->SetOptLogx(0);
-  thesisStyle->SetOptLogy(0);
-  thesisStyle->SetOptLogz(0);
-
-  // Postscript options:
-  thesisStyle->SetPaperSize(20.,20.);
-  // thesisStyle->SetLineScalePS(Float_t scale = 3);
-  // thesisStyle->SetLineStyleString(Int_t i, const char* text);
-  // thesisStyle->SetHeaderPS(const char* header);
-  // thesisStyle->SetTitlePS(const char* pstitle);
-
-  // thesisStyle->SetBarOffset(Float_t baroff = 0.5);
-  // thesisStyle->SetBarWidth(Float_t barwidth = 0.5);
-  // thesisStyle->SetPaintTextFormat(const char* format = "g");
-  // thesisStyle->SetPalette(Int_t ncolors = 0, Int_t* colors = 0);
-  // thesisStyle->SetTimeOffset(Double_t toffset);
-  // thesisStyle->SetHistMinimumZero(kTRUE);
-
-  thesisStyle->cd();
 }
