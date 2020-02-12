@@ -16,9 +16,9 @@ def write_lines(path, filename, lines):
         outfile.write('\n')
     outfile.close()
 
-def get_lines_datacard_header(category, mass):
+def get_lines_datacard_header(category, channel, mass):
     lines = []
-    lines.append('# Datacard for variable %s in category %s for masspoint %i \n' % (variables_per_category[category], category, mass))
+    lines.append('# Datacard for variable %s in channel %s, category %s, for masspoint %i \n' % (variables_per_category[category], channel, category, mass))
     lines.append('# HEADER')
     lines.append('imax 1')
     lines.append('jmax %i' % (len(backgrounds_per_category[category])))
@@ -104,7 +104,7 @@ def get_lines_datacard_statistics():
 
 
 
-def create_datacard(year, mass, category, backgrounds, systematics, path_datacards, rootfilename):
+def create_datacard(year, mass, category, channel, backgrounds, systematics, path_datacards, rootfilename):
     print 'Creating datacard for mass %i and category %s. ' % (mass, category)
 
     if not os.path.exists(path_datacards):
@@ -114,15 +114,15 @@ def create_datacard(year, mass, category, backgrounds, systematics, path_datacar
         raise RuntimeError('Rootfile %s does not exist.' % (path_datacards + '/' + rootfilename))
     # else: print 'rootfile containing histograms: %s' % (path_datacards + '/' + rootfilename)
 
-    filename_datacard = variables_per_category[category] + '_cat' + category + '_M' + str(mass) + '.txt'
+    filename_datacard = variables_per_category[category] + '_' + channel + '_cat' + category + '_M' + str(mass) + '.txt'
     # print 'filename: %s ' % (filename_datacard)
     # print 'going to create file: %s' % (path_datacards + '/' + filename_datacard)
-    varcat = variables_per_category[category] + '_cat' + category
+    varcat = variables_per_category[category] + '_' + channel + '_cat' + category
     separator = ['-----------------------------\n']
 
 
 
-    lines_header = get_lines_datacard_header(category, mass) + separator
+    lines_header = get_lines_datacard_header(category, channel, mass) + separator
     lines_channels = get_lines_datacard_channels(varcat) + separator
     lines_input = get_lines_datacard_input(rootfilename, year)
     lines_processes = get_lines_datacard_processes(category, varcat, mass, backgrounds)

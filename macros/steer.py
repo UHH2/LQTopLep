@@ -10,10 +10,12 @@ systematics = ['lumi', 'rate_ttbar', 'rate_dy', 'rate_ttv', 'rate_diboson', 'rat
 backgrounds = ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu']
 
 categories = ['A', 'B']
+channels = ['srmu', 'ttbar']
+# channels = ['srmu']
 
 masspoints = [200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1700, 2000]
 
 
-CombineRunner.CreateDatacards(masspoints, categories, backgrounds, systematics, 'combine_histograms_mc_fullsyst_much.root')
-CombineRunner.CombineChannels(masspoints, categories)
-CombineRunner.ExecuteCombineCombination(masspoints, categories)
+CombineRunner.CreateDatacards(masspoints, categories, channels, backgrounds, systematics, 'combine_histograms_mc_fullsyst_incl.root')
+CombineRunner.CombineChannels(masspoints, categories, channels)
+CombineRunner.ExecuteCombineCombination(masspoints, categories, channels)

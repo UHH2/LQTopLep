@@ -88,6 +88,11 @@ variables_per_category = {
 'B': 'ST'
 }
 
+categories_per_channel = {
+'srmu': ['A', 'B'],
+'ttbar': ['B']
+}
+
 yeartags = {
 2016: '2016v3',
 2017: '2017v2',
