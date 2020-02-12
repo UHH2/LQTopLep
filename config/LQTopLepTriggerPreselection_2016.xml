@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
-	  <!ENTITY TargetLumi      "35920">
-	  <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/2016/Trigger/Preselection">
-	  <!ENTITY b_Cacheable     "False">
-	  <!ENTITY NEVT            "-1">
-	  <!ENTITY PROOFdir        "/nfs/dust/cms/user/frahmmat/.proof2">
+<!ENTITY TargetLumi      "35920">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/2016/Trigger/Preselection">
+<!ENTITY b_Cacheable     "False">
+<!ENTITY NEVT            "-1">
+<!ENTITY PROOFdir        "/nfs/dust/cms/user/frahmmat/.proof2">
 
 
 
@@ -120,6 +120,15 @@
 <!ENTITY DATA_Electron_G SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/DATA_SingleElectron2016_RunG.xml">
 <!ENTITY DATA_Electron_H SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/DATA_SingleElectron2016_RunH.xml">
 
+<!ENTITY DATA_Photon_B1 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016B_ver1_v1.xml">
+<!ENTITY DATA_Photon_B2 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016B_ver2_v1.xml">
+<!ENTITY DATA_Photon_C SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016C_v1.xml">
+<!ENTITY DATA_Photon_D SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016D_v1.xml">
+<!ENTITY DATA_Photon_E SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016E_v1.xml">
+<!ENTITY DATA_Photon_F SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016F_v1.xml">
+<!ENTITY DATA_Photon_G SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016G_v1.xml">
+<!ENTITY DATA_Photon_H SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016H_v1.xml">
+
 
 
 
@@ -128,18 +137,18 @@
 
 <!--
 <ConfigParse NEventsBreak="0" FileSplit="30" AutoResubmit="5"/>
-<ConfigSGE RAM="4" DISK="3" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_Trigger_Pre"/>
+<ConfigSGE RAM="4" DISK="3" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_Trigger_Pre_2016"/>
 -->
 
 
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
 <JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
-  <Library Name="libSUHH2LQTopLep"/>
-  <Package Name="SUHH2LQTopLep.par" />
+	<Library Name="libSUHH2LQTopLep"/>
+	<Package Name="SUHH2LQTopLep.par" />
 
 
-<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;" >
+	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;" >
 
 
 
@@ -229,6 +238,59 @@
 
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Electron_H_2016v3" Cacheable="&b_Cacheable;">
 			&DATA_Electron_H;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+
+
+
+
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_B1_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_B1;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_B2_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_B2;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_C_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_C;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_D_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_D;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_E_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_E;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_F_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_F;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_G_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_G;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_H_2016v3" Cacheable="&b_Cacheable;">
+			&DATA_Photon_H;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
@@ -658,17 +720,17 @@
 
 
 
-        <UserConfig>
-            <!-- define which collections to read from the input. Only specify what you need to save I/O time -->
-            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
-            <Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
-            <Item Name="MuonCollection" Value="slimmedMuonsUSER" />
-            <Item Name="JetCollection" Value="jetsAk4CHS" />
-            <Item Name="METName" Value="slimmedMETs" />
-            <Item Name="GenJetCollection" Value="slimmedGenJets" />
-	  <!--  <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />  -->  <!-- this might be important later (LQ mass reco?) -->
-	    <Item Name="GenParticleCollection" Value="GenParticles" />
-	    <Item Name="GenInfoName" Value="genInfo" />
+		<UserConfig>
+			<!-- define which collections to read from the input. Only specify what you need to save I/O time -->
+			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
+			<Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
+			<Item Name="MuonCollection" Value="slimmedMuonsUSER" />
+			<Item Name="JetCollection" Value="jetsAk4CHS" />
+			<Item Name="METName" Value="slimmedMETs" />
+			<Item Name="GenJetCollection" Value="slimmedGenJets" />
+			<!--  <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />  -->  <!-- this might be important later (LQ mass reco?) -->
+			<Item Name="GenParticleCollection" Value="GenParticles" />
+			<Item Name="GenInfoName" Value="genInfo" />
 
 
 			<Item Name="lumi_file" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/Cert_271036-284044_13TeV_ReReco_07Aug2017_Collisions16_JSON.root" />
@@ -676,50 +738,50 @@
 
 
 
-            <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
+			<!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
 
-                 PrimaryVertexCollection
-                 ElectronCollection
-                 MuonCollection
-                 TauCollection
-                 PhotonCollection
-                 JetCollection
-                 TopJetCollection
-                 METName
+			PrimaryVertexCollection
+			ElectronCollection
+			MuonCollection
+			TauCollection
+			PhotonCollection
+			JetCollection
+			TopJetCollection
+			METName
 
-                 GenInfoName
-                 GenJetCollection
-                 GenTopJetCollection
-                 GenParticleCollection
+			GenInfoName
+			GenJetCollection
+			GenTopJetCollection
+			GenParticleCollection
 
-                 Note that the last four are only read in for MC (InputData Type="MC"), so it is save to specify
-                 them for real data, although those branches do not exist.
+			Note that the last four are only read in for MC (InputData Type="MC"), so it is save to specify
+			them for real data, although those branches do not exist.
 
-                 As 'Value', always use the branch name (if in doubt, open the input file in ROOT).
+			As 'Value', always use the branch name (if in doubt, open the input file in ROOT).
 
-                 By default, triggers are read. To explicitly disable reading triggers, use:
-                 <Item Name="readTrigger" Value="false" />
-		 -->
+			By default, triggers are read. To explicitly disable reading triggers, use:
+			<Item Name="readTrigger" Value="false" />
+		-->
 
-            <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="LQTopLepTriggerPreselectionModule" />
+		<!-- the class name of the AnalysisModule subclasses to run: -->
+		<Item Name="AnalysisModule" Value="LQTopLepTriggerPreselectionModule" />
 
-            <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
-                 MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
-                 event weight assigned by MCLumiWeight is InputData.Lumi / Cycle.TargetLumi. -->
-            <Item Name="use_sframe_weight" Value="false" />
+		<!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
+		MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
+		event weight assigned by MCLumiWeight is InputData.Lumi / Cycle.TargetLumi. -->
+		<Item Name="use_sframe_weight" Value="false" />
 
-						<!-- configuration for MCPileupReweight (run as part of CommonModules): -->
-						<Item Name="pileup_directory" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MyMCPileupHistogram.root" />
-						<Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MyDataPileupHistogram.root" />
-
-
-						<Item Name="jecsmear_direction" Value="nominal" />
-						<Item Name="jersmear_direction" Value="nominal" />
+		<!-- configuration for MCPileupReweight (run as part of CommonModules): -->
+		<Item Name="pileup_directory" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MyMCPileupHistogram.root" />
+		<Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MyDataPileupHistogram.root" />
 
 
-            <!-- Some test configuration; see LQToTopMuModule.cxx for how to access it: -->
-            <Item Name="TestKey" Value="TestKeyValue" />
-        </UserConfig>
+		<Item Name="jecsmear_direction" Value="nominal" />
+		<Item Name="jersmear_direction" Value="nominal" />
+
+
+		<!-- Some test configuration; see LQToTopMuModule.cxx for how to access it: -->
+		<Item Name="TestKey" Value="TestKeyValue" />
+	</UserConfig>
 </Cycle>
 </JobConfiguration>

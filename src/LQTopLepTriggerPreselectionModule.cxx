@@ -49,10 +49,10 @@ namespace uhh2examples {
 
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> nelectrons_lowpt_sel, nelectrons_highpt_sel, nmuons_lowpt_sel, nmuons_highpt_sel, njets_sel;
+    std::unique_ptr<Selection> nelectrons_sel, nmuons_sel, njets_sel;
 
-    ElectronId eleId_lowpt, eleId_highpt;
-    MuonId muId_lowpt, muId_highpt;
+    ElectronId eleId_highpt;
+    MuonId muId_highpt;
     JetId jetId;
 
     bool is_mc;
@@ -100,10 +100,7 @@ namespace uhh2examples {
 
 
     // Object kinematic cuts
-    // Idea: require == 1 lepton with >30 gev (minimum offline threshold for trigger plateaus), while not throwing away leptons with 10 < pt < 30 (for plotting the turn-on).
-    // lowpt for cleaning and requiring at least 1
     // highpt for requiring == 1
-    double leptonlowpt = 10.;
     double leptonhighpt = 30.;
     double leptoneta = 2.4;
     double jetpt = 30.;
@@ -113,14 +110,11 @@ namespace uhh2examples {
     // Object IDs
     JetId jet_pfid = JetPFID(JetPFID::WP_TIGHT_CHS);
     jetId = AndId<Jet>(jet_pfid, PtEtaCut(jetpt, jeteta));
-    eleId_lowpt = AndId<Electron>(ElectronID_Fall17_tight, PtEtaCut(leptonlowpt, leptoneta));
     eleId_highpt = AndId<Electron>(ElectronID_Fall17_tight, PtEtaCut(leptonhighpt, leptoneta));
     if (year == Year::is2016v2){
-      muId_lowpt = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(leptonlowpt, leptoneta), MuonIso(0.15));
       muId_highpt = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(leptonhighpt, leptoneta), MuonIso(0.15));
     }
     else{
-      muId_lowpt = AndId<Muon>(MuonID(Muon::CutBasedIdTight), PtEtaCut(leptonlowpt, leptoneta), MuonID(Muon::PFIsoTight));
       muId_highpt = AndId<Muon>(MuonID(Muon::CutBasedIdTight), PtEtaCut(leptonhighpt, leptoneta), MuonID(Muon::PFIsoTight));
     }
 
@@ -128,23 +122,21 @@ namespace uhh2examples {
     // CommonModules
     common.reset(new CommonModules());
     common->switch_jetlepcleaner(true);
-    common->set_electron_id(eleId_lowpt);
-    common->set_muon_id(muId_lowpt);
+    common->set_electron_id(eleId_highpt);
+    common->set_muon_id(muId_highpt);
     common->set_jet_id(jetId);
     common->switch_jetPtSorter();
     common->init(ctx);
 
 
     // Selections
-    nelectrons_lowpt_sel.reset(new NElectronSelection(1, -1));
-    nmuons_lowpt_sel.reset(new NMuonSelection(1, -1));
-    nelectrons_highpt_sel.reset(new NElectronSelection(1, 1, eleId_highpt));
-    nmuons_highpt_sel.reset(new NMuonSelection(1, 1, muId_highpt));
+    nelectrons_sel.reset(new NElectronSelection(1, 1));
+    nmuons_sel.reset(new NMuonSelection(1, 1));
     njets_sel.reset(new NJetSelection(2, -1));
 
 
     // Book histograms
-    vector<string> histogram_tags = {"NoCuts", "Cleaner", "2Jets", "ElectronLowpt", "MuonLowpt", "ElectronHighpt", "MuonHighpt"};
+    vector<string> histogram_tags = {"NoCuts", "Cleaner", "2Jets", "1Electron", "1Muon"};
     book_histograms(ctx, histogram_tags);
 
 
@@ -163,17 +155,11 @@ namespace uhh2examples {
     if(!njets_sel->passes(event)) return false;
     fill_histograms(event,"2Jets");
 
-    if(!nelectrons_lowpt_sel->passes(event)) return false;
-    fill_histograms(event,"ElectronLowpt");
+    if(!nelectrons_sel->passes(event)) return false;
+    fill_histograms(event,"1Electron");
 
-    if(!nmuons_lowpt_sel->passes(event)) return false;
-    fill_histograms(event,"MuonLowpt");
-
-    if(!nelectrons_highpt_sel->passes(event)) return false;
-    fill_histograms(event,"ElectronHighpt");
-
-    if(!nmuons_highpt_sel->passes(event)) return false;
-    fill_histograms(event,"MuonHighpt");
+    if(!nmuons_sel->passes(event)) return false;
+    fill_histograms(event,"1Muon");
 
     return true;
   }
