@@ -39,7 +39,8 @@ void LQTopLepTriggerHists::fill(const Event & event){
   // Don't forget to always use the weight when filling.
   double weight = event.weight;
 
-  if(event.electrons->size() != 1 || event.muons->size() != 1) throw runtime_error("In LQTopLepTriggerHists.cxx: Not ==1 electron or muon --> this is needed for Tag&Probe selection.");
+  if(event.electrons->size() != 1 || event.muons->size() != 1) return;
+  // if(event.electrons->size() != 1 || event.muons->size() != 1) throw runtime_error("In LQTopLepTriggerHists.cxx: Not ==1 electron or muon --> this is needed for Tag&Probe selection.");
   double pt_ele = event.electrons->at(0).pt();
   double eta_ele = event.electrons->at(0).eta();
   double pt_mu = event.muons->at(0).pt();
