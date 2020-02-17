@@ -15,10 +15,12 @@ int main(){
   // Analysis16.ProduceCombineHistograms_mc_fullsyst_much();
 
   // Run combine script before for this step
-  Analysis16.PlotLimitsCombine();
+  // Analysis16.PlotLimitsCombine();
 
 
 
+  AnalysisTool Analysis17(2017);
+  Analysis17.CalculateTriggerEfficiencies();
 
 
   // // Old theta macros

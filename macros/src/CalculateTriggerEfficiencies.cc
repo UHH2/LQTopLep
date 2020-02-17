@@ -25,11 +25,16 @@ void AnalysisTool::CalculateTriggerEfficiencies(){
     make_pair("30",  "50"),
     make_pair("50",  "100"),
     make_pair("100", "200"),
+    make_pair("100", "175"),
     make_pair("200", "Inf"),
+    make_pair("175", "Inf"),
     make_pair("100", "Inf"),
     make_pair("30",  "200"),
+    make_pair("30",  "175"),
     make_pair("50",  "200"),
+    make_pair("50",  "175"),
   };
+
 
   for(size_t i=0; i<pt_regions.size(); i++){
 
@@ -62,6 +67,8 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   gStyle->SetPadTickX(1);
   gStyle->SetPadTickY(1);
   if(mode != "electron" && mode != "muon") throw runtime_error("Only 'electron' or 'muon' allowed as value for 'mode'.");
+  TString dataname_ele = "Electron";
+  if(year == "2017" || year == "2016") dataname_ele = "EGamma";
 
 
   // Read files
@@ -76,7 +83,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   input_QCDMU.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.QCDMu_" + yeartag + ".root","READ"));
   input_QCDELE.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.QCDEle_" + yeartag + ".root","READ"));
   input_DATAMU.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_" + yeartag + ".root","READ"));
-  input_DATAELE.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_" + yeartag + ".root","READ"));
+  input_DATAELE.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.DATA.DATA_" + dataname_ele + "_" + yeartag + ".root","READ"));
 
 
   // Read histograms for MC and data
@@ -154,12 +161,20 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
   // Efficiencies
   TGraphAsymmErrors* gr_mc;
-  for(int i=0; i<h_MC_before->GetNbinsX(); i++){
+  for(int i=-1; i<h_MC_before->GetNbinsX()+1; i++){
     if(h_MC_before->GetBinContent(i+1) < h_MC_after->GetBinContent(i+1)){
       h_MC_after->SetBinContent(i+1, h_MC_before->GetBinContent(i+1));
     }
+    if(h_MC_before->GetBinContent(i+1) <= 0) h_MC_before->SetBinContent(i+1, 0.);
+    if(h_MC_after->GetBinContent(i+1) <= 0) h_MC_after->SetBinContent(i+1, 0.);
+    // cout << "MC bin " << i+1 << ", before: " << h_MC_before->GetBinContent(i+1) << ", after: " << h_MC_after->GetBinContent(i+1) << endl;
+    // cout << "DATA bin " << i+1 << ", before: " << h_DATA_before->GetBinContent(i+1) << ", after: " << h_DATA_after->GetBinContent(i+1) << endl;
+    // if(h_MC_before->GetBinContent(i+1) < h_MC_after->GetBinContent(i+1)) cout << "+++++++++++++++ MC in bin " << i+1 << ", before < after" << endl;
+    // if(h_DATA_before->GetBinContent(i+1) < h_DATA_after->GetBinContent(i+1)) cout << "+++++++++++++++ DATA in bin " << i+1 << ", before < after" << endl;
   }
+  // cout << "Trying for mc" << endl;
   gr_mc = new TGraphAsymmErrors(h_MC_after, h_MC_before);
+  // cout << "trying for data" << endl;
   TGraphAsymmErrors* gr_data = new TGraphAsymmErrors(h_DATA_after, h_DATA_before);
   HistCosmetics(gr_mc);
   HistCosmetics(gr_data);
@@ -227,8 +242,9 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
   }
 
-  TGraphAsymmErrors* gr_ratio = new TGraphAsymmErrors(n_bins, &SF_x[0], &SF_y[0], &SF_x_low[0], &SF_x_high[0], &SF_y_low[0], &SF_y_high[0]);
+  TGraphAsymmErrors* gr_ratio = new TGraphAsymmErrors(SF_x.size(), &SF_x[0], &SF_y[0], &SF_x_low[0], &SF_x_high[0], &SF_y_low[0], &SF_y_high[0]);
   HistCosmetics(gr_ratio,true);
+  // cout <<"xaxis should start at " << SF_x[0] << endl;
 
 
 

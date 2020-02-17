@@ -155,7 +155,8 @@ bool InvMass2MuSelection::passes(const Event & event) {
     muons[i] = event.muons->at(i).v4();
   }
   for(int i=0; i<Nmuons; i++) {
-    for(int j=i; j<Nmuons; j++) {
+    for(int j=0; j<Nmuons; j++) {
+      if(j <= i) continue;
       const auto& dimu = muons[i]+muons[j];
       M_mumu = dimu.M(); // calculate M_mumu for every pair of muons
       if(M_mumu > m_min && (M_mumu < m_max || m_max < 0.)) {

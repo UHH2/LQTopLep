@@ -796,7 +796,7 @@ event weight assigned by MCLumiWeight is InputData.Lumi / Cycle.TargetLumi. -->
 <Item Name="use_sframe_weight" Value="false" />
 
 
-<Item Name="MCBtagEfficiencies" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/BTagMCEfficiencyHists_DJLoose_MuonChannel_2016.root" />
+<Item Name="MCBtagEfficiencies" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/2016/BTagMCEfficiencyHists_DJLoose_MuonChannel_2016.root" />
 <Item Name="BTagCalibration" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/DeepJet_2016LegacySF_WP_V1.csv" />
 
 <Item Name="pileup_directory" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MyMCPileupHistogram.root" />

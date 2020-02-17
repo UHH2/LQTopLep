@@ -11,7 +11,7 @@ using namespace std;
 
 
 
-MuonTriggerWeights::MuonTriggerWeights(Context & ctx, TString path_): path(path_){
+MuonTriggerWeights::MuonTriggerWeights(Context & ctx, TString path_, Year year_): path(path_), year(year_){
 
   h_muon_weight      = ctx.declare_event_output<float>("weight_sfmuon_trigger");
   h_muon_weight_up   = ctx.declare_event_output<float>("weight_sfmuon_trigger_up");
@@ -24,11 +24,14 @@ MuonTriggerWeights::MuonTriggerWeights(Context & ctx, TString path_): path(path_
     return;
   }
 
+  TString yeartag = "2016";
+  if(year == Year::is2017v1 || year == Year::is2017v2) yeartag = "2017";
+  else if(year == Year::is2018) yeartag = "2018";
   unique_ptr<TFile> file_30to50, file_50to100, file_100to200, file_200toinf;
-  file_30to50.reset(new TFile(path+"/MuonTriggerScaleFactors_eta_mu_binned_pt30to50.root","READ"));
-  file_50to100.reset(new TFile(path+"/MuonTriggerScaleFactors_eta_mu_binned_pt50to100.root","READ"));
-  file_100to200.reset(new TFile(path+"/MuonTriggerScaleFactors_eta_mu_binned_pt100to200.root","READ"));
-  file_200toinf.reset(new TFile(path+"/MuonTriggerScaleFactors_eta_mu_binned_pt200toInf.root","READ"));
+  file_30to50.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt30to50.root","READ"));
+  file_50to100.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt50to100.root","READ"));
+  file_100to200.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt100to200.root","READ"));
+  file_200toinf.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt200toInf.root","READ"));
 
   g_sf_30to50.reset((TGraphAsymmErrors*)file_30to50->Get("ScaleFactors"));
   g_sf_50to100.reset((TGraphAsymmErrors*)file_50to100->Get("ScaleFactors"));
