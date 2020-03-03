@@ -136,7 +136,7 @@ namespace uhh2examples {
     if(!st_sel->passes(event)) return false;
     fill_histograms(event,"ST350");
 
-    if(!nmuons_sel->passes(event) && !(nmuons_sel_ttbar->passes(event)) && !(nelectrons_sel_ttbar->passes(event))) return false;
+    if(!nmuons_sel->passes(event) && !nelectrons_sel->passes(event) && !(nmuons_sel_ttbar->passes(event) && nelectrons_sel_ttbar->passes(event))) return false;
     if(nmuons_sel->passes(event)){
       fill_histograms(event,"2Muons");
     }
