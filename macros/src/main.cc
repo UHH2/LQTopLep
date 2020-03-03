@@ -10,8 +10,8 @@ int main(){
 
   AnalysisTool Analysis16(2016);
   // Analysis16.CalculateTriggerEfficiencies();
-  // Analysis16.PDFRMS();
-  // Analysis16.ScaleVariationEnvelope();
+  Analysis16.PDFRMS();
+  Analysis16.ScaleVariationEnvelope();
   // Analysis16.ProduceCombineHistograms_mc_fullsyst_much();
 
   // Run combine script before for this step
@@ -20,7 +20,7 @@ int main(){
 
 
   AnalysisTool Analysis17(2017);
-  Analysis17.CalculateTriggerEfficiencies();
+  // Analysis17.CalculateTriggerEfficiencies();
 
 
   // // Old theta macros

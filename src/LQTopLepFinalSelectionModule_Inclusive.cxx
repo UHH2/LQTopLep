@@ -67,6 +67,7 @@ namespace uhh2examples {
 
     uhh2::Event::Handle<bool> h_is_mlq_reconstructed;
     uhh2::Event::Handle<float> h_mlq, h_chi2;
+    uhh2::Event::Handle<TString> h_mlq_reco_mode_lq, h_mlq_reco_mode_top, h_region;
 
   };
 
@@ -84,6 +85,12 @@ namespace uhh2examples {
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
       mytag = "FinalSelection_ttbar_catB_" + tag;
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = "FinalSelection_dycr_" + tag;
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = "FinalSelection_dycr_catA_" + tag;
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = "FinalSelection_dycr_catB_" + tag;
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
     }
   }
 
@@ -99,6 +106,12 @@ namespace uhh2examples {
       mytag = "FinalSelection_ttbar_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
       mytag = "FinalSelection_ttbar_catB_" + tag;
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = "FinalSelection_dycr_" + tag;
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = "FinalSelection_dycr_catA_" + tag;
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = "FinalSelection_dycr_catB_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
     }
   }
@@ -125,6 +138,9 @@ namespace uhh2examples {
 
     h_eventweight_lumi = ctx.get_handle<float>("eventweight_lumi");
     h_eventweight_final = ctx.get_handle<float>("eventweight_final");
+    h_mlq_reco_mode_lq = ctx.get_handle<TString>("mlq_reco_mode_lq");
+    h_mlq_reco_mode_top = ctx.get_handle<TString>("mlq_reco_mode_top");
+    h_region = ctx.get_handle<TString>("region");
 
     h_is_mlq_reconstructed = ctx.get_handle<bool>("is_mlq_reconstructed");
     h_mlq = ctx.get_handle<float>("mlq");
@@ -198,12 +214,8 @@ namespace uhh2examples {
 
   bool LQTopLepFinalSelectionModule_Inclusive::process(Event & event) {
 
-    string region = "";
-    if(event.muons->size() == 1 && event.electrons->size() == 1) region = "ttbar";
-    else if (event.muons->size() >= 2) region = "srmu";
-    else return false;
-
-
+    TString handle_region = event.get(h_region);
+    string region = (string)handle_region;
     bool is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);
 
     // Read out nominal eventweight

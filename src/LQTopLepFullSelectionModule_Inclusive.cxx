@@ -58,7 +58,7 @@ namespace uhh2examples {
     unique_ptr<Hists> h_btageff;
     unique_ptr<AnalysisModule> SF_eleReco, SF_eleID, SF_muonIso, SF_muonID, SF_muonTrigger, SF_btag, scale_variation_module;
 
-    std::unique_ptr<Selection> nbtag_loose_sel, st_lep_sel, inv_mass_veto, inv_mass_sel, inv_mass_muele_veto, muon_trigger_sel1, muon_trigger_sel2, nele_sel, nmuons_sel;
+    std::unique_ptr<Selection> nbtag_loose_sel, st_lep_sel, inv_mass_veto_mu, inv_mass_sel_mu, inv_mass_veto_ele, inv_mass_sel_ele, inv_mass_veto_muele, muon_trigger_sel1, muon_trigger_sel2, nele_sel, nmuons_sel;
 
     unique_ptr<HighMassInclusiveLQReconstruction> mlq_reco;
     unique_ptr<LQChi2Discriminator> chi2_module;
@@ -92,9 +92,13 @@ namespace uhh2examples {
       cout << "booking histograms with tag " << tag << endl;
       string mytag = tag+ "_srmu_General";
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = tag+ "_srele_General";
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
       mytag = tag+ "_ttbar_General";
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
-      mytag = tag+ "_dycr_General";
+      mytag = tag+ "_dycrmu_General";
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = tag+ "_dycrele_General";
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
       mytag = tag+ "_incl_General";
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
@@ -186,9 +190,11 @@ namespace uhh2examples {
     // Selections
     nbtag_loose_sel.reset(new NJetSelection(1, -1, DeepjetLoose));
     st_lep_sel.reset(new HtLepSelection(200, -1));
-    inv_mass_veto.reset(new InvMass2MuVeto(0., 110));
-    inv_mass_sel.reset(new InvMass2MuSelection(70., 110.));
-    inv_mass_muele_veto.reset(new InvMassEleMuVeto(0., 110.));
+    inv_mass_veto_mu.reset(new InvMass2MuVeto(0., 110.));
+    inv_mass_veto_ele.reset(new InvMassEleEleVeto(0., 100.));
+    inv_mass_sel_mu.reset(new InvMass2MuSelection(70., 110.));
+    inv_mass_sel_ele.reset(new InvMassEleEleSelection(70., 110.));
+    inv_mass_veto_muele.reset(new InvMassEleMuVeto(0., 110.));
 
 
 
@@ -213,8 +219,16 @@ namespace uhh2examples {
     string region = "";
 
     if(event.muons->size() == 1 && event.electrons->size() == 1) region = "ttbar";
-    else if (event.muons->size() >= 2) region = "srmu";
-    else return false;
+    else if (event.muons->size() >= 2 && event.electrons->size() < 2) region = "srmu";
+    else if(event.electrons->size() >= 2 && event.muons->size() < 2) region = "srele";
+    else if(event.electrons->size() >= 2 && event.muons->size() >= 2){
+      if(event.muons->at(0).pt() > event.electrons->at(0).pt()) region = "srmu";
+      else                                                      region = "srele";
+    }
+    else cout << "muons: " << event.muons->size() << ", electrons: " << event.electrons->size() << endl;
+    // else throw runtime_error("In LQTopLepFullSelectionModule_Inclusive::process: No region assigned to this event. What happened?");
+
+
 
 
     bool pass_common = common->process(event);
@@ -245,17 +259,23 @@ namespace uhh2examples {
 
     // Here, srmu is split into srmu and dycr
     if(region == "srmu"){
-      if(!inv_mass_veto->passes(event)){
-        if(inv_mass_sel->passes(event)) region = "dycr";
-        else                            return false;
+      if(!inv_mass_veto_mu->passes(event)){
+        if(inv_mass_sel_mu->passes(event)) region = "dycrmu";
+        else                               return false;
+      }
+    }
+    else if(region == "srele"){
+      if(!inv_mass_veto_ele->passes(event)){
+        if(inv_mass_sel_ele->passes(event)) region = "dycrele";
+        else                                return false;
       }
     }
     else if(region == "ttbar"){
-      if(!inv_mass_muele_veto->passes(event)) return false;
+      if(!inv_mass_veto_muele->passes(event)) return false;
     }
     fill_histograms(event,"Mleplep", region);
 
-    if(region != "dycr"){
+    if(region != "dycrmu" && region != "dycrele"){
       if(!st_lep_sel->passes(event)) return false;
     }
     fill_histograms(event,"STlep", region);
