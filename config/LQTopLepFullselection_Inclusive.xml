@@ -196,7 +196,7 @@
 
 
 
-		<!--
+
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Electron_B_2016v3" Cacheable="&b_Cacheable;">
 			<In FileName="&DATA_Electron_B;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
@@ -237,7 +237,7 @@
 			<In FileName="&DATA_Electron_H;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 
 
 
@@ -645,7 +645,7 @@
 		</InputData>
 
 
-		<!--
+
 		<InputData Lumi="1.726427995" NEventsMax="&NEVT;" Type="MC" Version="QCD_EM_Pt-20to30_2016v3" Cacheable="&b_Cacheable;">
 			<In FileName="&QCD_EM_PT20to30;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
@@ -724,7 +724,7 @@
 			<In FileName="&QCD_bcE_PT250toInf;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 
 
 
