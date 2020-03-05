@@ -25,20 +25,38 @@ class MuonTriggerWeights: public uhh2::AnalysisModule{
   uhh2::Event::Handle<float> h_muon_weight, h_muon_weight_up, h_muon_weight_down;
 
 };
-
-
-
 class ElectronTriggerWeights: public uhh2::AnalysisModule{
 
  public:
-  explicit ElectronTriggerWeights(uhh2::Context & ctx, TString path_, TString SysDirection_);
+  explicit ElectronTriggerWeights(uhh2::Context & ctx, TString path_, Year year_);
   virtual bool process(uhh2::Event & event) override;
 
  private:
-  TString path, SysDirection;
-  std::unique_ptr<TGraphAsymmErrors> Eff_lowpt_MC, Eff_lowpt_DATA, Eff_highpt_MC, Eff_highpt_DATA;
+  TString path;
+  Year year;
+  std::vector<float> pt_bins;
+  std::unique_ptr<TGraphAsymmErrors> g_sf_pt1, g_sf_pt2, g_sf_pt3, g_sf_pt4;
+  uhh2::Event::Handle<float> h_ele_weight, h_ele_weight_up, h_ele_weight_down;
 
 };
+
+
+
+
+
+
+
+// class ElectronTriggerWeights: public uhh2::AnalysisModule{
+//
+//  public:
+//   explicit ElectronTriggerWeights(uhh2::Context & ctx, TString path_, TString SysDirection_);
+//   virtual bool process(uhh2::Event & event) override;
+//
+//  private:
+//   TString path, SysDirection;
+//   std::unique_ptr<TGraphAsymmErrors> Eff_lowpt_MC, Eff_lowpt_DATA, Eff_highpt_MC, Eff_highpt_DATA;
+//
+// };
 
 class JetCorrectorVariable: public JetCorrector{
 

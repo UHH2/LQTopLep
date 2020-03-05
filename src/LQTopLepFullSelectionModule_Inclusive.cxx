@@ -56,9 +56,9 @@ namespace uhh2examples {
     std::unique_ptr<CommonModules> common;
 
     unique_ptr<Hists> h_btageff;
-    unique_ptr<AnalysisModule> SF_eleReco, SF_eleID, SF_muonIso, SF_muonID, SF_muonTrigger, SF_btag, scale_variation_module;
+    unique_ptr<AnalysisModule> SF_eleReco, SF_eleID, SF_eleTrigger, SF_muonIso, SF_muonID, SF_muonTrigger, SF_btag, scale_variation_module;
 
-    std::unique_ptr<Selection> nbtag_loose_sel, st_lep_sel, inv_mass_veto_mu, inv_mass_sel_mu, inv_mass_veto_ele, inv_mass_sel_ele, inv_mass_veto_muele, muon_trigger_sel1, muon_trigger_sel2, nele_sel, nmuons_sel;
+    std::unique_ptr<Selection> nbtag_loose_sel, st_lep_sel, inv_mass_veto_mu, inv_mass_sel_mu, inv_mass_veto_ele, inv_mass_sel_ele, inv_mass_veto_muele, muon_trigger_sel1, muon_trigger_sel2, ele_trigger_sel1, ele_trigger_sel2, ele_trigger_sel3, nele_sel, nmuons_sel;
 
     unique_ptr<HighMassInclusiveLQReconstruction> mlq_reco;
     unique_ptr<LQChi2Discriminator> chi2_module;
@@ -74,6 +74,14 @@ namespace uhh2examples {
     uhh2::Event::Handle<bool> h_is_mlq_reconstructed;
     uhh2::Event::Handle<float> h_mlq, h_chi2;
     uhh2::Event::Handle<TString> h_mlq_reco_mode_lq, h_mlq_reco_mode_top, h_region;
+
+
+    uhh2::Event::Handle<float> h_muon_triggerweight;
+    uhh2::Event::Handle<float> h_muon_triggerweight_up;
+    uhh2::Event::Handle<float> h_muon_triggerweight_down;
+    uhh2::Event::Handle<float> h_electron_triggerweight;
+    uhh2::Event::Handle<float> h_electron_triggerweight_up;
+    uhh2::Event::Handle<float> h_electron_triggerweight_down;
 
     // systematic uncertainties
     string Sys_EleID, Sys_EleReco;
@@ -130,6 +138,14 @@ namespace uhh2examples {
     h_mlq_reco_mode_top = ctx.declare_event_output<TString>("mlq_reco_mode_top");
     h_region = ctx.declare_event_output<TString>("region");
 
+    h_muon_triggerweight = ctx.declare_event_output<float>("weight_sfmu_trigger");
+    h_muon_triggerweight_up = ctx.declare_event_output<float>("weight_sfmu_trigger_up");
+    h_muon_triggerweight_down = ctx.declare_event_output<float>("weight_sfmu_trigger_down");
+
+    h_electron_triggerweight = ctx.declare_event_output<float>("weight_sfelec_trigger");
+    h_electron_triggerweight_up = ctx.declare_event_output<float>("weight_sfelec_trigger_up");
+    h_electron_triggerweight_down = ctx.declare_event_output<float>("weight_sfelec_trigger_down");
+
 
     is_mc = ctx.get("dataset_type") == "MC";
     year = extract_year(ctx);
@@ -145,10 +161,29 @@ namespace uhh2examples {
     JetId DeepjetMedium = BTag(btag_algo, wp_btag_medium);
     JetId DeepjetTight = BTag(btag_algo, wp_btag_tight);
 
+    // Triggers
+    if(year == Year::is2016v2 || year == Year::is2016v3){
+      muon_trigger_sel1.reset(new TriggerSelection("HLT_IsoMu24_v*"));
+      muon_trigger_sel2.reset(new TriggerSelection("HLT_IsoTkMu24_v*"));
+      ele_trigger_sel1.reset(new TriggerSelection("HLT_Ele27_WPTight_Gsf_v*"));
+      ele_trigger_sel2.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
+      ele_trigger_sel3.reset(new TriggerSelection("HLT_Photon175_v*"));
 
-    // electron triggers
-    muon_trigger_sel1.reset(new TriggerSelection("HLT_IsoMu24_v*"));
-    muon_trigger_sel2.reset(new TriggerSelection("HLT_IsoTkMu24_v*"));
+    }
+    else if(year == Year::is2017v1 || year == Year::is2017v2){
+      muon_trigger_sel1.reset(new TriggerSelection("HLT_IsoMu27_v*"));
+      muon_trigger_sel2.reset(new TriggerSelection("HLT_IsoMu27_v*"));
+      ele_trigger_sel1.reset(new TriggerSelection("HLT_Ele35_WPTight_Gsf_v*"));
+      ele_trigger_sel2.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
+      ele_trigger_sel3.reset(new TriggerSelection("HLT_Photon200_v*"));
+    }
+    else if(year == Year::is2018){
+      muon_trigger_sel1.reset(new TriggerSelection("HLT_IsoMu24_v*"));
+      muon_trigger_sel2.reset(new TriggerSelection("HLT_IsoMu24_v*"));
+      ele_trigger_sel1.reset(new TriggerSelection("HLT_Ele32_WPTight_Gsf_v*"));
+      ele_trigger_sel2.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
+      ele_trigger_sel3.reset(new TriggerSelection("HLT_Ele32_WPTight_Gsf_v*"));
+    }
 
 
     // initialize LQ reconstruction modules
@@ -169,12 +204,13 @@ namespace uhh2examples {
     dataset_version = ctx.get("dataset_version");
 
 
-    SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 0., "id", false, Sys_MuonID));
-    SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt", 0., "iso", false, Sys_MuonIso));
+    SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 0., "id", false, Sys_MuonID));
+    SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt", 0., "iso", false, Sys_MuonIso));
     SF_muonTrigger.reset(new MuonTriggerWeights(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data", year));
 
-    SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root", 1, "reco", Sys_EleReco));
-    SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/frahmmat/CMSnew/CMSSW_10_2_10/src/UHH2/common/data/2016/2016LegacyReReco_ElectronTight_Fall17V2.root", 1, "id", Sys_EleID));
+    SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root", 1, "reco", Sys_EleReco));
+    SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/2016LegacyReReco_ElectronTight_Fall17V2.root", 1, "id", Sys_EleID));
+    SF_eleTrigger.reset(new ElectronTriggerWeights(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data", year));
 
     SF_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, wp_btag_loose, "jets", Sys_BTag));
 
@@ -209,7 +245,6 @@ namespace uhh2examples {
 
   bool LQTopLepFullSelectionModule_Inclusive::process(Event & event) {
 
-
     event.set(h_is_mlq_reconstructed, false);
     event.set(h_mlq, -1.);
     event.set(h_chi2, -1.);
@@ -225,9 +260,11 @@ namespace uhh2examples {
       if(event.muons->at(0).pt() > event.electrons->at(0).pt()) region = "srmu";
       else                                                      region = "srele";
     }
-    else cout << "muons: " << event.muons->size() << ", electrons: " << event.electrons->size() << endl;
-    // else throw runtime_error("In LQTopLepFullSelectionModule_Inclusive::process: No region assigned to this event. What happened?");
+    else throw runtime_error("In LQTopLepFullSelectionModule_Inclusive::process: No region assigned to this event. What happened?");
 
+
+    TString leptonregion = "muon";
+    if(region == "srele" || region == "dycrele") leptonregion = "ele";
 
 
 
@@ -244,10 +281,45 @@ namespace uhh2examples {
     fill_histograms(event,"Cleaner", region);
 
 
-    if(!(muon_trigger_sel1->passes(event) || muon_trigger_sel2->passes(event))) return false;
+    if(leptonregion == "muon"){
+      // Muon regions
+      if(!(muon_trigger_sel1->passes(event) || muon_trigger_sel2->passes(event))) return false;
+
+      // Reject electron and photon data
+      if(!is_mc && !dataset_version.Contains("Muon")) return false;
+    }
+    else{
+      // Electron regions
+      if(!is_mc){
+        if(dataset_version.Contains("Electron")){
+          if(!(ele_trigger_sel1->passes(event) || ele_trigger_sel2->passes(event))) return false;
+        }
+        else if(dataset_version.Contains("Photon")){
+          // Automatically discards photon data in 2018
+          if(!(!(ele_trigger_sel1->passes(event) || ele_trigger_sel2->passes(event)) && ele_trigger_sel3->passes(event))) return false;
+        }
+        // Reject muon data
+        else return false;
+      }
+      else{
+        // Just a simple OR for MC
+        if(!(ele_trigger_sel1->passes(event) || ele_trigger_sel2->passes(event) || ele_trigger_sel3->passes(event))) return false;
+      }
+    }
     fill_histograms(event,"Trigger", region);
 
-    SF_muonTrigger->process(event);
+    if(leptonregion == "muon"){
+      SF_muonTrigger->process(event);
+      event.set(h_electron_triggerweight, 1.);
+      event.set(h_electron_triggerweight_up, 1.);
+      event.set(h_electron_triggerweight_down, 1.);
+    }
+    else{
+      SF_eleTrigger->process(event);
+      event.set(h_muon_triggerweight, 1.);
+      event.set(h_muon_triggerweight_up, 1.);
+      event.set(h_muon_triggerweight_down, 1.);
+    }
     fill_histograms(event,"TriggerSF", region);
 
     SF_btag->process(event);
