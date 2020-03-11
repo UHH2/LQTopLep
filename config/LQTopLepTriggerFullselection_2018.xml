@@ -291,25 +291,25 @@
 		</InputData>
 
 		<InputData Lumi="1368573.233" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_HT-400to600_v2_2018" Cacheable="&b_Cacheable;">
-	    <In FileName="&DYJetsToLL_HT-400to600;" Lumi="0.0"/>
+	    <In FileName="&DYJetsToLL_HT-400to600_v2;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
 		<InputData Lumi="1428431.703" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_HT-400to600_v3_2018" Cacheable="&b_Cacheable;">
-	    <In FileName="&DYJetsToLL_HT-400to600;" Lumi="0.0"/>
+	    <In FileName="&DYJetsToLL_HT-400to600_v3;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
 		<InputData Lumi="1120472.928" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_HT-400to600_v4_2018" Cacheable="&b_Cacheable;">
-	    <In FileName="&DYJetsToLL_HT-400to600;" Lumi="0.0"/>
+	    <In FileName="&DYJetsToLL_HT-400to600_v4;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
 		<InputData Lumi="1407620.555" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_HT-400to600_v7_2018" Cacheable="&b_Cacheable;">
-	    <In FileName="&DYJetsToLL_HT-400to600;" Lumi="0.0"/>
+	    <In FileName="&DYJetsToLL_HT-400to600_v7;" Lumi="0.0"/>
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
