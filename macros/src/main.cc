@@ -8,19 +8,23 @@ using namespace std;
 int main(){
   cout << "Hello from main()." << endl;
 
-  AnalysisTool Analysis16(2016);
-  // Analysis16.CalculateTriggerEfficiencies();
-  Analysis16.PDFRMS();
-  Analysis16.ScaleVariationEnvelope();
-  // Analysis16.ProduceCombineHistograms_mc_fullsyst_much();
+  // AnalysisTool Analysis16(2016);
+  // // Analysis16.CalculateTriggerEfficiencies();
+  // Analysis16.PDFRMS();
+  // Analysis16.ScaleVariationEnvelope();
+  // // Analysis16.ProduceCombineHistograms_mc_fullsyst_much();
 
   // Run combine script before for this step
   // Analysis16.PlotLimitsCombine();
 
 
 
-  AnalysisTool Analysis17(2017);
+  // AnalysisTool Analysis17(2017);
   // Analysis17.CalculateTriggerEfficiencies();
+
+
+  AnalysisTool Analysis18(2018);
+  Analysis18.CalculateTriggerEfficiencies();
 
 
   // // Old theta macros

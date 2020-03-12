@@ -158,62 +158,62 @@
 <!ENTITY TTZ_1    "&PRESELdir;/&PRESELfilename;.MC.TTV_Z_1_2016v3.root">
 <!ENTITY TTZ_2    "&PRESELdir;/&PRESELfilename;.MC.TTV_Z_2_2016v3.root">
 
-<!ENTITY QCD_Mu_Pt-15to20 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-15to20_2016v3.root">
-<!ENTITY QCD_Mu_Pt-20to30 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-20to30_2016v3.root">
-<!ENTITY QCD_Mu_Pt-30to50 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-30to50_2016v3.root">
-<!ENTITY QCD_Mu_Pt-50to80 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-50to80_2016v3.root">
-<!ENTITY QCD_Mu_Pt-80to120 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-80to120_2016v3.root">
-<!ENTITY QCD_Mu_Pt-120to170 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-120to170_2016v3.root">
-<!ENTITY QCD_Mu_Pt-170to300 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-170to300_2016v3.root">
-<!ENTITY QCD_Mu_Pt-300to470 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-300to470_2016v3.root">
-<!ENTITY QCD_Mu_Pt-470to600 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-470to600_2016v3.root">
-<!ENTITY QCD_Mu_Pt-600to800 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-600to800_2016v3.root">
-<!ENTITY QCD_Mu_Pt-800to1000 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-800to1000_2016v3.root">
-<!ENTITY QCD_Mu_Pt-1000toInf "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Mu_Pt-1000toInf_2016v3.root">
+<!ENTITY QCD_Mu_Pt-15to20 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-15to20_2016v3.root">
+<!ENTITY QCD_Mu_Pt-20to30 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-20to30_2016v3.root">
+<!ENTITY QCD_Mu_Pt-30to50 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-30to50_2016v3.root">
+<!ENTITY QCD_Mu_Pt-50to80 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-50to80_2016v3.root">
+<!ENTITY QCD_Mu_Pt-80to120 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-80to120_2016v3.root">
+<!ENTITY QCD_Mu_Pt-120to170 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-120to170_2016v3.root">
+<!ENTITY QCD_Mu_Pt-170to300 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-170to300_2016v3.root">
+<!ENTITY QCD_Mu_Pt-300to470 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-300to470_2016v3.root">
+<!ENTITY QCD_Mu_Pt-470to600 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-470to600_2016v3.root">
+<!ENTITY QCD_Mu_Pt-600to800 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-600to800_2016v3.root">
+<!ENTITY QCD_Mu_Pt-800to1000 "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-800to1000_2016v3.root">
+<!ENTITY QCD_Mu_Pt-1000toInf "&PRESELdir;/&PRESELfilename;.MC.QCD_Mu_Pt-1000toInf_2016v3.root">
 
-<!ENTITY QCD_EM_PT20to30 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_EM_Pt-20to30_2016v3.root">
-<!ENTITY QCD_EM_PT30to50 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_EM_Pt-30to50_2016v3.root">
-<!ENTITY QCD_EM_PT50to80 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_EM_Pt-50to80_2016v3.root">
-<!ENTITY QCD_EM_PT80to120 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_EM_Pt-80to120_2016v3.root">
-<!ENTITY QCD_EM_PT120to170 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_EM_Pt-120to170_2016v3.root">
-<!ENTITY QCD_EM_PT170to300 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_EM_Pt-170to300_2016v3.root">
-<!ENTITY QCD_EM_PT300toInf "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_EM_Pt-300toInf_2016v3.root">
-<!ENTITY QCD_bcE_PT15to20 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_bcE_Pt-15to20_2016v3.root">
-<!ENTITY QCD_bcE_PT20to30 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_bcE_Pt-20to30_2016v3.root">
-<!ENTITY QCD_bcE_PT30to80 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_bcE_Pt-30to80_2016v3.root">
-<!ENTITY QCD_bcE_PT80to170 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_bcE_Pt-80to170_2016v3.root">
-<!ENTITY QCD_bcE_PT170to250 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_bcE_Pt-170to250_2016v3.root">
-<!ENTITY QCD_bcE_PT250toInf "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_bcE_Pt-250toInf_2016v3.root">
+<!ENTITY QCD_EM_PT20to30 "&PRESELdir;/&PRESELfilename;.MC.QCD_EM_Pt-20to30_2016v3.root">
+<!ENTITY QCD_EM_PT30to50 "&PRESELdir;/&PRESELfilename;.MC.QCD_EM_Pt-30to50_2016v3.root">
+<!ENTITY QCD_EM_PT50to80 "&PRESELdir;/&PRESELfilename;.MC.QCD_EM_Pt-50to80_2016v3.root">
+<!ENTITY QCD_EM_PT80to120 "&PRESELdir;/&PRESELfilename;.MC.QCD_EM_Pt-80to120_2016v3.root">
+<!ENTITY QCD_EM_PT120to170 "&PRESELdir;/&PRESELfilename;.MC.QCD_EM_Pt-120to170_2016v3.root">
+<!ENTITY QCD_EM_PT170to300 "&PRESELdir;/&PRESELfilename;.MC.QCD_EM_Pt-170to300_2016v3.root">
+<!ENTITY QCD_EM_PT300toInf "&PRESELdir;/&PRESELfilename;.MC.QCD_EM_Pt-300toInf_2016v3.root">
+<!ENTITY QCD_bcE_PT15to20 "&PRESELdir;/&PRESELfilename;.MC.QCD_bcE_Pt-15to20_2016v3.root">
+<!ENTITY QCD_bcE_PT20to30 "&PRESELdir;/&PRESELfilename;.MC.QCD_bcE_Pt-20to30_2016v3.root">
+<!ENTITY QCD_bcE_PT30to80 "&PRESELdir;/&PRESELfilename;.MC.QCD_bcE_Pt-30to80_2016v3.root">
+<!ENTITY QCD_bcE_PT80to170 "&PRESELdir;/&PRESELfilename;.MC.QCD_bcE_Pt-80to170_2016v3.root">
+<!ENTITY QCD_bcE_PT170to250 "&PRESELdir;/&PRESELfilename;.MC.QCD_bcE_Pt-170to250_2016v3.root">
+<!ENTITY QCD_bcE_PT250toInf "&PRESELdir;/&PRESELfilename;.MC.QCD_bcE_Pt-250toInf_2016v3.root">
 
 
 
 <!-- DATA -->
 
-<!ENTITY DATA_Muon_B "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_B_2016v3.root">
-<!ENTITY DATA_Muon_C "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_C_2016v3.root">
-<!ENTITY DATA_Muon_D "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_D_2016v3.root">
-<!ENTITY DATA_Muon_E "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_E_2016v3.root">
-<!ENTITY DATA_Muon_F "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_F_2016v3.root">
-<!ENTITY DATA_Muon_G "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_G_2016v3.root">
-<!ENTITY DATA_Muon_H "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_H_2016v3.root">
+<!ENTITY DATA_Muon_B "&PRESELdir;/&PRESELfilename;.DATA.DATA_Muon_B_2016v3.root">
+<!ENTITY DATA_Muon_C "&PRESELdir;/&PRESELfilename;.DATA.DATA_Muon_C_2016v3.root">
+<!ENTITY DATA_Muon_D "&PRESELdir;/&PRESELfilename;.DATA.DATA_Muon_D_2016v3.root">
+<!ENTITY DATA_Muon_E "&PRESELdir;/&PRESELfilename;.DATA.DATA_Muon_E_2016v3.root">
+<!ENTITY DATA_Muon_F "&PRESELdir;/&PRESELfilename;.DATA.DATA_Muon_F_2016v3.root">
+<!ENTITY DATA_Muon_G "&PRESELdir;/&PRESELfilename;.DATA.DATA_Muon_G_2016v3.root">
+<!ENTITY DATA_Muon_H "&PRESELdir;/&PRESELfilename;.DATA.DATA_Muon_H_2016v3.root">
 
 
-<!ENTITY DATA_Electron_B "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_B_2016v3.root">
-<!ENTITY DATA_Electron_C "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_C_2016v3.root">
-<!ENTITY DATA_Electron_D "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_D_2016v3.root">
-<!ENTITY DATA_Electron_E "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_E_2016v3.root">
-<!ENTITY DATA_Electron_F "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_F_2016v3.root">
-<!ENTITY DATA_Electron_G "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_G_2016v3.root">
-<!ENTITY DATA_Electron_H "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.DATA_Electron_H_2016v3.root">
+<!ENTITY DATA_Electron_B "&PRESELdir;/&PRESELfilename;.DATA.DATA_Electron_B_2016v3.root">
+<!ENTITY DATA_Electron_C "&PRESELdir;/&PRESELfilename;.DATA.DATA_Electron_C_2016v3.root">
+<!ENTITY DATA_Electron_D "&PRESELdir;/&PRESELfilename;.DATA.DATA_Electron_D_2016v3.root">
+<!ENTITY DATA_Electron_E "&PRESELdir;/&PRESELfilename;.DATA.DATA_Electron_E_2016v3.root">
+<!ENTITY DATA_Electron_F "&PRESELdir;/&PRESELfilename;.DATA.DATA_Electron_F_2016v3.root">
+<!ENTITY DATA_Electron_G "&PRESELdir;/&PRESELfilename;.DATA.DATA_Electron_G_2016v3.root">
+<!ENTITY DATA_Electron_H "&PRESELdir;/&PRESELfilename;.DATA.DATA_Electron_H_2016v3.root">
 
-<!ENTITY DATA_Photon_B1 "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_B1_2016v3.root">
-<!ENTITY DATA_Photon_B2 "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_B2_2016v3.root">
-<!ENTITY DATA_Photon_C "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_C_2016v3.root">
-<!ENTITY DATA_Photon_D "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_D_2016v3.root">
-<!ENTITY DATA_Photon_E "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_E_2016v3.root">
-<!ENTITY DATA_Photon_F "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_F_2016v3.root">
-<!ENTITY DATA_Photon_G "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_G_2016v3.root">
-<!ENTITY DATA_Photon_H "&PRESELdir;/&PRESELfilename;DATA.DATA_Photon_H_2016v3.root">
+<!ENTITY DATA_Photon_B1 "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_B1_2016v3.root">
+<!ENTITY DATA_Photon_B2 "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_B2_2016v3.root">
+<!ENTITY DATA_Photon_C "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_C_2016v3.root">
+<!ENTITY DATA_Photon_D "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_D_2016v3.root">
+<!ENTITY DATA_Photon_E "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_E_2016v3.root">
+<!ENTITY DATA_Photon_F "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_F_2016v3.root">
+<!ENTITY DATA_Photon_G "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_G_2016v3.root">
+<!ENTITY DATA_Photon_H "&PRESELdir;/&PRESELfilename;.DATA.DATA_Photon_H_2016v3.root">
 
 
 ]>
