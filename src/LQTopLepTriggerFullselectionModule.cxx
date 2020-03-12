@@ -105,6 +105,7 @@ namespace uhh2examples {
     double muonpt = 30.;
     double electronpt = 30.;
     if(year == Year::is2017v2) electronpt = 40;
+    if(year == Year::is2018) electronpt = 35;
 
     double leptoneta = 2.4;
 
