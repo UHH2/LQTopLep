@@ -3,7 +3,7 @@
 
 		<!ENTITY TargetLumi      "59740">
 		<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/LQTopLep/2018/Trigger/Preselection">
-		<!ENTITY SELdir          "/nfs/dust/cms/user/reimersa/LQTopLep/2018/Trigger/Fullselection">
+		<!ENTITY SELdir          "/nfs/dust/cms/user/reimersa/LQTopLep/2018/Trigger/Fullselection_3eTrigger">
 		<!ENTITY b_Cacheable     "False">
 		<!ENTITY NEVT            "-1">
 		<!ENTITY PRESELfilename  "uhh2.AnalysisModuleRunner.">

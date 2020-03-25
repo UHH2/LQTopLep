@@ -45,7 +45,7 @@ namespace uhh2examples {
 
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> nelectrons_sel, nmuons_sel, trigger1_muon_sel, trigger2_muon_sel, trigger1_electron_sel, trigger2_electron_sel;
+    std::unique_ptr<Selection> nelectrons_sel, nmuons_sel, trigger1_muon_sel, trigger2_muon_sel, trigger1_electron_sel, trigger2_electron_sel, trigger3_electron_sel;
 
     ElectronId eleId;
     MuonId muId;
@@ -142,19 +142,22 @@ namespace uhh2examples {
       trigger1_muon_sel.reset(new TriggerSelection("HLT_IsoMu24_v*"));
       trigger2_muon_sel.reset(new TriggerSelection("HLT_IsoTkMu24_v*"));
       trigger1_electron_sel.reset(new TriggerSelection("HLT_Ele27_WPTight_Gsf_v*"));
-      trigger2_electron_sel.reset(new TriggerSelection("HLT_Photon175_v*"));
+      trigger2_electron_sel.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
+      trigger3_electron_sel.reset(new TriggerSelection("HLT_Photon175_v*"));
     }
     else if(year == Year::is2017v1 || year == Year::is2017v2){
       trigger1_muon_sel.reset(new TriggerSelection("HLT_IsoMu27_v*"));
       trigger2_muon_sel.reset(new TriggerSelection("HLT_IsoMu27_v*"));
       trigger1_electron_sel.reset(new TriggerSelection("HLT_Ele35_WPTight_Gsf_v*"));
-      trigger2_electron_sel.reset(new TriggerSelection("HLT_Photon200_v*"));
+      trigger2_electron_sel.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
+      trigger3_electron_sel.reset(new TriggerSelection("HLT_Photon200_v*"));
     }
     else if(year == Year::is2018){
       trigger1_muon_sel.reset(new TriggerSelection("HLT_IsoMu24_v*"));
       trigger2_muon_sel.reset(new TriggerSelection("HLT_IsoMu24_v*"));
       trigger1_electron_sel.reset(new TriggerSelection("HLT_Ele32_WPTight_Gsf_v*"));
-      trigger2_electron_sel.reset(new TriggerSelection("HLT_Ele32_WPTight_Gsf_v*"));
+      trigger2_electron_sel.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
+      trigger3_electron_sel.reset(new TriggerSelection("HLT_Ele32_WPTight_Gsf_v*"));
     }
 
 
@@ -170,11 +173,11 @@ namespace uhh2examples {
   bool LQTopLepTriggerFullselectionModule::process(Event & event) {
 
     bool pass_muon_trigger = (trigger1_muon_sel->passes(event) || trigger2_muon_sel->passes(event));
-    bool pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event));
-    bool pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event));
+    bool pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    bool pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
     if(year == Year::is2016v2 || year == Year::is2016v3 || year == Year::is2017v2){
-      if(!is_mc && dataset_version.Contains("Electron")) pass_electron_trigger_for_muoneff = trigger1_electron_sel->passes(event);
-      else if (!is_mc && dataset_version.Contains("Photon")) pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && trigger2_electron_sel->passes(event);
+      if(!is_mc && dataset_version.Contains("Electron")) pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event));
+      else if (!is_mc && dataset_version.Contains("Photon")) pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && !trigger2_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
     }
 
     bool pass_common = common->process(event);
