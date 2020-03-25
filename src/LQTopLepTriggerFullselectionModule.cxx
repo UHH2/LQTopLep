@@ -173,13 +173,35 @@ namespace uhh2examples {
   bool LQTopLepTriggerFullselectionModule::process(Event & event) {
 
     bool pass_muon_trigger = (trigger1_muon_sel->passes(event) || trigger2_muon_sel->passes(event));
-    bool pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
-    bool pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
-    if(year == Year::is2016v2 || year == Year::is2016v3 || year == Year::is2017v2){
-      if(!is_mc && dataset_version.Contains("Electron")) pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event));
-      else if (!is_mc && dataset_version.Contains("Photon")) pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && !trigger2_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
-    }
 
+    bool pass_electron_trigger;
+    if(!is_mc && event.run < 299368) pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+
+      /*
+    if(!is_mc){
+      if(event.run >=299368) pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+      else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    }
+    else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+      */
+    
+    bool pass_electron_trigger_for_muoneff;
+    if(!is_mc && event.run < 299368) pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    else pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+
+    if(year == Year::is2016v2 || year == Year::is2016v3 || year == Year::is2017v2){
+      if(!is_mc && dataset_version.Contains("Electron")) {
+	if(event.run < 299368) pass_electron_trigger_for_muoneff = trigger1_electron_sel->passes(event);
+	else pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event));
+
+      }
+      else if (!is_mc && dataset_version.Contains("Photon")) {
+	if(event.run < 299368) pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
+	else pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && !trigger2_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
+      }
+    }
+    
     bool pass_common = common->process(event);
     if(!pass_common) return false;
     fill_histograms(event,"Cleaner");
@@ -230,9 +252,9 @@ namespace uhh2examples {
         if(event.electrons->at(0).pt() > 175) fill_histograms(event, "ElectronTriggerAfter_pt175toInf");
       }
     }
-
+    
     // Start with muon-SF derivation --> require electron trigger and then calculate mu-trigger efficiency
-    if(pass_electron_trigger_for_muoneff){
+    if(pass_electron_trigger_for_muoneff) {
       fill_histograms(event,"MuonTriggerBefore");
 
       if(event.muons->at(0).pt() < 200) fill_histograms(event, "MuonTriggerBefore_pt30to200");
@@ -247,7 +269,7 @@ namespace uhh2examples {
       if(event.muons->at(0).pt() > 100) fill_histograms(event, "MuonTriggerBefore_pt100toInf");
       if(event.muons->at(0).pt() > 200) fill_histograms(event, "MuonTriggerBefore_pt200toInf");
       if(event.muons->at(0).pt() > 175) fill_histograms(event, "MuonTriggerBefore_pt175toInf");
-
+    
       if(pass_muon_trigger){
         fill_histograms(event, "MuonTriggerAfter");
 
@@ -265,7 +287,7 @@ namespace uhh2examples {
         if(event.muons->at(0).pt() > 175) fill_histograms(event, "MuonTriggerAfter_pt175toInf");
       }
     }
-
+    
     return true;
   }
 
