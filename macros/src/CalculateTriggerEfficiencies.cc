@@ -75,15 +75,15 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   // ==========
 
   unique_ptr<TFile> input_TTbar, input_DY, input_ST, input_WJ, input_DB, input_QCDMU, input_QCDELE, input_DATAMU, input_DATAELE;
-  input_TTbar.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.TTbar_" + yeartag + ".root","READ"));
-  input_DY.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.DYJets_" + yeartag + ".root","READ"));
-  input_ST.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.SingleTop_" + yeartag + ".root","READ"));
-  input_WJ.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.WJets_" + yeartag + ".root","READ"));
-  input_DB.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.Diboson_" + yeartag + ".root","READ"));
-  input_QCDMU.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.QCDMu_" + yeartag + ".root","READ"));
-  input_QCDELE.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.MC.QCDEle_" + yeartag + ".root","READ"));
-  input_DATAMU.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.DATA.DATA_Muon_" + yeartag + ".root","READ"));
-  input_DATAELE.reset(new TFile(base_path + year + "/" + trigger_tag + "Fullselection/uhh2.AnalysisModuleRunner.DATA.DATA_" + dataname_ele + "_" + yeartag + ".root","READ"));
+  input_TTbar.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.MC.TTbar_" + yeartag + ".root","READ"));
+  input_DY.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.MC.DYJets_" + yeartag + ".root","READ"));
+  input_ST.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.MC.SingleTop_" + yeartag + ".root","READ"));
+  input_WJ.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.MC.WJets_" + yeartag + ".root","READ"));
+  input_DB.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.MC.Diboson_" + yeartag + ".root","READ"));
+  input_QCDMU.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.MC.QCDMu_" + yeartag + ".root","READ"));
+  input_QCDELE.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.MC.QCDEle_" + yeartag + ".root","READ"));
+  input_DATAMU.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.DATA.DATA_Muon_" + yeartag + ".root","READ"));
+  input_DATAELE.reset(new TFile(base_path + year + "/" + trigger_tag + "uhh2.AnalysisModuleRunner.DATA.DATA_" + dataname_ele + "_" + yeartag + ".root","READ"));
 
 
   // Read histograms for MC and data
@@ -315,8 +315,8 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   else                   plotname += "Muon";
   plotname += "TriggerEfficiency_" + varname;
   if(!is_inclusive) plotname += "_pt" + ptlow + "to" + pthigh;
-  // c->SaveAs(base_path + year + "/" + trigger_tag + "Fullselection/" + plotname + ".eps");
-  c->SaveAs(base_path + year + "/" + trigger_tag + "Fullselection/" + plotname + ".pdf");
+  // c->SaveAs(base_path + year + "/" + trigger_tag + plotname + ".eps");
+  c->SaveAs(base_path + year + "/" + trigger_tag + plotname + ".pdf");
 
 
   // Write SFs to root-file
@@ -324,7 +324,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
   if(varname.Contains("eta") && varname.Contains("binned")){
     unique_ptr<TFile> fout;
-    TString outfilename = base_path + year + "/" + trigger_tag + "Fullselection/" + plotname + ".root";
+    TString outfilename = base_path + year + "/" + trigger_tag + plotname + ".root";
     outfilename.ReplaceAll("TriggerEfficiency", "TriggerScaleFactors");
     fout.reset(new TFile(outfilename, "RECREATE"));
     gr_ratio->Write();
