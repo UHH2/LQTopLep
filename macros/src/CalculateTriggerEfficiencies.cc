@@ -20,7 +20,28 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
 void AnalysisTool::CalculateTriggerEfficiencies(){
 
-  vector<pair<TString,TString>> pt_regions = {
+  vector<pair<TString,TString>> pt_regions_ele = {
+    make_pair("",    ""),
+    make_pair("30",  "50"),
+    make_pair("50",  "100"),
+    make_pair("100", "200"),
+    make_pair("100", "175"),
+    make_pair("200", "Inf"),
+    make_pair("175", "Inf"),
+    make_pair("100", "Inf"),
+    make_pair("30",  "200"),
+    make_pair("30",  "175"),
+    make_pair("50",  "200"),
+    make_pair("50",  "175"),
+    make_pair("30",  "120"),
+    make_pair("50",  "120"),
+    make_pair("100",  "120"),
+    make_pair("120",  "175"),
+    make_pair("120",  "200"),
+    make_pair("120",  "Inf"),
+  };
+
+ vector<pair<TString,TString>> pt_regions_mu = {
     make_pair("",    ""),
     make_pair("30",  "50"),
     make_pair("50",  "100"),
@@ -37,34 +58,39 @@ void AnalysisTool::CalculateTriggerEfficiencies(){
 
   vector<pair<TString,TString>> eta_regions = {
     make_pair("",   ""),
-    make_pair("0",   "0.9"),
-    make_pair("0.9",   "1.2"),
-    make_pair("1.2",   "2.1"),
-    make_pair("2.1",   "2.4"),
+    make_pair("0",   "0p9"),
+    make_pair("0p9",   "1p2"),
+    make_pair("1p2",   "2p1"),
+    make_pair("2p1",   "2p4"),
   };
 
-  for(size_t i=0; i<pt_regions.size(); i++){
+  for(size_t i=0; i<pt_regions_ele.size(); i++){
 
-    TString ptlow = pt_regions[i].first;
-    TString pthigh = pt_regions[i].second;
-
+    TString ptlow = pt_regions_ele[i].first;
+    TString pthigh = pt_regions_ele[i].second;
 
     CalculateEffForVar("electron_pt", "pt_ele_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("electron_pt", "pt_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
-    CalculateEffForVar("electron_pt", "pt_ele_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron_pt", "pt_ele_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("electron_pt", "eta_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("electron_pt", "eta_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
-    CalculateEffForVar("electron_pt", "eta_ele_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("electron_pt", "eta_ele_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("electron_pt", "dR_ele_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("electron_pt", "dRmin_ele_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("electron_pt", "dRmin_ele_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+  }
+
+  for(size_t i=0; i<pt_regions_mu.size(); i++){
+
+    TString ptlow = pt_regions_mu[i].first;
+    TString pthigh = pt_regions_mu[i].second;
 
     CalculateEffForVar("muon_pt", "pt_mu_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("muon_pt", "pt_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
-    CalculateEffForVar("muon_pt", "pt_mu_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon_pt", "pt_mu_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("muon_pt", "eta_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("muon_pt", "eta_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
-    CalculateEffForVar("muon_pt", "eta_mu_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
+    CalculateEffForVar("muon_pt", "eta_mu_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("muon_pt", "dR_mu_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("muon_pt", "dRmin_mu_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
     CalculateEffForVar("muon_pt", "dRmin_mu_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, ptlow, pthigh);
@@ -77,20 +103,20 @@ void AnalysisTool::CalculateTriggerEfficiencies(){
 
     CalculateEffForVar("electron_eta", "pt_ele_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("electron_eta", "pt_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
-    CalculateEffForVar("electron_eta", "pt_ele_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
+    CalculateEffForVar("electron_eta", "pt_ele_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("electron_eta", "eta_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("electron_eta", "eta_ele_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
-    CalculateEffForVar("electron_eta", "eta_ele_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
+    CalculateEffForVar("electron_eta", "eta_ele_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("electron_eta", "dR_ele_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("electron_eta", "dRmin_ele_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("electron_eta", "dRmin_ele_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
 
     CalculateEffForVar("muon_eta", "pt_mu_fine", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("muon_eta", "pt_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
-    CalculateEffForVar("muon_eta", "pt_mu_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
+    CalculateEffForVar("muon_eta", "pt_mu_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("muon_eta", "eta_mu", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("muon_eta", "eta_mu_binned", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
-    CalculateEffForVar("muon_eta", "eta_mu_binned1", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
+    CalculateEffForVar("muon_eta", "eta_mu_binned_official", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("muon_eta", "dR_mu_ele", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("muon_eta", "dRmin_mu_jet", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
     CalculateEffForVar("muon_eta", "dRmin_mu_obj", AnalysisTool::base_path, AnalysisTool::trigger_tag, AnalysisTool::year, AnalysisTool::yeartag, etalow, etahigh);
