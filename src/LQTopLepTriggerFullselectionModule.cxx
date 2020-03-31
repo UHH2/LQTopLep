@@ -163,7 +163,7 @@ namespace uhh2examples {
 
 
     // Book histograms
-    vector<string> histogram_tags = {"Cleaner", "Electron1", "Muon1", "LeptonSF", "ElectronTriggerBefore", "ElectronTriggerBefore_pt30to200", "ElectronTriggerBefore_pt30to175", "ElectronTriggerBefore_pt30to100", "ElectronTriggerBefore_pt30to50", "ElectronTriggerBefore_pt50to200", "ElectronTriggerBefore_pt50to175", "ElectronTriggerBefore_pt50to100", "ElectronTriggerBefore_pt100to200", "ElectronTriggerBefore_pt100to175", "ElectronTriggerBefore_pt200toInf", "ElectronTriggerBefore_pt175toInf", "ElectronTriggerBefore_pt100toInf", "ElectronTriggerAfter", "ElectronTriggerAfter_pt30to200", "ElectronTriggerAfter_pt30to175", "ElectronTriggerAfter_pt30to100", "ElectronTriggerAfter_pt30to50", "ElectronTriggerAfter_pt50to200", "ElectronTriggerAfter_pt50to175", "ElectronTriggerAfter_pt50to100", "ElectronTriggerAfter_pt100to200", "ElectronTriggerAfter_pt100to175", "ElectronTriggerAfter_pt100toInf", "ElectronTriggerAfter_pt200toInf", "ElectronTriggerAfter_pt175toInf", "MuonTriggerBefore", "MuonTriggerBefore_pt30to200", "MuonTriggerBefore_pt30to175", "MuonTriggerBefore_pt30to100", "MuonTriggerBefore_pt30to50", "MuonTriggerBefore_pt50to200", "MuonTriggerBefore_pt50to175", "MuonTriggerBefore_pt50to100", "MuonTriggerBefore_pt100to200", "MuonTriggerBefore_pt100to175", "MuonTriggerBefore_pt100toInf", "MuonTriggerBefore_pt200toInf", "MuonTriggerBefore_pt175toInf", "MuonTriggerAfter", "MuonTriggerAfter_pt30to200", "MuonTriggerAfter_pt30to175", "MuonTriggerAfter_pt30to100", "MuonTriggerAfter_pt30to50", "MuonTriggerAfter_pt50to200", "MuonTriggerAfter_pt50to175", "MuonTriggerAfter_pt50to100", "MuonTriggerAfter_pt100to200", "MuonTriggerAfter_pt100to175", "MuonTriggerAfter_pt100toInf", "MuonTriggerAfter_pt200toInf", "MuonTriggerAfter_pt175toInf"};
+    vector<string> histogram_tags = {"Cleaner", "Electron1", "Muon1", "LeptonSF", "ElectronTriggerBefore", "ElectronTriggerBefore_pt30to200", "ElectronTriggerBefore_pt30to175", "ElectronTriggerBefore_pt30to100", "ElectronTriggerBefore_pt30to50", "ElectronTriggerBefore_pt50to200", "ElectronTriggerBefore_pt50to175", "ElectronTriggerBefore_pt50to100", "ElectronTriggerBefore_pt100to200", "ElectronTriggerBefore_pt100to175", "ElectronTriggerBefore_pt200toInf", "ElectronTriggerBefore_pt175toInf", "ElectronTriggerBefore_pt100toInf", "ElectronTriggerBefore_eta0to0.9", "ElectronTriggerBefore_eta0.9to1.2", "ElectronTriggerBefore_eta1.2to2.1", "ElectronTriggerBefore_eta2.1to2.4", "ElectronTriggerAfter", "ElectronTriggerAfter_pt30to200", "ElectronTriggerAfter_pt30to175", "ElectronTriggerAfter_pt30to100", "ElectronTriggerAfter_pt30to50", "ElectronTriggerAfter_pt50to200", "ElectronTriggerAfter_pt50to175", "ElectronTriggerAfter_pt50to100", "ElectronTriggerAfter_pt100to200", "ElectronTriggerAfter_pt100to175", "ElectronTriggerAfter_pt100toInf", "ElectronTriggerAfter_pt200toInf", "ElectronTriggerAfter_pt175toInf", "ElectronTriggerAfter_eta0to0.9", "ElectronTriggerAfter_eta0.9to1.2", "ElectronTriggerAfter_eta1.2to2.1", "ElectronTriggerAfter_eta2.1to2.4", "MuonTriggerBefore", "MuonTriggerBefore_pt30to200", "MuonTriggerBefore_pt30to175", "MuonTriggerBefore_pt30to100", "MuonTriggerBefore_pt30to50", "MuonTriggerBefore_pt50to200", "MuonTriggerBefore_pt50to175", "MuonTriggerBefore_pt50to100", "MuonTriggerBefore_pt100to200", "MuonTriggerBefore_pt100to175", "MuonTriggerBefore_pt100toInf", "MuonTriggerBefore_pt200toInf", "MuonTriggerBefore_pt175toInf", "MuonTriggerBefore_eta0to0.9", "MuonTriggerBefore_eta0.9to1.2", "MuonTriggerBefore_eta1.2to2.1", "MuonTriggerBefore_eta2.1to2.4", "MuonTriggerAfter", "MuonTriggerAfter_pt30to200", "MuonTriggerAfter_pt30to175", "MuonTriggerAfter_pt30to100", "MuonTriggerAfter_pt30to50", "MuonTriggerAfter_pt50to200", "MuonTriggerAfter_pt50to175", "MuonTriggerAfter_pt50to100", "MuonTriggerAfter_pt100to200", "MuonTriggerAfter_pt100to175", "MuonTriggerAfter_pt100toInf", "MuonTriggerAfter_pt200toInf", "MuonTriggerAfter_pt175toInf", "MuonTriggerAfter_eta0to0.9", "MuonTriggerAfter_eta0.9to1.2", "MuonTriggerAfter_eta1.2to2.1", "MuonTriggerAfter_eta2.1to2.4"};
     book_histograms(ctx, histogram_tags);
 
 
@@ -219,7 +219,7 @@ namespace uhh2examples {
     fill_histograms(event,"LeptonSF");
 
     // Start with electron-SF derivation --> require muon trigger and then calculate e-trigger efficiency
-    if(pass_muon_trigger){
+    if(pass_muon_trigger) {
       fill_histograms(event,"ElectronTriggerBefore");
 
       if(event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerBefore_pt30to200");
@@ -234,6 +234,15 @@ namespace uhh2examples {
       if(event.electrons->at(0).pt() > 100) fill_histograms(event, "ElectronTriggerBefore_pt100toInf");
       if(event.electrons->at(0).pt() > 200) fill_histograms(event, "ElectronTriggerBefore_pt200toInf");
       if(event.electrons->at(0).pt() > 175) fill_histograms(event, "ElectronTriggerBefore_pt175toInf");
+
+      if(fabs(event.electrons->at(0).eta()) < 0.9) fill_histograms(event, "ElectronTriggerBefore_eta0to0.9");
+      if(fabs(event.electrons->at(0).eta()) > 0.9 && fabs(event.electrons->at(0).eta()) < 1.2) fill_histograms(event, "ElectronTriggerBefore_eta0.9to1.2");
+      if(fabs(event.electrons->at(0).eta()) > 1.2 && fabs(event.electrons->at(0).eta()) < 2.1) fill_histograms(event, "ElectronTriggerBefore_eta1.2to2.1");
+      if(fabs(event.electrons->at(0).eta()) > 2.1 && fabs(event.electrons->at(0).eta()) < 2.4) fill_histograms(event, "ElectronTriggerBefore_eta2.1to2.4");
+
+
+
+
 
       if(pass_electron_trigger){
         fill_histograms(event, "ElectronTriggerAfter");
@@ -250,6 +259,11 @@ namespace uhh2examples {
         if(event.electrons->at(0).pt() > 100) fill_histograms(event, "ElectronTriggerAfter_pt100toInf");
         if(event.electrons->at(0).pt() > 200) fill_histograms(event, "ElectronTriggerAfter_pt200toInf");
         if(event.electrons->at(0).pt() > 175) fill_histograms(event, "ElectronTriggerAfter_pt175toInf");
+
+	if(fabs(event.electrons->at(0).eta()) < 0.9) fill_histograms(event, "ElectronTriggerAfter_eta0to0.9");
+	if(fabs(event.electrons->at(0).eta()) > 0.9 && fabs(event.electrons->at(0).eta()) < 1.2) fill_histograms(event, "ElectronTriggerAfter_eta0.9to1.2");
+	if(fabs(event.electrons->at(0).eta()) > 1.2 && fabs(event.electrons->at(0).eta()) < 2.1) fill_histograms(event, "ElectronTriggerAfter_eta1.2to2.1");
+	if(fabs(event.electrons->at(0).eta()) > 2.1 && fabs(event.electrons->at(0).eta()) < 2.4) fill_histograms(event, "ElectronTriggerAfter_eta2.1to2.4");
       }
     }
     
@@ -269,6 +283,13 @@ namespace uhh2examples {
       if(event.muons->at(0).pt() > 100) fill_histograms(event, "MuonTriggerBefore_pt100toInf");
       if(event.muons->at(0).pt() > 200) fill_histograms(event, "MuonTriggerBefore_pt200toInf");
       if(event.muons->at(0).pt() > 175) fill_histograms(event, "MuonTriggerBefore_pt175toInf");
+
+      if(fabs(event.muons->at(0).eta()) < 0.9) fill_histograms(event, "MuonTriggerBefore_eta0to0.9");
+      if(fabs(event.muons->at(0).eta()) > 0.9 && fabs(event.muons->at(0).eta()) < 1.2) fill_histograms(event, "MuonTriggerBefore_eta0.9to1.2");
+      if(fabs(event.muons->at(0).eta()) > 1.2 && fabs(event.muons->at(0).eta()) < 2.1) fill_histograms(event, "MuonTriggerBefore_eta1.2to2.1");
+      if(fabs(event.muons->at(0).eta()) > 2.1 && fabs(event.muons->at(0).eta()) < 2.4) fill_histograms(event, "MuonTriggerBefore_eta2.1to2.4");
+
+
     
       if(pass_muon_trigger){
         fill_histograms(event, "MuonTriggerAfter");
@@ -285,6 +306,11 @@ namespace uhh2examples {
         if(event.muons->at(0).pt() > 100) fill_histograms(event, "MuonTriggerAfter_pt100toInf");
         if(event.muons->at(0).pt() > 200) fill_histograms(event, "MuonTriggerAfter_pt200toInf");
         if(event.muons->at(0).pt() > 175) fill_histograms(event, "MuonTriggerAfter_pt175toInf");
+
+	if(fabs(event.muons->at(0).eta()) < 0.9) fill_histograms(event, "MuonTriggerAfter_eta0to0.9");
+	if(fabs(event.muons->at(0).eta()) > 0.9 && fabs(event.muons->at(0).eta()) < 1.2) fill_histograms(event, "MuonTriggerAfter_eta0.9to1.2");
+	if(fabs(event.muons->at(0).eta()) > 1.2 && fabs(event.muons->at(0).eta()) < 2.1) fill_histograms(event, "MuonTriggerAfter_eta1.2to2.1");
+	if(fabs(event.muons->at(0).eta()) > 2.1 && fabs(event.muons->at(0).eta()) < 2.4) fill_histograms(event, "MuonTriggerAfter_eta2.1to2.4");
       }
     }
     
