@@ -240,7 +240,7 @@ namespace uhh2examples {
       if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerBefore_pt50to120");
       if(event.electrons->at(0).pt() > 100 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerBefore_pt100to120");
       if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 175) fill_histograms(event, "ElectronTriggerBefore_pt120to175");
-      if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerBefore_pt120to175");
+      if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerBefore_pt120to200");
       if(event.electrons->at(0).pt() > 120) fill_histograms(event, "ElectronTriggerBefore_pt120toInf");
 
       if(fabs(event.electrons->at(0).eta()) < 0.9) fill_histograms(event, "ElectronTriggerBefore_eta0to0p9");
@@ -273,7 +273,7 @@ namespace uhh2examples {
 	if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt50to120");
 	if(event.electrons->at(0).pt() > 100 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt100to120");
 	if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 175) fill_histograms(event, "ElectronTriggerAfter_pt120to175");
-	if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerAfter_pt120to175");
+	if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerAfter_pt120to200");
 	if(event.electrons->at(0).pt() > 120) fill_histograms(event, "ElectronTriggerAfter_pt120toInf");
       
 	if(fabs(event.electrons->at(0).eta()) < 0.9) fill_histograms(event, "ElectronTriggerAfter_eta0to0p9");
