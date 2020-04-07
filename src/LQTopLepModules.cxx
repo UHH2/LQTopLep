@@ -1,3 +1,6 @@
+#include <iostream>
+#include <memory>
+
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/Utils.h"
 #include "UHH2/LQTopLep/include/LQTopLepModules.h"
@@ -27,16 +30,17 @@ MuonTriggerWeights::MuonTriggerWeights(Context & ctx, TString path_, Year year_)
   TString yeartag = "2016";
   if(year == Year::is2017v1 || year == Year::is2017v2) yeartag = "2017";
   else if(year == Year::is2018) yeartag = "2018";
-  unique_ptr<TFile> file_30to50, file_50to100, file_100to200, file_200toinf;
-  file_30to50.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt30to50.root","READ"));
-  file_50to100.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt50to100.root","READ"));
-  file_100to200.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt100to200.root","READ"));
-  file_200toinf.reset(new TFile(path+"/" + yeartag + "/MuonTriggerScaleFactors_eta_mu_binned_pt200toInf.root","READ"));
 
-  g_sf_30to50.reset((TGraphAsymmErrors*)file_30to50->Get("ScaleFactors"));
-  g_sf_50to100.reset((TGraphAsymmErrors*)file_50to100->Get("ScaleFactors"));
-  g_sf_100to200.reset((TGraphAsymmErrors*)file_100to200->Get("ScaleFactors"));
-  g_sf_200toinf.reset((TGraphAsymmErrors*)file_200toinf->Get("ScaleFactors"));
+  unique_ptr<TFile> file_0to0p9, file_0p9to1p2, file_1p2to2p1, file_2p1to2p4;
+  file_0to0p9.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/MuonTriggerScaleFactors_pt_mu_binned_eta0to0p9.root","READ"));
+  file_0p9to1p2.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/MuonTriggerScaleFactors_pt_mu_binned_eta0p9to1p2.root","READ"));
+  file_1p2to2p1.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/MuonTriggerScaleFactors_pt_mu_binned_eta1p2to2p1.root","READ"));
+  file_2p1to2p4.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/MuonTriggerScaleFactors_pt_mu_binned_eta2p1to2p4.root","READ"));
+
+  g_sf_0to0p9.reset((TGraphAsymmErrors*)file_0to0p9->Get("ScaleFactors"));
+  g_sf_0p9to1p2.reset((TGraphAsymmErrors*)file_0p9to1p2->Get("ScaleFactors"));
+  g_sf_1p2to2p1.reset((TGraphAsymmErrors*)file_1p2to2p1->Get("ScaleFactors"));
+  g_sf_2p1to2p4.reset((TGraphAsymmErrors*)file_2p1to2p4->Get("ScaleFactors"));
 
 }
 
@@ -55,87 +59,86 @@ bool MuonTriggerWeights::process(Event & event){
   if(fabs(eta) > 2.4) throw runtime_error("In LQToTopMuModules.cxx, MuonTriggerWeights.process(): Muon-|eta| > 2.4 is not supported at the moment.");
   if(pt < 30) throw runtime_error("In LQToTopMuModules.cxx, MuonTriggerWeights.process(): Muon-pt < 30 is not supported at the moment.");
 
-  // find number of correct eta bin
+  // find number of correct pt bin
   int idx = 0;
-  if(pt < 50){
+  if(eta < 0.9) {
     bool keep_going = true;
-    while(keep_going){
+    while(keep_going) {
       double x,y;
-      g_sf_30to50->GetPoint(idx,x,y);
-      keep_going = eta > x + g_sf_30to50->GetErrorXhigh(idx);
+      g_sf_0to0p9->GetPoint(idx,x,y);
+      keep_going = eta > x + g_sf_0to0p9->GetErrorXhigh(idx);
       if(keep_going) idx++;
     }
   }
-  if(pt < 100){
+  else if(eta < 1.2){
     bool keep_going = true;
     while(keep_going){
       double x,y;
-      g_sf_50to100->GetPoint(idx,x,y);
-      keep_going = eta > x + g_sf_50to100->GetErrorXhigh(idx);
+      g_sf_0p9to1p2->GetPoint(idx,x,y);
+      keep_going = eta > x + g_sf_0p9to1p2->GetErrorXhigh(idx);
       if(keep_going) idx++;
     }
   }
-  else if (pt < 200){
+  else if(eta < 2.1){
     bool keep_going = true;
     while(keep_going){
       double x,y;
-      g_sf_100to200->GetPoint(idx,x,y);
-      keep_going = eta > x + g_sf_100to200->GetErrorXhigh(idx);
+      g_sf_1p2to2p1->GetPoint(idx,x,y);
+      keep_going = eta > x + g_sf_1p2to2p1->GetErrorXhigh(idx);
       if(keep_going) idx++;
     }
   }
-  else{
+  else {
     bool keep_going = true;
     while(keep_going){
       double x,y;
-      g_sf_200toinf->GetPoint(idx,x,y);
-      keep_going = eta > x + g_sf_200toinf->GetErrorXhigh(idx);
+      g_sf_2p1to2p4->GetPoint(idx,x,y);
+      keep_going = eta > x + g_sf_2p1to2p4->GetErrorXhigh(idx);
       if(keep_going) idx++;
     }
   }
-
 
   //access scale factors, add 2% t&p systematic uncertainty
   double sf, sf_up, sf_down, dummy_x;
   double stat_up = -1., stat_down = -1., tp = 0.02, total_up = -1., total_down = -1.;
-  if(pt < 50){
-    g_sf_30to50->GetPoint(idx,dummy_x,sf);
+  if(eta < 0.9){
+    g_sf_0to0p9->GetPoint(idx,dummy_x,sf);
 
-    stat_up = g_sf_30to50->GetErrorYhigh(idx);
-    stat_down = g_sf_30to50->GetErrorYlow(idx);
+    stat_up = g_sf_0to0p9->GetErrorYhigh(idx);
+    stat_down = g_sf_0to0p9->GetErrorYlow(idx);
     total_up = sqrt(pow(stat_up,2) + pow(tp,2));
     total_down = sqrt(pow(stat_down,2) + pow(tp,2));
 
     sf_up = sf + total_up;
     sf_down = sf + total_down;
   }
-  if(pt < 100){
-    g_sf_50to100->GetPoint(idx,dummy_x,sf);
+  else if(eta < 1.2){
+    g_sf_0p9to1p2->GetPoint(idx,dummy_x,sf);
 
-    stat_up = g_sf_50to100->GetErrorYhigh(idx);
-    stat_down = g_sf_50to100->GetErrorYlow(idx);
+    stat_up = g_sf_0p9to1p2->GetErrorYhigh(idx);
+    stat_down = g_sf_0p9to1p2->GetErrorYlow(idx);
     total_up = sqrt(pow(stat_up,2) + pow(tp,2));
     total_down = sqrt(pow(stat_down,2) + pow(tp,2));
 
     sf_up = sf + total_up;
     sf_down = sf + total_down;
   }
-  else if(pt < 200){
-    g_sf_100to200->GetPoint(idx,dummy_x,sf);
+  else if(eta < 2.1){
+    g_sf_1p2to2p1->GetPoint(idx,dummy_x,sf);
 
-    stat_up = g_sf_100to200->GetErrorYhigh(idx);
-    stat_down = g_sf_100to200->GetErrorYlow(idx);
+    stat_up = g_sf_1p2to2p1->GetErrorYhigh(idx);
+    stat_down = g_sf_1p2to2p1->GetErrorYlow(idx);
     total_up = sqrt(pow(stat_up,2) + pow(tp,2));
     total_down = sqrt(pow(stat_down,2) + pow(tp,2));
 
     sf_up = sf + total_up;
     sf_down = sf + total_down;
   }
-  else{
-    g_sf_200toinf->GetPoint(idx,dummy_x,sf);
+  else {
+    g_sf_2p1to2p4->GetPoint(idx,dummy_x,sf);
 
-    stat_up = g_sf_200toinf->GetErrorYhigh(idx);
-    stat_down = g_sf_200toinf->GetErrorYlow(idx);
+    stat_up = g_sf_2p1to2p4->GetErrorYhigh(idx);
+    stat_down = g_sf_2p1to2p4->GetErrorYlow(idx);
     total_up = sqrt(pow(stat_up,2) + pow(tp,2));
     total_down = sqrt(pow(stat_down,2) + pow(tp,2));
 
@@ -170,20 +173,24 @@ ElectronTriggerWeights::ElectronTriggerWeights(Context & ctx, TString path_, Yea
   if(year == Year::is2017v1 || year == Year::is2017v2) yeartag = "2017";
   else if(year == Year::is2018) yeartag = "2018";
   unique_ptr<TFile> file_pt1, file_pt2, file_pt3, file_pt4;
-  file_pt1.reset(new TFile(path+"/" + yeartag + "/ElectronTriggerScaleFactors_eta_ele_binned_pt30to50.root","READ"));
-  file_pt2.reset(new TFile(path+"/" + yeartag + "/ElectronTriggerScaleFactors_eta_ele_binned_pt50to100.root","READ"));
+  file_pt1.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/ElectronTriggerScaleFactors_eta_ele_binned_pt30to120.root","READ"));
   if(yeartag == "2016"){
-    file_pt3.reset(new TFile(path+"/" + yeartag + "/ElectronTriggerScaleFactors_eta_ele_binned_pt100to175.root","READ"));
-    file_pt4.reset(new TFile(path+"/" + yeartag + "/ElectronTriggerScaleFactors_eta_ele_binned_pt175toInf.root","READ"));
+    file_pt2.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/ElectronTriggerScaleFactors_eta_ele_binned_pt120to175.root","READ"));
+    file_pt3.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/ElectronTriggerScaleFactors_eta_ele_binned_pt175toInf.root","READ"));
   }
-  else throw runtime_error("In ElectronTriggerWeights::ElectronTriggerWeights: Specify SF files for 2017 and 2018 for high-pt thresholds");
+  else if(yeartag == "2017" || yeartag == "2018"){
+    file_pt2.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/ElectronTriggerScaleFactors_eta_ele_binned_pt120to200.root","READ"));
+    file_pt3.reset(new TFile(path+"/" + yeartag + "/TriggerEfficiencies3e" + "/ElectronTriggerScaleFactors_eta_ele_binned_pt200toInf.root","READ"));
+  }
+  else throw runtime_error("invalid year");
 
-  if(yeartag == "2016") pt_bins = {30, 50, 100, 175};
+  if(yeartag == "2016") pt_bins = {30, 120, 175};
+  else if(yeartag == "2017" || yeartag == "2018") pt_bins = {30, 120, 200};
 
   g_sf_pt1.reset((TGraphAsymmErrors*)file_pt1->Get("ScaleFactors"));
   g_sf_pt2.reset((TGraphAsymmErrors*)file_pt2->Get("ScaleFactors"));
   g_sf_pt3.reset((TGraphAsymmErrors*)file_pt3->Get("ScaleFactors"));
-  g_sf_pt4.reset((TGraphAsymmErrors*)file_pt4->Get("ScaleFactors"));
+  //g_sf_pt4.reset((TGraphAsymmErrors*)file_pt4->Get("ScaleFactors"));
 
 }
 
@@ -213,7 +220,7 @@ bool ElectronTriggerWeights::process(Event & event){
       if(keep_going) idx++;
     }
   }
-  if(pt < pt_bins[2]){
+  else if(pt < pt_bins[2]){
     bool keep_going = true;
     while(keep_going){
       double x,y;
@@ -222,7 +229,7 @@ bool ElectronTriggerWeights::process(Event & event){
       if(keep_going) idx++;
     }
   }
-  else if (pt < pt_bins[3]){
+  else {
     bool keep_going = true;
     while(keep_going){
       double x,y;
@@ -230,18 +237,7 @@ bool ElectronTriggerWeights::process(Event & event){
       keep_going = eta > x + g_sf_pt3->GetErrorXhigh(idx);
       if(keep_going) idx++;
     }
-  }
-  else{
-    bool keep_going = true;
-    while(keep_going){
-      double x,y;
-      g_sf_pt4->GetPoint(idx,x,y);
-      keep_going = eta > x + g_sf_pt4->GetErrorXhigh(idx);
-      if(keep_going) idx++;
-    }
-  }
-
-
+  } 
   //access scale factors, add 2% t&p systematic uncertainty
   double sf, sf_up, sf_down, dummy_x;
   double stat_up = -1., stat_down = -1., tp = 0.02, total_up = -1., total_down = -1.;
@@ -256,7 +252,7 @@ bool ElectronTriggerWeights::process(Event & event){
     sf_up = sf + total_up;
     sf_down = sf + total_down;
   }
-  if(pt < pt_bins[2]){
+  else if(pt < pt_bins[2]){
     g_sf_pt2->GetPoint(idx,dummy_x,sf);
 
     stat_up = g_sf_pt2->GetErrorYhigh(idx);
@@ -267,22 +263,11 @@ bool ElectronTriggerWeights::process(Event & event){
     sf_up = sf + total_up;
     sf_down = sf + total_down;
   }
-  else if(pt < pt_bins[3]){
+  else {
     g_sf_pt3->GetPoint(idx,dummy_x,sf);
 
     stat_up = g_sf_pt3->GetErrorYhigh(idx);
     stat_down = g_sf_pt3->GetErrorYlow(idx);
-    total_up = sqrt(pow(stat_up,2) + pow(tp,2));
-    total_down = sqrt(pow(stat_down,2) + pow(tp,2));
-
-    sf_up = sf + total_up;
-    sf_down = sf + total_down;
-  }
-  else{
-    g_sf_pt4->GetPoint(idx,dummy_x,sf);
-
-    stat_up = g_sf_pt4->GetErrorYhigh(idx);
-    stat_down = g_sf_pt4->GetErrorYlow(idx);
     total_up = sqrt(pow(stat_up,2) + pow(tp,2));
     total_down = sqrt(pow(stat_down,2) + pow(tp,2));
 
