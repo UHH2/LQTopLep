@@ -81,6 +81,12 @@ namespace uhh2examples {
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
       mytag = "FinalSelection_srmu_catB_" + tag;
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = "FinalSelection_srele_" + tag;
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = "FinalSelection_srele_catA_" + tag;
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
+      mytag = "FinalSelection_srele_catB_" + tag;
+      book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
       mytag = "FinalSelection_ttbar_" + tag;
       book_HFolder(mytag, new LQTopLepHists(ctx,mytag));
       mytag = "FinalSelection_ttbar_catB_" + tag;
@@ -108,6 +114,12 @@ namespace uhh2examples {
       mytag = "FinalSelection_srmu_catA_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
       mytag = "FinalSelection_srmu_catB_" + tag;
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = "FinalSelection_srele_" + tag;
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = "FinalSelection_srele_catA_" + tag;
+      book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
+      mytag = "FinalSelection_srele_catB_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
       mytag = "FinalSelection_ttbar_" + tag;
       book_HFolder(mytag, new LQTopLepPDFHists(ctx,mytag));
@@ -158,9 +170,8 @@ namespace uhh2examples {
     h_chi2 = ctx.get_handle<float>("chi2");
 
     // Declare all systematics names in consistent ordering
-    systnames = {"muid", "pu", "eleid", "elereco", "muiso", "mutrigger", "btag_bc", "btag_udsg"};
-    handlenames = {"weight_sfmu_id", "weight_pu", "weight_sfelec_id", "weight_sfelec_reco", "weight_sfmu_iso", "weight_sfmu_trigger", "weight_btag" , "weight_btag"};
-
+    systnames = {"muid", "pu", "eleid", "elereco", "eletrigger", "muiso", "mutrigger", "btag_bc", "btag_udsg"};
+    handlenames = {"weight_sfmu_id", "weight_pu", "weight_sfelec_id", "weight_sfelec_reco", "weight_sfelec_trigger", "weight_sfmu_iso", "weight_sfmu_trigger", "weight_btag" , "weight_btag"};
     systshift = {"up", "down"};
     if(systnames.size() != handlenames.size()) throw runtime_error("In LQTopLepFinalModule.cxx: Length of systnames and handlenames is not equal.");
 
@@ -224,11 +235,9 @@ namespace uhh2examples {
 
 
   bool LQTopLepFinalSelectionModule_Inclusive::process(Event & event) {
-    cout << "Line: " << __LINE__ << endl;
 
     TString handle_region = event.get(h_region);
     string region = (string)handle_region;
-    cout << "region: " << region << endl;
     bool is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);
 
     // Read out nominal eventweight
@@ -236,31 +245,22 @@ namespace uhh2examples {
 
     // Fill histograms once with nominal weights
     event.weight = weight_nominal;
-    cout << "Line: " << __LINE__ << endl;
 
     fill_histograms(event, "nominal", region, is_mlq_reconstructed);
 
     // Loop over easy systematics
     for(unsigned int i=0; i<systnames.size(); i++){    
-      cout << "Line: " << __LINE__ << endl;
-      cout << "Systname: " << systnames[i] << endl;
       for(unsigned int j=0; j<systshift.size(); j++){
-	cout << "Line: " << __LINE__ << endl;
-        int idx = 2*i + j;
- 	cout << "Line: " << __LINE__ << endl;
-	cout << "systweight_handles: " << event.get(systweight_handles[idx]) << endl;
-        float systweight = event.get(systweight_handles[idx]);
-	cout << "Line: " << __LINE__ << endl;
-        float sfweight = event.get(scalefactor_handles[idx]);
-	cout << "Line: " << __LINE__ << endl;
-        event.weight = weight_nominal * systweight / sfweight;
-	cout << "Line: " << __LINE__ << endl;
 
+        int idx = 2*i + j;
+        float systweight = event.get(systweight_handles[idx]);
+        float sfweight = event.get(scalefactor_handles[idx]);
+        event.weight = weight_nominal * systweight / sfweight;
         TString tag = systnames[i] + "_" + systshift[j];
+
         fill_histograms(event, (string)tag, region, is_mlq_reconstructed);
       }
     }
-    cout << "Line: " << __LINE__ << endl;
 
     // Loop over scale systematics
     for(unsigned int j=0; j<systshift_scale.size(); j++){
@@ -271,7 +271,6 @@ namespace uhh2examples {
       TString tag = "scale_" + systshift_scale[j];
       fill_histograms(event, (string)tag, region, is_mlq_reconstructed);
     }
-    cout << "Line: " << __LINE__ << endl;
 
     // Fill PDF histograms
     event.weight = weight_nominal;
@@ -280,7 +279,6 @@ namespace uhh2examples {
 
 
 
-    cout << "Line: " << __LINE__ << endl;
 
 
 
