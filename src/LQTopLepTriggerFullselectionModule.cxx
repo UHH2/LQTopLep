@@ -127,12 +127,29 @@ namespace uhh2examples {
 
 
     // Lepton scale factors
-    SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 0., "id", false, "nominal"));
-    SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt", 0., "iso", false, "nominal"));
+    if(year == Year::is2016v2 || year == Year::is2016v3){
+      SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 0., "id", false, "nominal"));
+      SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt", 0., "iso", false, "nominal"));
 
-    SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root", 1, "reco", "nominal"));
-    SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/2016LegacyReReco_ElectronTight_Fall17V2.root", 1, "id", "nominal"));
+      SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root", 1, "reco", "nominal"));
+      SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/2016LegacyReReco_ElectronTight_Fall17V2.root", 1, "id", "nominal"));
+    }
+    else if(year == Year::is2017v1 || year == Year::is2017v2){
+      //
+      SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_TightID_DEN_genTracks_pt_abseta", 0., "id", true, "nominal"));
+      SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonIso_94X_RunBCDEF_SF_ISO.root", "NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta", 0., "iso", true, "nominal"));
 
+      SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2017/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root", 1, "reco", "nominal"));
+      SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2017/2017_ElectronTight.root", 1, "id", "nominal"));
+    }
+    else if(year == Year::is2018){
+      //
+      SF_muonID.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2018/Muon_ID_SF_RunABCD.root", "NUM_TightID_DEN_TrackerMuons_pt_abseta", 0., "id", true, "nominal"));
+      SF_muonIso.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2018/Muon_Iso_SF_RunABCD.root", "NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta", 0., "iso", true, "nominal"));
+
+      SF_eleReco.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2018/egammaEffi.txt_EGM2D_updatedAll.root", 1, "reco", "nominal"));
+      SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2018/2018_ElectronTight.root", 1, "id", "nominal"));
+    }
 
 
     // Selections
@@ -157,7 +174,7 @@ namespace uhh2examples {
       trigger2_muon_sel.reset(new TriggerSelection("HLT_IsoMu24_v*"));
       trigger1_electron_sel.reset(new TriggerSelection("HLT_Ele32_WPTight_Gsf_v*"));
       trigger2_electron_sel.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
-      trigger3_electron_sel.reset(new TriggerSelection("HLT_Ele32_WPTight_Gsf_v*"));
+      trigger3_electron_sel.reset(new TriggerSelection("HLT_Photon200_v*"));
     }
 
 
@@ -172,36 +189,65 @@ namespace uhh2examples {
 
   bool LQTopLepTriggerFullselectionModule::process(Event & event) {
 
-    bool pass_muon_trigger = (trigger1_muon_sel->passes(event) || trigger2_muon_sel->passes(event));
+    // HEM 16/17 issue in data and MC for 2018
+    if(year == Year::is2018){
+      if(event.electrons->size() < 1) throw runtime_error("Event does not have any electrons, should have one.");
+      double eleeta = event.electrons->at(0).eta();
+      double elephi = event.electrons->at(0).phi();
+      if(-2.964 < eleeta && eleeta < -1.305 && -1.6 < elephi && elephi < -0.7) return false;
 
-    bool pass_electron_trigger;
-    if(!is_mc && event.run < 299368) pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
-    else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
-
-      /*
-    if(!is_mc){
-      if(event.run >=299368) pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
-      else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
     }
-    else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
-      */
-    
-    bool pass_electron_trigger_for_muoneff;
-    if(!is_mc && event.run < 299368) pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
-    else pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
 
+    bool pass_muon_trigger = (trigger1_muon_sel->passes(event) || trigger2_muon_sel->passes(event));
+    bool pass_electron_trigger;
+
+    // 3 e trigger case
+    // if(!is_mc && event.run < 299368) pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    // else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+
+    // 2 e trigger case
+    pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+
+
+    // if(!is_mc){
+    //   if(event.run >=299368) pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    //   else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    // }
+    // else pass_electron_trigger = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+
+
+    bool pass_electron_trigger_for_muoneff;
+
+    // for 3 e trigger case (need this for muon efficiencies?)
+    // if(!is_mc && event.run < 299368) pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    // else pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+    // if(year == Year::is2016v2 || year == Year::is2016v3 || year == Year::is2017v2){
+    //   if(!is_mc && dataset_version.Contains("Electron")) {
+    //     if(event.run < 299368) pass_electron_trigger_for_muoneff = trigger1_electron_sel->passes(event);
+    //     else pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event));
+    //
+    //   }
+    //   else if (!is_mc && dataset_version.Contains("Photon")) {
+    //     if(event.run < 299368) pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
+    //     else pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && !trigger2_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
+    //   }
+    // }
+
+    // for 2 e trigger case
+    // MC and 2018
+    pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger3_electron_sel->passes(event));
+
+    //  2016 & 2017
     if(year == Year::is2016v2 || year == Year::is2016v3 || year == Year::is2017v2){
       if(!is_mc && dataset_version.Contains("Electron")) {
-	if(event.run < 299368) pass_electron_trigger_for_muoneff = trigger1_electron_sel->passes(event);
-	else pass_electron_trigger_for_muoneff = (trigger1_electron_sel->passes(event) || trigger2_electron_sel->passes(event));
-
+        pass_electron_trigger_for_muoneff = trigger1_electron_sel->passes(event);
       }
       else if (!is_mc && dataset_version.Contains("Photon")) {
-	if(event.run < 299368) pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
-	else pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && !trigger2_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
+        pass_electron_trigger_for_muoneff = !trigger1_electron_sel->passes(event) && trigger3_electron_sel->passes(event);
       }
     }
-    
+
+
     bool pass_common = common->process(event);
     if(!pass_common) return false;
     fill_histograms(event,"Cleaner");
@@ -268,21 +314,21 @@ namespace uhh2examples {
         if(event.electrons->at(0).pt() > 200) fill_histograms(event, "ElectronTriggerAfter_pt200toInf");
         if(event.electrons->at(0).pt() > 175) fill_histograms(event, "ElectronTriggerAfter_pt175toInf");
 
-	// for pt>120 GeV trigger
-	if(event.electrons->at(0).pt() > 30 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt30to120");
-	if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt50to120");
-	if(event.electrons->at(0).pt() > 100 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt100to120");
-	if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 175) fill_histograms(event, "ElectronTriggerAfter_pt120to175");
-	if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerAfter_pt120to200");
-	if(event.electrons->at(0).pt() > 120) fill_histograms(event, "ElectronTriggerAfter_pt120toInf");
-      
-	if(fabs(event.electrons->at(0).eta()) < 0.9) fill_histograms(event, "ElectronTriggerAfter_eta0to0p9");
-	if(fabs(event.electrons->at(0).eta()) > 0.9 && fabs(event.electrons->at(0).eta()) < 1.2) fill_histograms(event, "ElectronTriggerAfter_eta0p9to1p2");
-	if(fabs(event.electrons->at(0).eta()) > 1.2 && fabs(event.electrons->at(0).eta()) < 2.1) fill_histograms(event, "ElectronTriggerAfter_eta1p2to2p1");
-	if(fabs(event.electrons->at(0).eta()) > 2.1 && fabs(event.electrons->at(0).eta()) < 2.4) fill_histograms(event, "ElectronTriggerAfter_eta2p1to2p4");
+        // for pt>120 GeV trigger
+        if(event.electrons->at(0).pt() > 30 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt30to120");
+        if(event.electrons->at(0).pt() > 50 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt50to120");
+        if(event.electrons->at(0).pt() > 100 && event.electrons->at(0).pt() < 120) fill_histograms(event, "ElectronTriggerAfter_pt100to120");
+        if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 175) fill_histograms(event, "ElectronTriggerAfter_pt120to175");
+        if(event.electrons->at(0).pt() > 120 && event.electrons->at(0).pt() < 200) fill_histograms(event, "ElectronTriggerAfter_pt120to200");
+        if(event.electrons->at(0).pt() > 120) fill_histograms(event, "ElectronTriggerAfter_pt120toInf");
+
+        if(fabs(event.electrons->at(0).eta()) < 0.9) fill_histograms(event, "ElectronTriggerAfter_eta0to0p9");
+        if(fabs(event.electrons->at(0).eta()) > 0.9 && fabs(event.electrons->at(0).eta()) < 1.2) fill_histograms(event, "ElectronTriggerAfter_eta0p9to1p2");
+        if(fabs(event.electrons->at(0).eta()) > 1.2 && fabs(event.electrons->at(0).eta()) < 2.1) fill_histograms(event, "ElectronTriggerAfter_eta1p2to2p1");
+        if(fabs(event.electrons->at(0).eta()) > 2.1 && fabs(event.electrons->at(0).eta()) < 2.4) fill_histograms(event, "ElectronTriggerAfter_eta2p1to2p4");
       }
     }
-    
+
     // Start with muon-SF derivation --> require electron trigger and then calculate mu-trigger efficiency
     if(pass_electron_trigger_for_muoneff) {
       fill_histograms(event,"MuonTriggerBefore");
@@ -306,7 +352,7 @@ namespace uhh2examples {
       if(fabs(event.muons->at(0).eta()) > 2.1 && fabs(event.muons->at(0).eta()) < 2.4) fill_histograms(event, "MuonTriggerBefore_eta2p1to2p4");
 
 
-    
+
       if(pass_muon_trigger){
         fill_histograms(event, "MuonTriggerAfter");
 
@@ -323,13 +369,13 @@ namespace uhh2examples {
         if(event.muons->at(0).pt() > 200) fill_histograms(event, "MuonTriggerAfter_pt200toInf");
         if(event.muons->at(0).pt() > 175) fill_histograms(event, "MuonTriggerAfter_pt175toInf");
 
-	if(fabs(event.muons->at(0).eta()) < 0.9) fill_histograms(event, "MuonTriggerAfter_eta0to0p9");
-	if(fabs(event.muons->at(0).eta()) > 0.9 && fabs(event.muons->at(0).eta()) < 1.2) fill_histograms(event, "MuonTriggerAfter_eta0p9to1p2");
-	if(fabs(event.muons->at(0).eta()) > 1.2 && fabs(event.muons->at(0).eta()) < 2.1) fill_histograms(event, "MuonTriggerAfter_eta1p2to2p1");
-	if(fabs(event.muons->at(0).eta()) > 2.1 && fabs(event.muons->at(0).eta()) < 2.4) fill_histograms(event, "MuonTriggerAfter_eta2p1to2p4");
+        if(fabs(event.muons->at(0).eta()) < 0.9) fill_histograms(event, "MuonTriggerAfter_eta0to0p9");
+        if(fabs(event.muons->at(0).eta()) > 0.9 && fabs(event.muons->at(0).eta()) < 1.2) fill_histograms(event, "MuonTriggerAfter_eta0p9to1p2");
+        if(fabs(event.muons->at(0).eta()) > 1.2 && fabs(event.muons->at(0).eta()) < 2.1) fill_histograms(event, "MuonTriggerAfter_eta1p2to2p1");
+        if(fabs(event.muons->at(0).eta()) > 2.1 && fabs(event.muons->at(0).eta()) < 2.4) fill_histograms(event, "MuonTriggerAfter_eta2p1to2p4");
       }
     }
-    
+
     return true;
   }
 

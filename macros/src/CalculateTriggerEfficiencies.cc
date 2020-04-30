@@ -8,6 +8,7 @@
 #include <TLegend.h>
 #include <TLine.h>
 #include <TStyle.h>
+#include <TEfficiency.h>
 #include <TLatex.h>
 #include <iostream>
 
@@ -41,7 +42,7 @@ void AnalysisTool::CalculateTriggerEfficiencies(){
     make_pair("120",  "Inf"),
   };
 
- vector<pair<TString,TString>> pt_regions_mu = {
+  vector<pair<TString,TString>> pt_regions_mu = {
     make_pair("",    ""),
     make_pair("30",  "50"),
     make_pair("50",  "100"),
@@ -194,35 +195,36 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
   // Denominator histograms
   TH1D* h_TTbar_before = (TH1D*)input_TTbar->Get(histname_before);
-  // TH1D* h_ST_before    = (TH1D*)input_ST->Get(histname_before);
-  // TH1D* h_DY_before    = (TH1D*)input_DY->Get(histname_before);
-  // TH1D* h_WJ_before    = (TH1D*)input_WJ->Get(histname_before);
-  // TH1D* h_DB_before    = (TH1D*)input_DB->Get(histname_before);
-  // TH1D* h_QCD_before;
-  // if(mode == "electron") h_QCD_before = (TH1D*)input_QCDMU->Get(histname_before);
-  // else                   h_QCD_before = (TH1D*)input_QCDELE->Get(histname_before);
+  TH1D* h_ST_before    = (TH1D*)input_ST->Get(histname_before);
+  TH1D* h_DY_before    = (TH1D*)input_DY->Get(histname_before);
+  TH1D* h_WJ_before    = (TH1D*)input_WJ->Get(histname_before);
+  TH1D* h_DB_before    = (TH1D*)input_DB->Get(histname_before);
+  TH1D* h_QCD_before;
+  if(mode == "electron") h_QCD_before = (TH1D*)input_QCDMU->Get(histname_before);
+  else                   h_QCD_before = (TH1D*)input_QCDELE->Get(histname_before);
   TH1D* h_MC_before = (TH1D*)h_TTbar_before->Clone("h_MC_before");
-  // h_MC_before->Add(h_ST_before);
-  // h_MC_before->Add(h_DY_before);
-  // h_MC_before->Add(h_WJ_before);
-  // h_MC_before->Add(h_DB_before);
-  // h_MC_before->Add(h_QCD_before);
+  h_MC_before->Add(h_ST_before);
+  h_MC_before->Add(h_DB_before);
+  TH1D* h_FAKE_before = (TH1D*)h_DY_before->Clone("h_FAKE_before");
+  h_FAKE_before->Add(h_WJ_before);
+  // h_FAKE_before->Add(h_QCD_before);
 
   // Numerator histograms
   TH1D* h_TTbar_after  = (TH1D*)input_TTbar->Get(histname_after);
-  // TH1D* h_ST_after     = (TH1D*)input_ST->Get(histname_after);
-  // TH1D* h_DY_after     = (TH1D*)input_DY->Get(histname_after);
-  // TH1D* h_WJ_after     = (TH1D*)input_WJ->Get(histname_after);
-  // TH1D* h_DB_after     = (TH1D*)input_DB->Get(histname_after);
-  // TH1D* h_QCD_after;
-  // if(mode == "electron") h_QCD_after = (TH1D*)input_QCDMU->Get(histname_after);
-  // else                   h_QCD_after = (TH1D*)input_QCDELE->Get(histname_after);
+  TH1D* h_ST_after     = (TH1D*)input_ST->Get(histname_after);
+  TH1D* h_DY_after     = (TH1D*)input_DY->Get(histname_after);
+  TH1D* h_WJ_after     = (TH1D*)input_WJ->Get(histname_after);
+  TH1D* h_DB_after     = (TH1D*)input_DB->Get(histname_after);
+  TH1D* h_QCD_after;
+  if(mode == "electron") h_QCD_after = (TH1D*)input_QCDMU->Get(histname_after);
+  else                   h_QCD_after = (TH1D*)input_QCDELE->Get(histname_after);
   TH1D* h_MC_after = (TH1D*)h_TTbar_after->Clone("h_MC_after");
-  // h_MC_after->Add(h_ST_after);
-  // h_MC_after->Add(h_DY_after);
-  // h_MC_after->Add(h_WJ_after);
-  // h_MC_after->Add(h_DB_after);
-  // h_MC_after->Add(h_QCD_after);
+  h_MC_after->Add(h_ST_after);
+  h_MC_after->Add(h_DB_after);
+  TH1D* h_FAKE_after = (TH1D*)h_DY_after->Clone("h_FAKE_after");
+  h_FAKE_after->Add(h_WJ_after);
+  // h_FAKE_after->Add(h_QCD_after);
+
   TH1D* h_DATA_before, *h_DATA_after;
   if(mode == "electron_pt" || mode == "electron_eta"){
     h_DATA_before = (TH1D*)input_DATAMU->Get(histname_before);
@@ -232,7 +234,37 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
     h_DATA_before = (TH1D*)input_DATAELE->Get(histname_before);
     h_DATA_after   = (TH1D*)input_DATAELE->Get(histname_after);
   }
-  // cout << "done loading histograms" << endl;
+
+
+  // Subtract fraction of fakes from MC, bin by bin. First from BEFORE, then AFTER
+  for(int i=1; i<h_DATA_before->GetNbinsX()+1; i++){
+    double data = h_DATA_before->GetBinContent(i);
+    double fake = h_FAKE_before->GetBinContent(i);
+    double mc = h_MC_before->GetBinContent(i);
+
+    double sf = 1.;
+    if(fake+mc > 0.) sf = data/(fake+mc);
+
+    //subtract fake*sf from data
+    h_DATA_before->SetBinContent(i, data - fake*sf);
+    h_DATA_before->SetBinError(i, sqrt(pow(h_DATA_before->GetBinError(i), 2) + pow(h_FAKE_before->GetBinError(i)*sf, 2)));
+    // h_DATA_before->SetBinError(i, sqrt(data - fake*sf));
+  }
+  for(int i=1; i<h_DATA_after->GetNbinsX()+1; i++){
+    double data = h_DATA_after->GetBinContent(i);
+    double fake = h_FAKE_after->GetBinContent(i);
+    double mc   = h_MC_after->GetBinContent(i);
+
+    double sf = 1.;
+    if(fake+mc > 0.) sf = data/(fake+mc);
+
+    //subtract fake*sf from data
+    h_DATA_after->SetBinContent(i, data - fake*sf);
+    h_DATA_after->SetBinError(i, sqrt(pow(h_DATA_after->GetBinError(i), 2) + pow(h_FAKE_after->GetBinError(i)*sf, 2)));
+    // h_DATA_after->SetBinError(i, sqrt(data - fake*sf));
+  }
+
+
 
 
 
@@ -242,20 +274,29 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   // Efficiencies
   TGraphAsymmErrors* gr_mc;
   for(int i=-1; i<h_MC_before->GetNbinsX()+1; i++){
+    // cout << "Bin: " << i+1 << ", Data before: " << h_DATA_before->GetBinContent(i+1) << " +- " << h_DATA_before->GetBinError(i+1) << " ---- Data after: " << h_DATA_after->GetBinContent(i+1) << " +- " << h_DATA_after->GetBinError(i+1) << endl;
     if(h_MC_before->GetBinContent(i+1) < h_MC_after->GetBinContent(i+1)){
       h_MC_after->SetBinContent(i+1, h_MC_before->GetBinContent(i+1));
+      h_MC_after->SetBinError(i+1, h_MC_before->GetBinError(i+1));
+    }
+    if(h_DATA_before->GetBinContent(i+1) < h_DATA_after->GetBinContent(i+1)){
+      h_DATA_after->SetBinContent(i+1, h_DATA_before->GetBinContent(i+1));
+      h_DATA_after->SetBinError(i+1, h_DATA_before->GetBinError(i+1));
     }
     if(h_MC_before->GetBinContent(i+1) <= 0) h_MC_before->SetBinContent(i+1, 0.);
     if(h_MC_after->GetBinContent(i+1) <= 0) h_MC_after->SetBinContent(i+1, 0.);
     // cout << "MC bin " << i+1 << ", before: " << h_MC_before->GetBinContent(i+1) << ", after: " << h_MC_after->GetBinContent(i+1) << endl;
     // cout << "DATA bin " << i+1 << ", before: " << h_DATA_before->GetBinContent(i+1) << ", after: " << h_DATA_after->GetBinContent(i+1) << endl;
-    // if(h_MC_before->GetBinContent(i+1) < h_MC_after->GetBinContent(i+1)) cout << "+++++++++++++++ MC in bin " << i+1 << ", before < after" << endl;
-    // if(h_DATA_before->GetBinContent(i+1) < h_DATA_after->GetBinContent(i+1)) cout << "+++++++++++++++ DATA in bin " << i+1 << ", before < after" << endl;
+    if(h_MC_before->GetBinContent(i+1) < h_MC_after->GetBinContent(i+1)) cout << "+++++++++++++++ MC in bin " << i+1 << ", before < after" << endl;
+    if(h_DATA_before->GetBinContent(i+1) < h_DATA_after->GetBinContent(i+1)) cout << "+++++++++++++++ DATA in bin " << i+1 << ", before < after, setting them equal" << endl;
   }
   // cout << "Trying for mc" << endl;
   gr_mc = new TGraphAsymmErrors(h_MC_after, h_MC_before);
   // cout << "trying for data" << endl;
+  h_DATA_before->Sumw2(false);
+  h_DATA_after->Sumw2(false);
   TGraphAsymmErrors* gr_data = new TGraphAsymmErrors(h_DATA_after, h_DATA_before);
+  // TEfficiency* gr_data = new TEfficiency(h_DATA_after, h_DATA_before);
   HistCosmetics(gr_mc);
   HistCosmetics(gr_data);
   gr_mc->SetLineColor(kRed-4);
@@ -273,8 +314,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
 
     gr_mc->GetPoint(at_in_mc,x_MC,y_MC);
     gr_data->GetPoint(at_in_data,x_DATA,y_DATA);
-    // cout << "mc start: " << x_MC << endl;
-    // cout << "data start: " << x_DATA << endl << endl;
+    // gr_data->GetPoint(at_in_data,x_DATA,y_DATA);
 
     double last_data = -1, last_mc = -1;
     bool skip = false;
@@ -311,6 +351,7 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
     SF_x_low.push_back(MC_x_low);
     SF_x_high.push_back(MC_x_high);
     SF_y.push_back(y_DATA/y_MC);
+    // cout << "y_data: " << y_DATA << " + " << DATA_y_high << " - " << DATA_y_low << endl;
     SF_y_low.push_back(sqrt(pow(DATA_y_low/y_MC,2) + pow(y_DATA/y_MC/y_MC*MC_y_high,2)));
     SF_y_high.push_back(sqrt(pow(DATA_y_high/y_MC,2) + pow(y_DATA/y_MC/y_MC*MC_y_low,2)));
 
@@ -377,9 +418,17 @@ void CalculateEffForVar(TString mode, TString varname, TString base_path, TStrin
   text1->SetY(0.995);
   text1->Draw("SAME");
 
-  TString pttext = ptlow + " GeV < p_{T}^{e} < " + pthigh + " GeV";
-  if(pthigh == "Inf") pttext = " p_{T}^{e} > " + ptlow + " GeV";
-  if(mode.Contains("eta")) pttext.ReplaceAll("p_{T}^{e}", "|#eta^{e}|");
+  TString ptlowfortag = ptlow;
+  if(mode.Contains("_pt")){
+    if(ptlowfortag == "30") ptlowfortag = offline_e_thresholds.at(year);
+  }
+  TString pttext = ptlowfortag + " GeV < p_{T}^{e} < " + pthigh + " GeV";
+  if(pthigh == "Inf") pttext = " p_{T}^{e} > " + ptlowfortag + " GeV";
+  if(mode.Contains("_eta")){
+    pttext.ReplaceAll("p_{T}^{e}", "|#eta^{e}|");
+    pttext.ReplaceAll(" GeV", "");
+    pttext.ReplaceAll("p", ".");
+  }
   if(mode.Contains("muon")) pttext.ReplaceAll("^{e}", "^{#mu}");
 
 

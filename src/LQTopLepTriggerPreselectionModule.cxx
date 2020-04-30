@@ -56,6 +56,7 @@ namespace uhh2examples {
     JetId jetId;
 
     bool is_mc;
+    int nevt;
 
 
   };
@@ -98,6 +99,7 @@ namespace uhh2examples {
     is_mc = ctx.get("dataset_type") == "MC";
     Year year = extract_year(ctx);
 
+    nevt = 0;
 
     // Object kinematic cuts
     // highpt for requiring == 1
@@ -113,9 +115,11 @@ namespace uhh2examples {
     eleId_highpt = AndId<Electron>(ElectronID_Fall17_tight, PtEtaCut(leptonhighpt, leptoneta));
     if (year == Year::is2016v2){
       muId_highpt = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(leptonhighpt, leptoneta), MuonIso(0.15));
+      // muId_highpt = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(leptonhighpt, leptoneta));
     }
     else{
       muId_highpt = AndId<Muon>(MuonID(Muon::CutBasedIdTight), PtEtaCut(leptonhighpt, leptoneta), MuonID(Muon::PFIsoTight));
+      // muId_highpt = AndId<Muon>(MuonID(Muon::CutBasedIdTight), PtEtaCut(leptonhighpt, leptoneta));
     }
 
 
@@ -144,8 +148,10 @@ namespace uhh2examples {
 
 
   bool LQTopLepTriggerPreselectionModule::process(Event & event) {
-
-
+    // cout << "NEW EVENT" << endl;
+    // nevt++;
+    // cout << "nevt: " << nevt << endl;
+    // return true;
     fill_histograms(event,"NoCuts");
 
     bool pass_common = common->process(event);

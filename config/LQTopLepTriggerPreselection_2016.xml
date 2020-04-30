@@ -153,7 +153,7 @@
 
 
 
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Muon_B_2016v3" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Muon_B_2016v3" Cacheable="&b_Cacheable;">
 			&DATA_Muon_B;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -194,7 +194,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+ -->
 
 
 
@@ -549,7 +549,7 @@
 		</InputData>
 
 
-
+<!--
 		<InputData Lumi="1.084219166" NEventsMax="&NEVT;" Type="MC" Version="QCD_Mu_Pt-15to20_2016v3" Cacheable="&b_Cacheable;">
 			&QCD_Mu_Pt-15to20;
 			<InputTree Name="AnalysisTree" />
@@ -703,7 +703,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+ -->
 
 
 

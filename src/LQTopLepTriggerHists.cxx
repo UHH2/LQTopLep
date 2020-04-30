@@ -18,12 +18,12 @@ LQTopLepTriggerHists::LQTopLepTriggerHists(Context & ctx, const string & dirname
   book<TH1F>("pt_ele_fine", "p_{T}^{e} [GeV]", 200, 0, 1000);
   double bins[13] = {0,30,65,100,150,200,250,300,350,400,500,700,1000};
   book<TH1F>("pt_ele_binned", "p_{T}^{e} [GeV]", 12, bins);
-  vector<double> bins_pt = {0, 10, 20, 35, 50, 90, 150, 500};
+  vector<double> bins_pt = {0, 10, 20, 35, 50, 90, 150,200,250,300,1000};
   book<TH1F>("pt_ele_binned_official", "p_{T}^{e} [GeV]", bins_pt.size()-1, &bins_pt[0]);
   book<TH1F>("eta_ele", "#eta^{e}", 24, -2.4, 2.4);
   book<TH1F>("eta_ele_binned", "#eta^{e}", 8, -2.4, 2.4);
   vector<double> bins_eta = {-2.4, -2.0, -1.566, -1.444, -0.8, 0, 0.8, 1.444, 1.566, 2.0, 2.4};
-  book<TH1F>("eta_ele_binned_official", "#eta^{e}", bins_eta.size()-1, &bins_eta[0]); 
+  book<TH1F>("eta_ele_binned_official", "#eta^{e}", bins_eta.size()-1, &bins_eta[0]);
   book<TH1D>("dR_ele_mu", "#Delta R(e, #mu)", 50, 0, 5);
   book<TH1D>("dRmin_ele_jet", "#Delta R^{min}(e, jet)", 50, 0, 5);
   book<TH1D>("dRmin_ele_obj", "#Delta R^{min}(e, obj)", 50, 0, 5);
