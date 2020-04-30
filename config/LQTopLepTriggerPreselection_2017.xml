@@ -132,7 +132,7 @@
 
 
 
-
+<!--
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Muon_B_2017v2" Cacheable="&b_Cacheable;">
 			&DATA_Muon_B;
 			<InputTree Name="AnalysisTree" />
@@ -187,13 +187,13 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+-->
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Electron_F_2017v2" Cacheable="&b_Cacheable;">
 			&DATA_Electron_F;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+<!--
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_Photon_B_2017v2" Cacheable="&b_Cacheable;">
 			&DATA_Photon_B;
 			<InputTree Name="AnalysisTree" />
@@ -327,7 +327,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+-->
 
 
 		<!-- <InputData Lumi="46376.6826" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_HT-70to100_2017v2" Cacheable="&b_Cacheable;">
@@ -335,7 +335,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData> -->
-
+<!--
 		<InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_HT-100to200_2017v2" Cacheable="&b_Cacheable;">
 			&DYJetsToLL_HT-100to200;
 			<InputTree Name="AnalysisTree" />
@@ -410,14 +410,14 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+-->
 
 		<!-- <InputData Lumi="46470.77498" NEventsMax="&NEVT;" Type="MC" Version="DibosonNLO_WZ_1L1NuQQ_2017v2" Cacheable="&b_Cacheable;">
 			&WZ_1L1NuQQ;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData> -->
-
+<!--
 		<InputData Lumi="269158746.2" NEventsMax="&NEVT;" Type="MC" Version="DibosonNLO_WZ_2L2Q_2017v2" Cacheable="&b_Cacheable;">
 			&WZ_2L2Q;
 			<InputTree Name="AnalysisTree" />
@@ -560,14 +560,14 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+-->
 		<!-- not available in DAS -->
 		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="QCD_EM_Pt-170to300_2017v2" Cacheable="&b_Cacheable;"> -->
 		<!-- 	&QCD_EM_PT170to300; -->
 		<!-- 	<InputTree Name="AnalysisTree" /> -->
 		<!-- 	<OutputTree Name="AnalysisTree" /> -->
 		<!-- </InputData> -->
-
+<!--
 		<InputData Lumi="319.3661111" NEventsMax="&NEVT;" Type="MC" Version="QCD_EM_Pt-300toInf_2017v2" Cacheable="&b_Cacheable;">
 			&QCD_EM_PT300toInf;
 			<InputTree Name="AnalysisTree" />
@@ -606,7 +606,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+-->
 
 
 
