@@ -327,10 +327,6 @@
 
 
 
-<!-- LQ samples: change lumi -->
-
-
-
 <!-- LQ Top mu -->
 
 		<InputData Lumi="1227.72" NEventsMax="&NEVT;" Type="MC" Version="LQtoTMuM200_2017v2" Cacheable="&b_Cacheable;">
