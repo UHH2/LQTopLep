@@ -17,6 +17,7 @@ public:
 
   // Main functions
   void CalculateTriggerEfficiencies();
+  void AddSystematicsEleTrigger();
   void PDFRMS();
   void ScaleVariationEnvelope();
   void ProduceThetaHistograms_mc_fullsyst_much();
