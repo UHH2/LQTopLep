@@ -11,8 +11,8 @@ AnalysisTool::AnalysisTool(int year_)
   base_path = "/nfs/dust/cms/user/reimersa/LQTopLep/";
   theta_path = "/nfs/dust/cms/user/reimersa/theta_LQTopLep/utils2/Limits_MC/";
   combine_path = "../data/datacards/";
-  // trigger_tag = "Trigger/Fullselection_2eTrigger/";
-  trigger_tag = "Trigger/Fullselection_2eTrigger_HEMVeto/";
+  trigger_tag = "Trigger/Fullselection_2eTrigger/";
+  // trigger_tag = "Trigger/Fullselection_2eTrigger_HEMVeto/";
   final_tag = "Finalselection/Inclusive/";
   full_tag = final_tag;
   full_tag.ReplaceAll("Finalselection", "Fullselection");
