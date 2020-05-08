@@ -16,6 +16,7 @@ int main(){
 
   // Analysis16.CalculateTriggerEfficiencies();
   // Analysis16.AddSystematicsEleTrigger();
+  Analysis16.AddSystematicsMuonTrigger();
   // Analysis16.PDFRMS();
   // Analysis16.ScaleVariationEnvelope();
   // // Analysis16.ProduceCombineHistograms_mc_fullsyst_much();
@@ -26,11 +27,13 @@ int main(){
 
 
   // Analysis17.CalculateTriggerEfficiencies();
-  Analysis17.AddSystematicsEleTrigger();
+  // Analysis17.AddSystematicsEleTrigger();
+  Analysis17.AddSystematicsMuonTrigger();
 
 
   // Analysis18.CalculateTriggerEfficiencies();
-  Analysis18.AddSystematicsEleTrigger();
+  // Analysis18.AddSystematicsEleTrigger();
+  Analysis18.AddSystematicsMuonTrigger();
 
 
   // // Old theta macros

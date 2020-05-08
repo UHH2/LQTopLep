@@ -34,7 +34,7 @@ LQTopLepTriggerHists::LQTopLepTriggerHists(Context & ctx, const string & dirname
   book<TH1F>("pt_mu_fine", "p_{T}^{#mu} [GeV]", 200, 0, 1000);
   book<TH1F>("pt_mu_binned", "p_{T}^{#mu} [GeV]", 12, bins);
   book<TH1F>("pt_mu_binned_official", "p_{T}^{#mu} [GeV]", bins_pt.size()-1, &bins_pt[0]);
-  book<TH1F>("pt_mu_binned_official_rebin", "p_{T}^{#mu} [GeV]", bins_pt.size()-1, &bins_pt[0]);
+  book<TH1F>("pt_mu_binned_official_rebin", "p_{T}^{#mu} [GeV]", bins_pt2.size()-1, &bins_pt2[0]);
   book<TH1F>("eta_mu", "#eta^{#mu}", 24, -2.4, 2.4);
   book<TH1F>("eta_mu_binned", "#eta^{#mu}", 8, -2.4, 2.4);
   book<TH1F>("eta_mu_binned_official", "#eta^{#mu}", bins_eta.size()-1, &bins_eta[0]);
