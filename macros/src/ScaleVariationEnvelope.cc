@@ -35,7 +35,7 @@ void AnalysisTool::ScaleVariationEnvelope(){
 
   //Files & histograms for other processes
   TString path = AnalysisTool::base_path + AnalysisTool::year + "/" + AnalysisTool::final_tag;
-  vector<TString> processes = {"TTbar_2016v3","SingleTop_2016v3", "DYJets_2016v3", "Diboson_2016v3", "TTV_2016v3", "WJets_2016v3", "QCDMu_2016v3"};
+  vector<TString> processes = {"TTbar_2016v3","SingleTop_2016v3", "DYJets_2016v3", "Diboson_2016v3", "TTV_2016v3", "WJets_2016v3", "QCDMu_2016v3", "QCDEle_2016v3"};
   unique_ptr<TFile> f_in;
 
   for(unsigned int aa=0; aa< processes.size();aa++){
@@ -43,7 +43,7 @@ void AnalysisTool::ScaleVariationEnvelope(){
     f_in.reset (new TFile(path + "NOMINAL/uhh2.AnalysisModuleRunner.MC." + process  + ".root","READ"));
 
     vector<TString> histfolders = {"FinalSelection"};
-    vector<TString> channel_tags = {"srmu", "ttbar"}; //"ech", "much"
+    vector<TString> channel_tags = {"srmu", "srele", "ttbar", "dycrmu", "dycrele"}; //"ech", "much"
     vector<TString> region_tags = {"catA", "catB"};
 
 

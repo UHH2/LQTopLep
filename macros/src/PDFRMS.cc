@@ -33,6 +33,7 @@ void AnalysisTool::PDFRMS(){
   samplemap["DYJets_2016v3"] = "uhh2.AnalysisModuleRunner.MC.DYJets_2016v3.root";
   samplemap["Diboson_2016v3"] = "uhh2.AnalysisModuleRunner.MC.Diboson_2016v3.root";
   samplemap["QCDMu_2016v3"] = "uhh2.AnalysisModuleRunner.MC.QCDMu_2016v3.root";
+  samplemap["QCDEle_2016v3"] = "uhh2.AnalysisModuleRunner.MC.QCDEle_2016v3.root";
   samplemap["TTV_2016v3"] = "uhh2.AnalysisModuleRunner.MC.TTV_2016v3.root";
   samplemap["WJets_2016v3"] = "uhh2.AnalysisModuleRunner.MC.WJets_2016v3.root";
   samplemap["SingleTop_2016v3"] = "uhh2.AnalysisModuleRunner.MC.SingleTop_2016v3.root";
@@ -49,6 +50,19 @@ void AnalysisTool::PDFRMS(){
   samplemap["LQtoTMuM1400_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTMuM1400_2016v3.root";
   samplemap["LQtoTMuM1700_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTMuM1700_2016v3.root";
   samplemap["LQtoTMuM2000_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTMuM2000_2016v3.root";
+  samplemap["LQtoTEM200_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM200_2016v3.root";
+  samplemap["LQtoTEM300_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM300_2016v3.root";
+  samplemap["LQtoTEM400_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM400_2016v3.root";
+  samplemap["LQtoTEM500_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM500_2016v3.root";
+  samplemap["LQtoTEM600_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM600_2016v3.root";
+  samplemap["LQtoTEM700_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM700_2016v3.root";
+  samplemap["LQtoTEM800_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM800_2016v3.root";
+  samplemap["LQtoTEM900_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM900_2016v3.root";
+  samplemap["LQtoTEM1000_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM1000_2016v3.root";
+  samplemap["LQtoTEM1200_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM1200_2016v3.root";
+  samplemap["LQtoTEM1400_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM1400_2016v3.root";
+  samplemap["LQtoTEM1700_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM1700_2016v3.root";
+  samplemap["LQtoTEM2000_2016v3"] = "uhh2.AnalysisModuleRunner.MC.LQtoTEM2000_2016v3.root";
 
   TString infolder = AnalysisTool::base_path + AnalysisTool::year + "/" + AnalysisTool::final_tag;
 
@@ -56,6 +70,7 @@ void AnalysisTool::PDFRMS(){
   FindRMS(infolder, samplemap, "DYJets_2016v3");
   FindRMS(infolder, samplemap, "Diboson_2016v3");
   FindRMS(infolder, samplemap, "QCDMu_2016v3");
+  FindRMS(infolder, samplemap, "QCDEle_2016v3");
   FindRMS(infolder, samplemap, "TTV_2016v3");
   FindRMS(infolder, samplemap, "WJets_2016v3");
   FindRMS(infolder, samplemap, "SingleTop_2016v3");
@@ -72,6 +87,19 @@ void AnalysisTool::PDFRMS(){
   FindRMS(infolder, samplemap, "LQtoTMuM1400_2016v3");
   FindRMS(infolder, samplemap, "LQtoTMuM1700_2016v3");
   FindRMS(infolder, samplemap, "LQtoTMuM2000_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM200_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM300_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM400_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM500_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM600_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM700_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM800_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM900_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM1000_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM1200_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM1400_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM1700_2016v3");
+  FindRMS(infolder, samplemap, "LQtoTEM2000_2016v3");
 
 }
 
