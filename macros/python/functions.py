@@ -39,7 +39,7 @@ def get_lines_datacard_input(rootfilename, year):
     lines.append('shapes * * %s $CHANNEL__$PROCESS_%s $CHANNEL__$PROCESS_%s__$SYSTEMATIC' % (rootfilename, yeartags[year], yeartags[year]))
     return lines
 
-def get_lines_datacard_processes(category, varcat, mass, backgrounds):
+def get_lines_datacard_processes(category, varcat, mass, backgrounds, signaltype):
     lines = []
     lines.append('# PROCESSES')
 
@@ -48,10 +48,23 @@ def get_lines_datacard_processes(category, varcat, mass, backgrounds):
         line += varcat + '  '
     lines.append(line)
 
-    line = 'process    ' + signaltag + 'M' + str(mass) + '  '
+
+    #line = 'process    ' + signaltag + 'M' + str(mass) + '  '
+    if signaltype == 'LQtoTMu' :
+        line = 'process    ' + signaltagMu + 'M' + str(mass) + '  '
+    elif signaltype == 'LQtoTE' :
+        line = 'process    ' + signaltagE + 'M' + str(mass) + '  '
+    else :
+        raise RuntimeError("Signaltype is not correctly defined")
+
     for bkg in backgrounds:
         if bkg in backgrounds_per_category[category]:
-            line += bkg + '  '
+            if bkg == 'QCD' and signaltype == 'LQtoTMu':
+                line += 'QCDMu  '
+            elif bkg == 'QCD' and signaltype == 'LQtoTE':
+                line += 'QCDEle  '
+            else:
+                line += bkg + '  '
     lines.append(line)
 
     line = 'process    0  '
@@ -104,7 +117,7 @@ def get_lines_datacard_statistics():
 
 
 
-def create_datacard(year, mass, category, channel, backgrounds, systematics, path_datacards, rootfilename):
+def create_datacard(year, mass, category, channel, backgrounds, systematics, path_datacards, rootfilename, signaltype):
     print 'Creating datacard for mass %i and category %s. ' % (mass, category)
 
     if not os.path.exists(path_datacards):
@@ -125,7 +138,7 @@ def create_datacard(year, mass, category, channel, backgrounds, systematics, pat
     lines_header = get_lines_datacard_header(category, channel, mass) + separator
     lines_channels = get_lines_datacard_channels(varcat) + separator
     lines_input = get_lines_datacard_input(rootfilename, year)
-    lines_processes = get_lines_datacard_processes(category, varcat, mass, backgrounds)
+    lines_processes = get_lines_datacard_processes(category, varcat, mass, backgrounds, signaltype)
     lines_systematics = get_lines_datacard_systematics(category, systematics, backgrounds)
     lines_statistics = get_lines_datacard_statistics()
 

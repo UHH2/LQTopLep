@@ -9,7 +9,9 @@ processes_per_systematic = {
 'rate_diboson': 'Diboson',
 'rate_singletop': 'SingleTop',
 'rate_wjets': 'WJets',
-'rate_qcd': 'QCDMu',
+'rate_qcd': 'QCD',
+#'rate_qcdmu': 'QCDMu',
+#'rate_qcdele': 'QCDEle',
 'pu': 'all',
 'pdf': 'all',
 'muid': 'all',
@@ -17,6 +19,7 @@ processes_per_systematic = {
 'mutrigger': 'all',
 'eleid': 'all',
 'elereco': 'all',
+'eletrigger': 'all',
 'btag_bc': 'all',
 'btag_udsg': 'all',
 'scale_TTbar': 'TTbar',
@@ -35,6 +38,7 @@ pdf_per_systematic = {
 'mutrigger': 'shape',
 'eleid': 'shape',
 'elereco': 'shape',
+'eletrigger': 'shape',
 'btag_bc': 'shape',
 'btag_udsg': 'shape',
 'rate_ttbar': 'lnN',
@@ -44,6 +48,8 @@ pdf_per_systematic = {
 'rate_singletop': 'lnN',
 'rate_wjets': 'lnN',
 'rate_qcd': 'lnN',
+#'rate_qcdmu': 'lnN',
+#'rate_qcdele': 'lnN',
 'scale_TTbar': 'shape',
 'scale_DYJets': 'shape',
 'scale_TTV': 'shape',
@@ -60,6 +66,7 @@ value_per_systematic = {
 'mutrigger': 1,
 'eleid': 1,
 'elereco': 1,
+'eletrigger': 1,
 'btag_bc': 1,
 'btag_udsg': 1,
 'rate_ttbar': 1.056,
@@ -69,6 +76,8 @@ value_per_systematic = {
 'rate_singletop': 1.1,
 'rate_wjets': 1.25,
 'rate_qcd': 1.5,
+#'rate_qcdmu': 1.5,
+#'rate_qcdele': 1.5,
 'scale_TTbar': 1,
 'scale_DYJets': 1,
 'scale_TTV': 1,
@@ -78,10 +87,13 @@ value_per_systematic = {
 
 backgrounds_per_category = {
 'A': ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'],
-'B': ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu']
+'B': ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCD']
 }
 
-signaltag = 'LQtoTMu'
+#signaltag = 'LQtoTMu'
+
+signaltagMu = 'LQtoTMu'
+signaltagE = 'LQtoTE'
 
 variables_per_category = {
 'A': 'MLQ',
@@ -90,7 +102,11 @@ variables_per_category = {
 
 categories_per_channel = {
 'srmu': ['A', 'B'],
-'ttbar': ['B']
+'dycrmu': ['A', 'B'],
+'ttbar': ['B'],
+'srele': ['A', 'B'],
+'dycrele': ['A', 'B']
+
 }
 
 yeartags = {

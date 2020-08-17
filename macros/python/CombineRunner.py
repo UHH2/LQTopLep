@@ -15,12 +15,13 @@ class CombineRunner:
         print 'created an instance of "CombineRunner". Let\'s go!'
 
 
-    def CreateDatacards(self, masspoints, categories, channels, backgrounds, systematics, rootfilename):
+
+    def CreateDatacards(self, masspoints, categories, channels, backgrounds, systematics, rootfilename, signaltype):
         for mass in masspoints:
             for cat in categories:
                 for chan in channels:
                     if not cat in categories_per_channel[chan]: continue
-                    create_datacard(self.year, mass, cat, chan, backgrounds, systematics, self.path_datacards, 'input/' + rootfilename)
+                    create_datacard(self.year, mass, cat, chan, backgrounds, systematics, self.path_datacards, 'input/' + rootfilename, signaltype)
 
     def CombineChannels(self, masspoints, categories, channels):
         combine_dir = os.getenv('CMSSW_BASE') + '/src/HiggsAnalysis/CombinedLimit'
@@ -45,7 +46,8 @@ class CombineRunner:
         for p in processes:
             p.wait()
 
-    def ExecuteCombineCombination(self, masspoints, categories, channels):
+    def ExecuteCombineCombination(self, masspoints, categories, channels, signaltype):
+        signaltag = signaltype
         cwd = os.getcwd()
         if not os.path.exists(self.path_datacards + '/output'):
             raise RuntimeError('Combine output directory not where expected: %s.' % (self.path_datacards + '/output'))

@@ -22,6 +22,7 @@ public:
   void ScaleVariationEnvelope();
   void ProduceThetaHistograms_mc_fullsyst_much();
   void ProduceCombineHistograms_mc_fullsyst_much();
+  void ProduceCombineHistograms_mc_fullsyst_incl();
   void PlotLimits();
   void PlotLimitsCombine();
 
