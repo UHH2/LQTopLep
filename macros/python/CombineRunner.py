@@ -16,12 +16,12 @@ class CombineRunner:
 
 
 
-    def CreateDatacards(self, masspoints, categories, channels, backgrounds, systematics, rootfilename, signaltype):
+    def CreateDatacards(self, masspoints, categories, channels, backgrounds, systematics, rootfilename):
         for mass in masspoints:
             for cat in categories:
                 for chan in channels:
                     if not cat in categories_per_channel[chan]: continue
-                    create_datacard(self.year, mass, cat, chan, backgrounds, systematics, self.path_datacards, 'input/' + rootfilename, signaltype)
+                    create_datacard(self.year, mass, cat, chan, backgrounds, systematics, self.path_datacards, 'input/' + rootfilename)
 
     def CombineChannels(self, masspoints, categories, channels):
         combine_dir = os.getenv('CMSSW_BASE') + '/src/HiggsAnalysis/CombinedLimit'
@@ -46,8 +46,7 @@ class CombineRunner:
         for p in processes:
             p.wait()
 
-    def ExecuteCombineCombination(self, masspoints, categories, channels, signaltype):
-        signaltag = signaltype
+    def ExecuteCombineCombination(self, masspoints, categories, channels):
         cwd = os.getcwd()
         if not os.path.exists(self.path_datacards + '/output'):
             raise RuntimeError('Combine output directory not where expected: %s.' % (self.path_datacards + '/output'))
@@ -62,10 +61,10 @@ class CombineRunner:
                     if not cat in categories_per_channel[chan]: continue
                     combcard += cat
             combcard += '_M' + str(mass) + '.txt'
-            command = ['combine', '-n', signaltag, '-m', str(mass), combcard]
+            command = ['combine', '-n', signal_per_channel[channels[0]], '-m', str(mass), combcard] # make names distinguishable
             processes.append(subprocess.Popen(command))
 
-        f = open('masspoints_%s.txt' % (signaltag), 'w')
+        f = open('masspoints_%s.txt' % (signal_per_channel[channels[0]]), 'w')
         line = ''
         for m in masspoints:
             line += str(m) + ' '

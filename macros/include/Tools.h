@@ -23,8 +23,9 @@ public:
   void ProduceThetaHistograms_mc_fullsyst_much();
   void ProduceCombineHistograms_mc_fullsyst_much();
   void ProduceCombineHistograms_mc_fullsyst_incl();
+  void ProduceCombineHistograms_mc_fullsyst(TString channel);
   void PlotLimits();
-  void PlotLimitsCombine();
+  void PlotLimitsCombine(TString channel);
 
 private:
   TString base_path, theta_path, combine_path, trigger_tag, full_tag, final_tag;
