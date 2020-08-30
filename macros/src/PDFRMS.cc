@@ -148,9 +148,8 @@ void FindRMS(TString infolder, map<TString, TString> samplemap, TString sample){
   }
 
 
-  for(size_t i=0; i<foldernames.size(); i++){
+  for(size_t i=0; i<foldernames.size(); i++) {
     TString foldername = foldernames.at(i);
-
     // create list of histogram names (without the _xx tag for the number of the PDF variation)
     infile->cd(foldername);
     dir = gDirectory;
@@ -175,7 +174,6 @@ void FindRMS(TString infolder, map<TString, TString> samplemap, TString sample){
     vector<vector<TH1F*>> histograms;
     vector<TH1F*> histograms_nom;
     for(size_t j=0; j<histnames.size(); j++){
-
       TString histname = histnames[j];
 
 
@@ -213,20 +211,20 @@ void FindRMS(TString infolder, map<TString, TString> samplemap, TString sample){
 
       // loop through bins
       for(int k=1; k<histograms_nom[j]->GetNbinsX()+1; k++){
-
         float nom = histograms_nom[j]->GetBinContent(k);
 
         // loop through 100 PDF histograms
         float rms = 0.;
         for(size_t l=0; l<histograms[j].size(); l++){
           if (sample.Contains("LQto") && k==1) histograms[j][l]->Scale(histograms_nom[j]->Integral()/histograms[j][l]->Integral());
+
           rms += pow(histograms[j][l]->GetBinContent(k) - nom, 2);
         }
-        rms /= histograms[j].size()-1.;
+        rms /= histograms[j].size()-1; // evtl. die "-1" weglassen
         rms = sqrt(rms);
-
         h_up->SetBinContent(k, nom + rms);
         h_down->SetBinContent(k, max((float)0., nom - rms));
+
       }
 
       hists_up.emplace_back(h_up);
