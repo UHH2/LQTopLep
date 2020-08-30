@@ -28,8 +28,7 @@ using namespace std;
 
 void cosmetics();
 
-// change to PlotLimitsCombine(TString channel) and make it possible to change iin between ech and much etc.?
-//channel = ech, much
+//channel = ech, much, comb
 void AnalysisTool::PlotLimitsCombine(TString channel){
   /*
   ==========================================
@@ -40,8 +39,8 @@ void AnalysisTool::PlotLimitsCombine(TString channel){
 
 
   //shortcut to modifications:
-  bool with_data = true;
-
+  bool with_data = false;
+  cout << "Channel: " << channel << endl;
 
   //0) general cosmetics
   cosmetics();
@@ -92,6 +91,7 @@ void AnalysisTool::PlotLimitsCombine(TString channel){
   TString varname;
   if(channel == "ech") varname = "LQtoTE";
   else if(channel == "much") varname = "LQtoTMu";
+  else if(channel == "comb") varname = "LQ_comb";
 
   TString txtname = path + "masspoints_" + varname + ".txt";
   ifstream myfile(txtname);
@@ -123,7 +123,10 @@ void AnalysisTool::PlotLimitsCombine(TString channel){
       double rr = *r;
 
       // Convert r values in cross section limits (multiply by cross section)
-      if(mass[i] != 300 && mass[i] != 400){
+
+
+      //if(mass[i] != 300 && mass[i] != 400 ){
+      if(mass[i] != 200 && mass[i] != 300 && mass[i] != 400 ){
         rr *= g_theory->Eval(mass[i]);
       }
       else{ //300 and 400 masspoints were scaled down by 10 when reading out histograms for combine
@@ -361,6 +364,7 @@ void AnalysisTool::PlotLimitsCombine(TString channel){
   h->SetXTitle("M_{LQ} [GeV]");
   if (channel == "much") h->SetYTitle("#sigma_{LQLQ} #times #bf{#it{#Beta}}^{2}(LQ#rightarrow t#mu) [pb]");
   else if (channel == "ech") h->SetYTitle("#sigma_{LQLQ} #times #bf{#it{#Beta}}^{2}(LQ#rightarrow te) [pb]");
+  else if (channel == "comb") h->SetYTitle("#sigma_{LQLQ} #times #bf{#it{#Beta}}^{2}(LQ comb) [pb]");
   h->GetYaxis()->SetTitleSize(0.048);
   h->GetYaxis()->SetTitleOffset(1.05);
   h->Draw("AXIS SAME");

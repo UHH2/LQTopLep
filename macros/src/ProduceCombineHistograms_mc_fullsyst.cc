@@ -169,7 +169,10 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
             if(syst != "nominal") histname_out += "__" + syst + syst_shift_combine[m];
 
             TH1F* h_in = (TH1F*)f_in->Get(histname_in);
-            if(sample_in.Contains("LQtoTMuM300") || sample_in.Contains("LQtoTMuM400") || sample_in.Contains("LQtoTEM300") || sample_in.Contains("LQtoTEM400")){
+            
+	    if(sample_in.Contains("LQtoTMuM200") || sample_in.Contains("LQtoTMuM300") || sample_in.Contains("LQtoTMuM400") || sample_in.Contains("LQtoTEM200") || sample_in.Contains("LQtoTEM300") || sample_in.Contains("LQtoTEM400")){
+
+	      //if(sample_in.Contains("LQtoTMuM300") || sample_in.Contains("LQtoTMuM400") || sample_in.Contains("LQtoTEM300") || sample_in.Contains("LQtoTEM400")){
               h_in->Scale(1./10.);
             }
             h_in->SetName(histname_out);

@@ -97,9 +97,9 @@ value_per_systematic = {
 #backgrounds_per_channel ?
 backgrounds_per_channel_and_category = {
 tuple(['A', 'srmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'],
-tuple(['A', 'dycrmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'],
-tuple(['A', 'srele']): ['TTbar', 'DYJets', 'TTV', 'Diboson'],
-tuple(['A', 'dycrele']): ['TTbar', 'DYJets', 'TTV', 'Diboson'],
+tuple(['A', 'dycrmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'], #WJets?
+tuple(['A', 'srele']): ['TTbar', 'DYJets', 'TTV', 'Diboson'], #SingleTop no events
+tuple(['A', 'dycrele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'], #WJets?
 tuple(['B', 'srmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'],
 tuple(['B', 'dycrmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'],
 tuple(['B', 'srele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDEle'],

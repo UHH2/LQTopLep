@@ -61,7 +61,16 @@ class CombineRunner:
                     if not cat in categories_per_channel[chan]: continue
                     combcard += cat
             combcard += '_M' + str(mass) + '.txt'
-            command = ['combine', '-n', signal_per_channel[channels[0]], '-m', str(mass), combcard] # make names distinguishable
+            #command = ['combine', '-n', signal_per_channel[channels[0]], '-m', str(mass), combcard] # make names distinguishable
+            if 'srele' in channels and 'srmu' in channels:
+                command = ['combine', '-n', 'LQ_comb', '-m', str(mass), combcard]
+            elif 'srele' in channels:
+                command = ['combine', '-n', 'LQtoTE', '-m', str(mass), combcard]
+            elif 'srmu' in channels:
+                command = ['combine', '-n', 'LQtoTMu', '-m', str(mass), combcard]
+            else:
+                raise RuntimeError('no valid signal region given')
+
             processes.append(subprocess.Popen(command))
 
         f = open('masspoints_%s.txt' % (signal_per_channel[channels[0]]), 'w')
