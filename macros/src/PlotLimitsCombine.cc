@@ -28,8 +28,8 @@ using namespace std;
 
 void cosmetics();
 
-
-void AnalysisTool::PlotLimitsCombine(){
+//channel = ech, much, comb
+void AnalysisTool::PlotLimitsCombine(TString channel){
   /*
   ==========================================
   |                                          |
@@ -39,8 +39,8 @@ void AnalysisTool::PlotLimitsCombine(){
 
 
   //shortcut to modifications:
-  bool with_data = true;
-
+  bool with_data = false;
+  cout << "Channel: " << channel << endl;
 
   //0) general cosmetics
   cosmetics();
@@ -88,7 +88,12 @@ void AnalysisTool::PlotLimitsCombine(){
   TString path = AnalysisTool::combine_path + "output/";
 
   // Get limit masspoints
-  TString txtname = path + "masspoints_LQtoTMu.txt";
+  TString varname;
+  if(channel == "ech") varname = "LQtoTE";
+  else if(channel == "much") varname = "LQtoTMu";
+  else if(channel == "comb") varname = "LQ_comb";
+
+  TString txtname = path + "masspoints_" + varname + ".txt";
   ifstream myfile(txtname);
 
   int n_points = -1;
@@ -104,7 +109,7 @@ void AnalysisTool::PlotLimitsCombine(){
   // Read limits from rootfiles
   vector<double> expected, expected_high_68, expected_high_95, expected_low_68, expected_low_95, observed;
   for(int i=0; i<n_points; i++){
-    TString filename = path + "higgsCombineLQtoTMu.AsymptoticLimits.mH";
+    TString filename = path + "higgsCombine" + varname + ".AsymptoticLimits.mH";
     filename += mass[i];
     filename += ".root";
     TFile* infile = new TFile(filename, "READ");
@@ -118,10 +123,16 @@ void AnalysisTool::PlotLimitsCombine(){
       double rr = *r;
 
       // Convert r values in cross section limits (multiply by cross section)
-      if(mass[i] != 300 && mass[i] != 400){
+
+
+      /*if(mass[i] == 2000){
+	rr *= 100.;
+	rr *= g_theory->Eval(mass[i]);
+	}
+	else */ if(mass[i] != 200 && mass[i] != 300 && mass[i] != 400){
         rr *= g_theory->Eval(mass[i]);
       }
-      else{ //300 and 400 masspoints were scaled down by 10 when reading out histograms for combine
+      else{ //200, 300 and 400 masspoints were scaled down by 10 when reading out histograms for combine
         rr /= 10.;
         rr *= g_theory->Eval(mass[i]);
       }
@@ -354,7 +365,9 @@ void AnalysisTool::PlotLimitsCombine(){
   TH1D* h = (TH1D*)g_expected_95->GetHistogram();
   h->GetXaxis()->SetRangeUser(mass[0], mass[n_points-1]);
   h->SetXTitle("M_{LQ} [GeV]");
-  h->SetYTitle("#sigma_{LQLQ} #times #bf{#it{#Beta}}^{2}(LQ#rightarrow t#mu) [pb]");
+  if (channel == "much") h->SetYTitle("#sigma_{LQLQ} #times #bf{#it{#Beta}}^{2}(LQ#rightarrow t#mu) [pb]");
+  else if (channel == "ech") h->SetYTitle("#sigma_{LQLQ} #times #bf{#it{#Beta}}^{2}(LQ#rightarrow te) [pb]");
+  else if (channel == "comb") h->SetYTitle("#sigma_{LQLQ} #times #bf{#it{#Beta}}^{2}(LQ comb) [pb]");
   h->GetYaxis()->SetTitleSize(0.048);
   h->GetYaxis()->SetTitleOffset(1.05);
   h->Draw("AXIS SAME");
@@ -364,10 +377,12 @@ void AnalysisTool::PlotLimitsCombine(){
   gPad->SetBottomMargin(0.11);
 
 
-  c->SaveAs(AnalysisTool::theta_path + "output/limitplot_combine_mc_fullsyst_much.eps");
-  c->SaveAs(AnalysisTool::theta_path + "output/limitplot_combine_mc_fullsyst_much.pdf");
+  // c->SaveAs(AnalysisTool::theta_path + "output/limitplot_combine_mc_fullsyst_much.eps");
+  // c->SaveAs(AnalysisTool::theta_path + "output/limitplot_combine_mc_fullsyst_much.pdf");
 
-
+  // had no permission to write in that directory
+  c->SaveAs("limitplot_combine_mc_fullsyst_" + channel + ".eps");
+  c->SaveAs("limitplot_combine_mc_fullsyst_" + channel + ".pdf");
 }
 
 

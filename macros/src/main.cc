@@ -16,24 +16,29 @@ int main(){
 
   // Analysis16.CalculateTriggerEfficiencies();
   // Analysis16.AddSystematicsEleTrigger();
-  Analysis16.AddSystematicsMuonTrigger();
+  // Analysis16.AddSystematicsMuonTrigger();
   // Analysis16.PDFRMS();
   // Analysis16.ScaleVariationEnvelope();
-  // // Analysis16.ProduceCombineHistograms_mc_fullsyst_much();
+  // Analysis16.ProduceCombineHistograms_mc_fullsyst("comb");
+  // Analysis16.ProduceCombineHistograms_mc_fullsyst("much");
+  // Analysis16.ProduceCombineHistograms_mc_fullsyst("ech");
+
 
   // Run combine script before for this step
-  // Analysis16.PlotLimitsCombine();
+  Analysis16.PlotLimitsCombine("ech");
+  Analysis16.PlotLimitsCombine("much");
+
 
 
 
   // Analysis17.CalculateTriggerEfficiencies();
   // Analysis17.AddSystematicsEleTrigger();
-  Analysis17.AddSystematicsMuonTrigger();
+  // Analysis17.AddSystematicsMuonTrigger();
 
 
   // Analysis18.CalculateTriggerEfficiencies();
   // Analysis18.AddSystematicsEleTrigger();
-  Analysis18.AddSystematicsMuonTrigger();
+  // Analysis18.AddSystematicsMuonTrigger();
 
 
   // // Old theta macros

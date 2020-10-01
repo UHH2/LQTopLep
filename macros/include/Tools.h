@@ -23,8 +23,11 @@ public:
   void ScaleVariationEnvelope();
   void ProduceThetaHistograms_mc_fullsyst_much();
   void ProduceCombineHistograms_mc_fullsyst_much();
+  void ProduceCombineHistograms_mc_fullsyst_incl();
+  void ProduceCombineHistograms_mc_fullsyst(TString ch);
+  void ProduceCombineHistograms_combinedLQsamples(TString branchingRatio);
   void PlotLimits();
-  void PlotLimitsCombine();
+  void PlotLimitsCombine(TString channel);
 
 private:
   TString base_path, theta_path, combine_path, trigger_tag, full_tag, final_tag, uhh2_path;

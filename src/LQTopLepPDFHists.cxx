@@ -16,23 +16,28 @@ using namespace uhh2examples;
 
 
 LQTopLepPDFHists::LQTopLepPDFHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
-
+  cout << "LQTopLepPDFHists" << endl;
   is_mc = ctx.get("dataset_type") == "MC";
 
   h_mlq = ctx.get_handle<float>("mlq");
   h_is_mlq_reconstructed = ctx.get_handle<bool>("is_mlq_reconstructed");
   m_oname = ctx.get("dataset_version");
+  cout << "m_oname: " << m_oname << endl;
   TString m_pdfname = "NNPDF30_lo_as_0130";
   TString weightpath = ctx.get("PDFWeightPath");
   cout << "File: " << weightpath+m_oname << endl;
 
   Year year = extract_year(ctx);
   if(year == Year::is2017v1 || year == Year::is2017v2){
-    take_ntupleweights = !(m_oname.Contains("QCD"));
+    take_ntupleweights = !(m_oname.Contains("QCD") || m_oname.Contains("LQto"));
+  }
+  else if (year == Year::is2018){
+    take_ntupleweights = !(m_oname.Contains("QCD") || m_oname.Contains("LQto") || m_oname.Contains("DibosonNLO"));
   }
   else{
-    take_ntupleweights = !(m_oname.Contains("QCD") || m_oname.Contains("ST_tW") || m_oname.Contains("LQto") || m_oname.Contains("DibosonNLO_ZZ_2L2Nu_2016v3"));
+    take_ntupleweights = !(m_oname.Contains("QCD") || m_oname.Contains("ST_tW") || m_oname.Contains("LQto") || m_oname.Contains("DibosonNLO_ZZ_2L2Nu_2016v3")); // what's up with these specifications?
   }
+
 
   if(is_mc && !take_ntupleweights){
     // Only take shape effect into account for signals
@@ -96,7 +101,7 @@ void LQTopLepPDFHists::fill(const Event & event){
   float mlq = event.get(h_mlq);
 
   // Fill histograms
-  if(take_ntupleweights){
+  if(take_ntupleweights) {
     for(int i=0; i<100; i++){
 
       double pdf_weight = event.genInfo->systweights().at(i+9);
@@ -104,7 +109,11 @@ void LQTopLepPDFHists::fill(const Event & event){
       TString name_st = histo_names1[i];
       TString name_mlq = histo_names2[i];
 
-      if(is_mlq_reconstructed)  hist(name_mlq)->Fill(mlq, fillweight);
+      // if(is_mlq_reconstructed)  hist(name_mlq)->Fill(mlq, fillweight);
+      if(is_mlq_reconstructed) {
+	if(mlq < 900) hist(name_mlq)->Fill(mlq, fillweight);
+	else hist(name_mlq) ->Fill(900, fillweight);
+      }
       if(st<2900) hist(name_st)->Fill(st, fillweight);
       else        hist(name_st)->Fill(2900, fillweight);
     }
@@ -116,7 +125,11 @@ void LQTopLepPDFHists::fill(const Event & event){
       TString name_st = histo_names1[i];
       TString name_mlq = histo_names2[i];
 
-      if(is_mlq_reconstructed) hist(name_mlq)->Fill(mlq, fillweight);
+      // if(is_mlq_reconstructed) hist(name_mlq)->Fill(mlq, fillweight);
+      if(is_mlq_reconstructed) {
+	if(mlq < 900) hist(name_mlq)->Fill(mlq, fillweight);
+	else hist(name_mlq) ->Fill(900, fillweight);
+      }
       if(st<2900) hist(name_st)->Fill(st, fillweight);
       else        hist(name_st)->Fill(2900, fillweight);
     }

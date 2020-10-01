@@ -9,7 +9,9 @@ processes_per_systematic = {
 'rate_diboson': 'Diboson',
 'rate_singletop': 'SingleTop',
 'rate_wjets': 'WJets',
-'rate_qcd': 'QCDMu',
+#'rate_qcd': 'QCD',
+'rate_qcdmu': 'QCDMu',
+'rate_qcdele': 'QCDEle',
 'pu': 'all',
 'pdf': 'all',
 'muid': 'all',
@@ -17,6 +19,7 @@ processes_per_systematic = {
 'mutrigger': 'all',
 'eleid': 'all',
 'elereco': 'all',
+'eletrigger': 'all',
 'btag_bc': 'all',
 'btag_udsg': 'all',
 'scale_TTbar': 'TTbar',
@@ -35,6 +38,7 @@ pdf_per_systematic = {
 'mutrigger': 'shape',
 'eleid': 'shape',
 'elereco': 'shape',
+'eletrigger': 'shape',
 'btag_bc': 'shape',
 'btag_udsg': 'shape',
 'rate_ttbar': 'lnN',
@@ -43,7 +47,9 @@ pdf_per_systematic = {
 'rate_diboson': 'lnN',
 'rate_singletop': 'lnN',
 'rate_wjets': 'lnN',
-'rate_qcd': 'lnN',
+#'rate_qcd': 'lnN',
+'rate_qcdmu': 'lnN',
+'rate_qcdele': 'lnN',
 'scale_TTbar': 'shape',
 'scale_DYJets': 'shape',
 'scale_TTV': 'shape',
@@ -60,6 +66,7 @@ value_per_systematic = {
 'mutrigger': 1,
 'eleid': 1,
 'elereco': 1,
+'eletrigger': 1,
 'btag_bc': 1,
 'btag_udsg': 1,
 'rate_ttbar': 1.056,
@@ -68,7 +75,9 @@ value_per_systematic = {
 'rate_diboson': 1.2,
 'rate_singletop': 1.1,
 'rate_wjets': 1.25,
-'rate_qcd': 1.5,
+#'rate_qcd': 1.5,
+'rate_qcdmu': 1.5,
+'rate_qcdele': 1.5,
 'scale_TTbar': 1,
 'scale_DYJets': 1,
 'scale_TTV': 1,
@@ -76,12 +85,41 @@ value_per_systematic = {
 'scale_SingleTop': 1
 }
 
-backgrounds_per_category = {
-'A': ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'],
-'B': ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu']
+#backgrounds_per_category = {
+#'A': ['TTbar', 'DYJets', 'TTV', 'Diboson'], #SingleTop
+#'B': ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCD']
+#}
+
+
+
+
+
+#backgrounds_per_channel ?
+backgrounds_per_channel_and_category = {
+tuple(['A', 'srmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'],
+tuple(['A', 'dycrmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'], #WJets?
+tuple(['A', 'srele']): ['TTbar', 'DYJets', 'TTV', 'Diboson'], #SingleTop no events
+tuple(['A', 'dycrele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'], #WJets?
+tuple(['B', 'srmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'],
+tuple(['B', 'dycrmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'],
+tuple(['B', 'srele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDEle'],
+tuple(['B', 'dycrele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDEle'],
+tuple(['B', 'ttbar']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'] #QCDEle?
 }
 
-signaltag = 'LQtoTMu'
+# ttbar immer mit LQtoTMu signal?
+# evtl einfach beide signal samples in jedem Channel verwenden?
+signal_per_channel = {
+'srmu': 'LQtoTMu',
+'dycrmu': 'LQtoTMu',
+'ttbar': 'LQtoTMu', # 'LQtoTE'
+'srele': 'LQtoTE',
+'dycrele': 'LQtoTE'
+
+}
+
+#signaltag = 'LQtoT'
+
 
 variables_per_category = {
 'A': 'MLQ',
@@ -90,7 +128,11 @@ variables_per_category = {
 
 categories_per_channel = {
 'srmu': ['A', 'B'],
-'ttbar': ['B']
+'dycrmu': ['A', 'B'],
+'ttbar': ['B'],
+'srele': ['A', 'B'],
+'dycrele': ['A', 'B']
+
 }
 
 yeartags = {

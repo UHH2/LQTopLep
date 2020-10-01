@@ -21,7 +21,7 @@ def get_lines_datacard_header(category, channel, mass):
     lines.append('# Datacard for variable %s in channel %s, category %s, for masspoint %i \n' % (variables_per_category[category], channel, category, mass))
     lines.append('# HEADER')
     lines.append('imax 1')
-    lines.append('jmax %i' % (len(backgrounds_per_category[category])))
+    lines.append('jmax %i' % (len(backgrounds_per_channel_and_category[category, channel])))
     lines.append('kmax *')
     return lines
 
@@ -39,32 +39,42 @@ def get_lines_datacard_input(rootfilename, year):
     lines.append('shapes * * %s $CHANNEL__$PROCESS_%s $CHANNEL__$PROCESS_%s__$SYSTEMATIC' % (rootfilename, yeartags[year], yeartags[year]))
     return lines
 
-def get_lines_datacard_processes(category, varcat, mass, backgrounds):
+def get_lines_datacard_processes(category, varcat, mass, backgrounds, channel):
     lines = []
     lines.append('# PROCESSES')
 
     line = 'bin        '
-    for i in range(len(backgrounds_per_category[category]) + 1):
+    for i in range(len(backgrounds_per_channel_and_category[category, channel]) + 1):
         line += varcat + '  '
     lines.append(line)
 
-    line = 'process    ' + signaltag + 'M' + str(mass) + '  '
+
+    #line = 'process    ' + signaltag + 'M' + str(mass) + '  '
+    
+    line = 'process    ' + signal_per_channel[channel] + 'M' + str(mass) + '  '
+
+
     for bkg in backgrounds:
-        if bkg in backgrounds_per_category[category]:
+        if bkg in backgrounds_per_channel_and_category[category, channel]:
+            #if bkg == 'QCD' and "ele" in channel:
+            #    line += 'QCDEle  '
+            #elif bkg == 'QCD':
+            #    line += 'QCDMu  '
+            #else:
             line += bkg + '  '
     lines.append(line)
 
     line = 'process    0  '
     idx = 1
     for bkg in backgrounds:
-        if bkg in backgrounds_per_category[category]:
+        if bkg in backgrounds_per_channel_and_category[category, channel]:
             line += str(idx) + '  '
             idx += 1
     lines.append(line)
 
     line = 'rate       -1  '
     for bkg in backgrounds:
-        if bkg in backgrounds_per_category[category]:
+        if bkg in backgrounds_per_channel_and_category[category, channel]:
             line += '-1  '
     lines.append(line)
 
@@ -73,7 +83,7 @@ def get_lines_datacard_processes(category, varcat, mass, backgrounds):
 
 
 
-def get_lines_datacard_systematics(category, systematics, backgrounds):
+def get_lines_datacard_systematics(category, systematics, backgrounds, channel):
     lines = []
     lines.append('# SYSTEMATICS')
     for syst in systematics:
@@ -87,7 +97,7 @@ def get_lines_datacard_systematics(category, systematics, backgrounds):
         else:
             line += '-  '
         for bkg in backgrounds:
-            if bkg not in backgrounds_per_category[category]: continue
+            if bkg not in backgrounds_per_channel_and_category[category, channel]: continue
             if processes_per_systematic[syst] == 'all' or processes_per_systematic[syst] == bkg:
                 line += str(value_per_systematic[syst]) + '  '
             else:
@@ -125,8 +135,8 @@ def create_datacard(year, mass, category, channel, backgrounds, systematics, pat
     lines_header = get_lines_datacard_header(category, channel, mass) + separator
     lines_channels = get_lines_datacard_channels(varcat) + separator
     lines_input = get_lines_datacard_input(rootfilename, year)
-    lines_processes = get_lines_datacard_processes(category, varcat, mass, backgrounds)
-    lines_systematics = get_lines_datacard_systematics(category, systematics, backgrounds)
+    lines_processes = get_lines_datacard_processes(category, varcat, mass, backgrounds, channel)
+    lines_systematics = get_lines_datacard_systematics(category, systematics, backgrounds, channel)
     lines_statistics = get_lines_datacard_statistics()
 
 

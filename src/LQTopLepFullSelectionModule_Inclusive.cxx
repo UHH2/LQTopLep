@@ -174,7 +174,7 @@ namespace uhh2examples {
       muon_trigger_sel1.reset(new TriggerSelection("HLT_IsoMu27_v*"));
       muon_trigger_sel2.reset(new TriggerSelection("HLT_IsoMu27_v*"));
       ele_trigger_sel1.reset(new TriggerSelection("HLT_Ele35_WPTight_Gsf_v*"));
-      ele_trigger_sel2.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*"));
+      ele_trigger_sel2.reset(new TriggerSelection("HLT_Ele115_CaloIdVT_GsfTrkIdT_v*")); // this trigger does not work for some 2017 Electron+Photon B events
       ele_trigger_sel3.reset(new TriggerSelection("HLT_Photon200_v*"));
     }
     else if(year == Year::is2018){
@@ -198,7 +198,7 @@ namespace uhh2examples {
     Sys_EleReco = ctx.get("Systematic_EleReco");
     Sys_MuonID = ctx.get("Systematic_MuonID");
     Sys_MuonIso = ctx.get("Systematic_MuonIso");
-    Sys_BTag = ctx.get("Systematic_BTag");
+    // Sys_BTag = ctx.get("Systematic_BTag");
     Sys_PU = ctx.get("Systematic_PU");
 
     dataset_version = ctx.get("dataset_version");
@@ -212,7 +212,7 @@ namespace uhh2examples {
     SF_eleID.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2016/2016LegacyReReco_ElectronTight_Fall17V2.root", 1, "id", Sys_EleID));
     SF_eleTrigger.reset(new ElectronTriggerWeights(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data", year));
 
-    SF_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, wp_btag_loose, "jets", Sys_BTag));
+    SF_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, wp_btag_loose, "jets", Sys_BTag)); // comment out when re-doing SF_btag
 
 
     // CommonModules
@@ -290,7 +290,16 @@ namespace uhh2examples {
     }
     else{
       // Electron regions
-      if(!is_mc){
+      if(!is_mc && (year == Year::is2017v1 || year == Year::is2017v2) && event.run < 299368) { // Trigger 2 does not work here
+	if(dataset_version.Contains("Electron")){
+          if(!(ele_trigger_sel1->passes(event))) return false;
+        }
+        else if(dataset_version.Contains("Photon")){
+          // Automatically discards photon data in 2018
+          if(!(!ele_trigger_sel1->passes(event) && ele_trigger_sel3->passes(event))) return false;
+        }
+      }
+      else if(!is_mc){
         if(dataset_version.Contains("Electron")){
           if(!(ele_trigger_sel1->passes(event) || ele_trigger_sel2->passes(event))) return false;
         }
@@ -322,11 +331,11 @@ namespace uhh2examples {
     }
     fill_histograms(event,"TriggerSF", region);
 
-    SF_btag->process(event);
+    SF_btag->process(event); // comment out when re-doing SF_btag
     h_btageff->fill(event);
     fill_histograms(event, "BTagSF", region);
 
-    if(!nbtag_loose_sel->passes(event)) return false;
+    if(!nbtag_loose_sel->passes(event)) return false; // comment out when re-doing SF_btag
     fill_histograms(event,"BTag", region);
 
     // Here, srmu is split into srmu and dycr
