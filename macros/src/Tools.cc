@@ -13,6 +13,7 @@ AnalysisTool::AnalysisTool(int year_)
   combine_path = "../data/datacards/";
   trigger_tag = "Trigger/Fullselection_2eTrigger/";
   if(year_ == 2018) trigger_tag = "Trigger/Fullselection_2eTrigger_HEMVeto/";
+  uhh2_path = "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/";
 
   final_tag = "Finalselection/Inclusive/";
   full_tag = final_tag;
