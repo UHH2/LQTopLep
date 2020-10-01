@@ -1,4 +1,4 @@
-PATH_TO_PDFWEIGHTS=/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/PDFWeights/
+PATH_TO_PDFWEIGHTS=/nfs/dust/cms/user/frahmmat/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/PDFWeights/
 DOALL=true
 if ${DOALL}; then
 
@@ -53,6 +53,8 @@ python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_w
 SAMPLE=LQtoTMuM2000_2016v3
 echo $SAMPLE
 python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+
 
 
 
@@ -165,6 +167,10 @@ echo $SAMPLE
 python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
 fi
 
+
+
+
+
 SAMPLE=LQtoTMuTTauM200_2016v3
 echo $SAMPLE
 python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
@@ -214,5 +220,117 @@ echo $SAMPLE
 python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
 
 SAMPLE=LQtoTMuTTauM2000_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+
+
+
+
+SAMPLE=LQtoTETMuM200_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM300_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM400_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM500_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM600_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM700_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM800_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM900_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM1000_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM1200_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM1400_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM1700_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETMuM2000_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+
+
+
+
+SAMPLE=LQtoTETTauM200_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM300_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM400_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM500_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM600_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM700_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM800_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM900_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM1000_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM1200_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM1400_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM1700_2016v3
+echo $SAMPLE
+python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt
+
+SAMPLE=LQtoTETTauM2000_2016v3
 echo $SAMPLE
 python AddPDFWeightFiles.py "${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights_*" ${PATH_TO_PDFWEIGHTS}${SAMPLE}_NNPDF30_lo_as_0130_weights.txt

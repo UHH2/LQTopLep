@@ -140,12 +140,14 @@ namespace uhh2examples {
     }
   }
 
-  void LQTopLepFinalSelectionModule_Inclusive::fill_histograms(uhh2::Event& event, string tag, string region, bool is_mlq_reconstructed){
-    string mytag = "FinalSelection_" + region + "_" + tag;
-    HFolder(mytag)->fill(event);
+  void LQTopLepFinalSelectionModule_Inclusive::fill_histograms(uhh2::Event& event, string tag, string region, bool is_mlq_reconstructed){    
+
+    string mytag = "FinalSelection_" + region + "_" + tag;   
+    //cout << "mytag: " << mytag << endl;
+    HFolder(mytag)->fill(event);   
     if(is_mlq_reconstructed) mytag = "FinalSelection_" + region + "_catA_" + tag;
-    else                     mytag = "FinalSelection_" + region + "_catB_" + tag;
-    HFolder(mytag)->fill(event);
+    else                     mytag = "FinalSelection_" + region + "_catB_" + tag;   
+    HFolder(mytag)->fill(event);   
   }
 
 
@@ -229,13 +231,15 @@ namespace uhh2examples {
 
 
     // Separately book one set of PDF hists (each contains the 100 variations for M_Tprime)
+    cout << "Line: " << __LINE__ << endl;
     book_pdf_histograms(ctx, {"pdf"});
+    cout << "Line: " << __LINE__ << endl;
 
   }
 
 
   bool LQTopLepFinalSelectionModule_Inclusive::process(Event & event) {
-
+    // cout << "Line: " << __LINE__ << endl;
     TString handle_region = event.get(h_region);
     string region = (string)handle_region;
     bool is_mlq_reconstructed = event.get(h_is_mlq_reconstructed);
@@ -268,12 +272,13 @@ namespace uhh2examples {
       float systweight = event.get(systweight_scale_handles[j]);
       event.weight = weight_nominal * systweight;
 
-      TString tag = "scale_" + systshift_scale[j];
+      TString tag = "scale_" + systshift_scale[j];      
       fill_histograms(event, (string)tag, region, is_mlq_reconstructed);
     }
 
     // Fill PDF histograms
     event.weight = weight_nominal;
+
     fill_histograms(event, "pdf", region, is_mlq_reconstructed);
 
 

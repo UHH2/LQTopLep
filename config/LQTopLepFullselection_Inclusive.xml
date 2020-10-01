@@ -221,7 +221,7 @@
 
 <!--
 <ConfigParse NEventsBreak="150000" FileSplit="0" AutoResubmit="5"/>
-<ConfigSGE RAM="2" DISK="1" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_Full_Incl"/>
+<ConfigSGE RAM="2" DISK="1" Mail="mathis.frahm@desy.de" Notification="as" Workdir="workdir_Full_Incl"/>
 -->
 
 
