@@ -23,7 +23,8 @@ public:
   void ProduceThetaHistograms_mc_fullsyst_much();
   void ProduceCombineHistograms_mc_fullsyst_much();
   void ProduceCombineHistograms_mc_fullsyst_incl();
-  void ProduceCombineHistograms_mc_fullsyst(TString channel);
+  void ProduceCombineHistograms_mc_fullsyst(TString ch);
+  void ProduceCombineHistograms_combinedLQsamples(TString branchingRatio);
   void PlotLimits();
   void PlotLimitsCombine(TString channel);
 

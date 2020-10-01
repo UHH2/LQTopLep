@@ -35,7 +35,8 @@ void AnalysisTool::ScaleVariationEnvelope(){
 
   //Files & histograms for other processes
   TString path = AnalysisTool::base_path + AnalysisTool::year + "/" + AnalysisTool::final_tag;
-  vector<TString> processes = {"TTbar_2016v3","SingleTop_2016v3", "DYJets_2016v3", "Diboson_2016v3", "TTV_2016v3", "WJets_2016v3", "QCDMu_2016v3", "QCDEle_2016v3"};
+  //vector<TString> processes = {"TTbar_2016v3","SingleTop_2016v3", "DYJets_2016v3", "Diboson_2016v3", "TTV_2016v3", "WJets_2016v3", "QCDMu_2016v3", "QCDEle_2016v3"};
+  vector<TString> processes = {"TTbar_" + AnalysisTool::yeartag,"SingleTop_" + AnalysisTool::yeartag, "DYJets_" + AnalysisTool::yeartag, "Diboson_" + AnalysisTool::yeartag, "TTV_" + AnalysisTool::yeartag, "WJets_" + AnalysisTool::yeartag, "QCDMu_" + AnalysisTool::yeartag, "QCDEle_" + AnalysisTool::yeartag};
   unique_ptr<TFile> f_in;
 
   for(unsigned int aa=0; aa< processes.size();aa++){

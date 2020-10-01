@@ -125,11 +125,14 @@ void AnalysisTool::PlotLimitsCombine(TString channel){
       // Convert r values in cross section limits (multiply by cross section)
 
 
-      //if(mass[i] != 300 && mass[i] != 400 ){
-      if(mass[i] != 200 && mass[i] != 300 && mass[i] != 400 ){
+      /*if(mass[i] == 2000){
+	rr *= 100.;
+	rr *= g_theory->Eval(mass[i]);
+	}
+	else */ if(mass[i] != 200 && mass[i] != 300 && mass[i] != 400){
         rr *= g_theory->Eval(mass[i]);
       }
-      else{ //300 and 400 masspoints were scaled down by 10 when reading out histograms for combine
+      else{ //200, 300 and 400 masspoints were scaled down by 10 when reading out histograms for combine
         rr /= 10.;
         rr *= g_theory->Eval(mass[i]);
       }

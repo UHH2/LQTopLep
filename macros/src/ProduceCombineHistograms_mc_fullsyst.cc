@@ -23,8 +23,10 @@
 
 using namespace std;
 
-void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
-  // channel == ech, much, comb
+void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
+  cout << "ProduceCombinedHistograms_mc_fullsyst, channel: " << ch << endl;
+  cout << "year: " << AnalysisTool::yeartag << endl;
+  // ch == ech, much, comb
   map<TString, float> xsecs = {
     make_pair("LQtoTMuM200",  6.06E+01),
     make_pair("LQtoTMuM300",  8.04E+00),
@@ -52,14 +54,13 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
     make_pair("LQtoTEM1400", 4.32E-04),
     make_pair("LQtoTEM1700", 7.73E-05),
     make_pair("LQtoTEM2000", 1.55E-05)
-
   };
 
   vector<TString> samples_base;
 
   TString histfolder_base = "FinalSelection";
 
-  vector<TString> systematics = {"nominal", "scale_TTbar", "scale_DYJets", "scale_Diboson", "scale_TTV", "scale_WJets", "scale_SingleTop", "pdf", "muid", "muiso", "mutrigger", "eleid", "elereco", "eletrigger", "pu", "btag_bc", "btag_udsg"}; // eletrigger and mutrigger in each channel?
+  vector<TString> systematics = {"nominal", "scale_TTbar",/* "scale_DYJets", "scale_Diboson", "scale_TTV", "scale_WJets", "scale_SingleTop", "pdf", "muid", "muiso", "mutrigger", "eleid", "elereco", "eletrigger", "pu", "btag_bc",*/ "btag_udsg"}; // eletrigger and mutrigger in each channel?
 
   TString dir_base = AnalysisTool::base_path + AnalysisTool::year + "/";
   vector<TString> region_tags = {"catA", "catB"};
@@ -68,17 +69,17 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
   // vector<TString> channel_tags = {"ech", "much"};
   vector<TString> channel_tags;
   
-  if(channel == "much") {
+  if(ch == "much") {
     samples_base = {"LQtoTMuM200", "LQtoTMuM300", "LQtoTMuM400", "LQtoTMuM500", "LQtoTMuM600", "LQtoTMuM700", "LQtoTMuM800", "LQtoTMuM900", "LQtoTMuM1000", "LQtoTMuM1200", "LQtoTMuM1400", "LQtoTMuM1700", "LQtoTMuM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDMu", "TTV", "WJets", "DATA"};
     channel_tags = {"srmu", "dycrmu", "ttbar"};
   }
-  else if (channel == "ech") {
+  else if (ch == "ech") {
     samples_base = {"LQtoTEM200", "LQtoTEM300", "LQtoTEM400", "LQtoTEM500", "LQtoTEM600", "LQtoTEM700", "LQtoTEM800", "LQtoTEM900", "LQtoTEM1000", "LQtoTEM1200", "LQtoTEM1400", "LQtoTEM1700", "LQtoTEM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDEle", "QCDMu", "TTV", "WJets", "DATA"}; //QCDMu is being used in ttbar channel
     channel_tags = {"srele", "dycrele", "ttbar"};
   }
-  else if (channel == "comb") {
-    samples_base = {"LQtoTMuM200", "LQtoTMuM300", "LQtoTMuM400", "LQtoTMuM500", "LQtoTMuM600", "LQtoTMuM700", "LQtoTMuM800", "LQtoTMuM900", "LQtoTMuM1000", "LQtoTMuM1200", "LQtoTMuM1400", "LQtoTMuM1700", "LQtoTMuM2000", "LQtoTEM200", "LQtoTEM300", "LQtoTEM400", "LQtoTEM500", "LQtoTEM600", "LQtoTEM700", "LQtoTEM800", "LQtoTEM900", "LQtoTEM1000", "LQtoTEM1200", "LQtoTEM1400", "LQtoTEM1700", "LQtoTEM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDMu", "QCDEle", "TTV", "WJets", "DATA"};
-    channel_tags = {"srmu", "srele", "ttbar", "dycrmu", "dycrele"};
+  else if (ch == "comb") {
+    samples_base = {"LQtoTMuM200", "LQtoTMuM300", "LQtoTMuM400", "LQtoTMuM500", "LQtoTMuM600", "LQtoTMuM700", "LQtoTMuM800", "LQtoTMuM900", "LQtoTMuM1000", "LQtoTMuM1200", "LQtoTMuM1400", "LQtoTMuM1700", "LQtoTMuM2000", "LQtoTEM200", "LQtoTEM300", "LQtoTEM400", "LQtoTEM500", "LQtoTEM600", "LQtoTEM700", "LQtoTEM800", "LQtoTEM900", "LQtoTEM1000", "LQtoTEM1200", "LQtoTEM1400", "LQtoTEM1700", "LQtoTEM2000", "LQtoTETMuM200", "LQtoTETMuM300", "LQtoTETMuM400", "LQtoTETMuM500", "LQtoTETMuM600", "LQtoTETMuM700", "LQtoTETMuM800", "LQtoTETMuM900", "LQtoTETMuM1000", "LQtoTETMuM1200", "LQtoTETMuM1400", "LQtoTETMuM1700", "LQtoTETMuM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDMu",/* "QCDEle",*/ "TTV", "WJets", "DATA"};
+    channel_tags = {/*"srmu",*/ "srele"/*, "ttbar", "dycrmu", "dycrele"*/};
   }
   else throw runtime_error("Error: invalid channel"); 
 
@@ -94,7 +95,7 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
 
   TString filename_base = "uhh2.AnalysisModuleRunner.";
 
-  TString outfilename = AnalysisTool::combine_path + "input/combine_histograms_mc_fullsyst_" + channel + ".root";
+  TString outfilename = AnalysisTool::combine_path + "input/combine_histograms_mc_fullsyst_" + AnalysisTool::year + "_" + ch + ".root";
   
   TFile* f_out = new TFile(outfilename, "RECREATE");
 
@@ -105,7 +106,7 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
 
       for(unsigned int k=0; k<systematics.size(); k++){
         TString syst = systematics[k];
-        cout << "============ Syst: " << syst << endl;
+	 cout << "============ Syst: " << syst << endl;
 
         for(unsigned int m=0; m<syst_shift.size(); m++){
           TString dir_nom = dir_base;
@@ -124,7 +125,7 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
             TString sample_in = samples[i];
             TString sample_out = samples[i];
             if(sample_out == "DATA") sample_out = "data_obs_" + AnalysisTool::yeartag;
-            cout << "-- Sample: " << sample_in << endl;
+	     cout << "-- Sample: " << sample_in << endl;
 
             if(sample_in == "DATA" && syst != "nominal") force_nominal = true;
             if(!sample_in.Contains("TTbar") && syst == "scale_TTbar") force_nominal = true;
@@ -167,14 +168,15 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString channel){
 
             TString histname_out =  histoutname_base[region] + "_" + channel_tags[channel] + "_" + region_tags[region] + "__" + sample_out;
             if(syst != "nominal") histname_out += "__" + syst + syst_shift_combine[m];
-
             TH1F* h_in = (TH1F*)f_in->Get(histname_in);
             
-	    if(sample_in.Contains("LQtoTMuM200") || sample_in.Contains("LQtoTMuM300") || sample_in.Contains("LQtoTMuM400") || sample_in.Contains("LQtoTEM200") || sample_in.Contains("LQtoTEM300") || sample_in.Contains("LQtoTEM400")){
+	     cout << "-- Sample_in: " << sample_in << endl;
 
-	      //if(sample_in.Contains("LQtoTMuM300") || sample_in.Contains("LQtoTMuM400") || sample_in.Contains("LQtoTEM300") || sample_in.Contains("LQtoTEM400")){
+
+	    if(sample_in.Contains("M200_") || sample_in.Contains("M300_") || sample_in.Contains("M400_")) {
               h_in->Scale(1./10.);
             }
+	    // if(sample_in.Contains("M2000_")) h_in->Scale(100.);
             h_in->SetName(histname_out);
             f_out->cd();
             h_in->Write();
