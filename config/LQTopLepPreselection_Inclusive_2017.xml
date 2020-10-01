@@ -57,19 +57,19 @@
 
 
 <!-- LQ e mu samples -->
-<!ENTITY LQtoTETMuM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-200_CP5_Fall17_v2.xml">
-<!ENTITY LQtoTETMuM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-300_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-400_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM500 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-500_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM600 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-600_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-700_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM800 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-800_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM900 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-900_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM1000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-1000_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM1200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-1200_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM1400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-1400_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-1700_CP5_Fall17_v1.xml">
-<!ENTITY LQtoTETMuM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopMuTopEl_M-2000_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-200_CP5_Fall17_v2.xml">
+<!ENTITY LQtoTETMuM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-300_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-400_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM500 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-500_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM600 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-600_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-700_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM800 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-800_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM900 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-900_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM1000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-1000_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM1200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-1200_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM1400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-1400_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-1700_CP5_Fall17_v1.xml">
+<!ENTITY LQtoTETMuM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2017/LQTopLep/LQLQToTopElTopMu_M-2000_CP5_Fall17_v1.xml">
 
 
 <!-- LQ e tau samples -->
@@ -192,19 +192,19 @@
 
 
 
-<!ENTITY QCD_EM_PT20to30 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt-20to30_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_EM_PT30to50 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt-30to50_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_EM_PT50to80 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt-50to80_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_EM_PT80to120 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt-80to120_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_EM_PT120to170 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt-120to170_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v2.xml">
-<!-- <!ENTITY QCD_EM_PT170to300 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v2.xml"> -->
-<!ENTITY QCD_EM_PT300toInf SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt-300toInf_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_bcE_PT15to20 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt_15to20_bcToE_TuneCP5_13TeV_pythia8_Fall17_v2.xml">
-<!ENTITY QCD_bcE_PT20to30 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt_20to30_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_bcE_PT30to80 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt_30to80_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_bcE_PT80to170 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_bcE_PT170to250 SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt_170to250_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
-<!ENTITY QCD_bcE_PT250toInf SYSTEM "/nfs/dust/cms/user/ehlersni/LQTopMuRun2/Ntubles_QCD_bcToE_2017//QCD_Pt_250toInf_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_EM_PT20to30 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt-20to30_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_EM_PT30to50 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt-30to50_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_EM_PT50to80 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt-50to80_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_EM_PT80to120 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt-80to120_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_EM_PT120to170 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt-120to170_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v2.xml">
+<!-- <!ENTITY QCD_EM_PT170to300 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v2.xml"> -->
+<!ENTITY QCD_EM_PT300toInf SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt-300toInf_EMEnriched_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_bcE_PT15to20 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt_15to20_bcToE_TuneCP5_13TeV_pythia8_Fall17_v2.xml">
+<!ENTITY QCD_bcE_PT20to30 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt_20to30_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_bcE_PT30to80 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt_30to80_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_bcE_PT80to170 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_bcE_PT170to250 SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt_170to250_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
+<!ENTITY QCD_bcE_PT250toInf SYSTEM "/nfs/dust/cms/user/reimersa/NTuplesFromNino/Ntubles_QCD_bcToE_2017//QCD_Pt_250toInf_bcToE_TuneCP5_13TeV_pythia8_Fall17_v1.xml">
 
 ]>
 
@@ -215,7 +215,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" FileSplit="30" AutoResubmit="5"/>
-<ConfigSGE RAM="2" DISK="1" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_Pre_Incl_2017"/>
+<ConfigSGE RAM="2" DISK="1" Mail="mathis.frahm@desy.de" Notification="as" Workdir="workdir_Pre_Incl_2017"/>
 -->
 
 
@@ -591,7 +591,7 @@
 		  <OutputTree Name="AnalysisTree" />
 		</InputData>
 
-		<InputData Lumi="151209.68 " NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM500_2017v2" Cacheable="&b_Cacheable;">
+		<InputData Lumi="151209.68" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM500_2017v2" Cacheable="&b_Cacheable;">
 		  &LQtoTETMuM500;
 		  <InputTree Name="AnalysisTree" />
 		  <OutputTree Name="AnalysisTree" />
@@ -1219,9 +1219,12 @@
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
 			<Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
 			<Item Name="MuonCollection" Value="slimmedMuonsUSER" />
-			<Item Name="JetCollection" Value="jetsAk4CHS" />
+			<!-- <Item Name="JetCollection" Value="jetsAk4CHS" /> -->
+			<Item Name="JetCollection" Value="jetsAk4Puppi" />
 			<Item Name="METName" Value="slimmedMETs" />
 			<Item Name="GenJetCollection" Value="slimmedGenJets" />
+			<!--  <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />  -->
+			<Item Name="TopJetCollection" Value="jetsAk8PuppiSubstructure_SoftDropPuppi" />
 			<Item Name="GenParticleCollection" Value="GenParticles" />
 			<Item Name="GenInfoName" Value="genInfo" />
 
@@ -1268,8 +1271,14 @@
 		<Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/data/2017/MyDataPileupHistogram2017.root" />
 
 
+		<Item Name="ScaleVariationMuR" Value="none" />
+		<Item Name="ScaleVariationMuF" Value="none" />
 		<Item Name="jecsmear_direction" Value="nominal" />
 		<Item Name="jersmear_direction" Value="nominal" />
+
+		<Item Name="Systematic_EleFakeRate"  Value="nominal" />
+		<Item Name="Systematic_MuFakeRate"   Value="nominal" />
+
 
 		<!-- Some test configuration; see LQToTopMuModule.cxx for how to access it: -->
 		<Item Name="TestKey" Value="TestKeyValue" />

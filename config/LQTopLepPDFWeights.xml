@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 
-<!ENTITY OUTPUT       "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/PDFWeights">
+<!ENTITY OUTPUT       "/nfs/dust/cms/user/frahmmat/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/LQTopLep/data/PDFWeights">
 <!ENTITY b_Cacheable  "False">
 <!ENTITY NEVT         "-1">
 
@@ -66,13 +66,41 @@
 <!ENTITY LQtoTMuTTauM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-200_P8M1_Summer16_v2.xml">
 <!ENTITY LQtoTMuTTauM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopTau_M-200_P8M1_Summer16_v2.xml">
 
+<!ENTITY LQtoTETMuM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM500 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM600 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM800 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM900 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM1000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM1200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM1400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETMuM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopMuTopEl_M-200_P8M1_Summer16_v1.xml">
+
+<!ENTITY LQtoTETTauM200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM300 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM500 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM600 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM800 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM900 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM1000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM1200 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM1400 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM1700 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+<!ENTITY LQtoTETTauM2000 SYSTEM "/nfs/dust/cms/user/reimersa/CMSSW_10_2_X_v1/CMSSW_10_2_10/src/UHH2/common/datasets/RunII_102X_v1/2016v3/LQTopLep/LQLQToTopElTopTau_M-200_P8M1_Summer16_v1.xml">
+
 ]>
 
 
 
 <!--
 <ConfigParse NEventsBreak="25000" FileSplit="0" AutoResubmit="5"/>
-<ConfigSGE RAM ="2" DISK ="1" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_PDFWeights"/>
+<ConfigSGE RAM ="2" DISK ="1" Mail="mathis.frahm@desy.de" Notification="as" Workdir="workdir_PDFWeights_2016"/>
 -->
 
 
@@ -360,6 +388,143 @@
 		</InputData>
 
 
+
+
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM200_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM200;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM300_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM300;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM400_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM400;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM500_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM500;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM600_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM600;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM700_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM700;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM800_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM800;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM900_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM900;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM1000_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM1000;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM1200_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM1200;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM1400_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM1400;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM1700_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM1700;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETMuM2000_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETMuM2000;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+
+
+
+
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM200_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM200;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM300_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM300;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM400_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM400;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM500_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM500;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM600_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM600;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM700_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM700;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM800_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM800;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM900_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM900;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM1000_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM1000;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM1200_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM1200;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM1400_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM1400;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM1700_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM1700;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="LQtoTETTauM2000_2016v3" Cacheable="&b_Cacheable;">
+			&LQtoTETTauM2000;
+			<InputTree Name="AnalysisTree" />
+		</InputData>
 
 
 

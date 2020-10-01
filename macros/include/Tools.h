@@ -18,6 +18,7 @@ public:
   // Main functions
   void CalculateTriggerEfficiencies();
   void AddSystematicsEleTrigger();
+  void AddSystematicsMuonTrigger();
   void PDFRMS();
   void ScaleVariationEnvelope();
   void ProduceThetaHistograms_mc_fullsyst_much();
@@ -29,7 +30,7 @@ public:
   void PlotLimitsCombine(TString channel);
 
 private:
-  TString base_path, theta_path, combine_path, trigger_tag, full_tag, final_tag;
+  TString base_path, theta_path, combine_path, trigger_tag, full_tag, final_tag, uhh2_path;
   TString year;
   TString yeartag;
 
