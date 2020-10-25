@@ -98,17 +98,16 @@ value_per_systematic = {
 backgrounds_per_channel_and_category = {
 tuple(['A', 'srmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'],
 tuple(['A', 'dycrmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'], #WJets?
-tuple(['A', 'srele']): ['TTbar', 'DYJets', 'TTV', 'Diboson'], #SingleTop no events
+tuple(['A', 'srele']): ['TTbar', 'DYJets', 'TTV', 'Diboson'], #SingleTop no events in 2016
 tuple(['A', 'dycrele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson'], #WJets?
 tuple(['B', 'srmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'],
 tuple(['B', 'dycrmu']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'],
-tuple(['B', 'srele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDEle'],
-tuple(['B', 'dycrele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDEle'],
+tuple(['B', 'srele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets'], #QCDEle
+tuple(['B', 'dycrele']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets'], #QCDEle: empty in 2017,2018
 tuple(['B', 'ttbar']): ['TTbar', 'DYJets', 'SingleTop', 'TTV', 'Diboson', 'WJets', 'QCDMu'] #QCDEle?
 }
 
-# ttbar immer mit LQtoTMu signal?
-# evtl einfach beide signal samples in jedem Channel verwenden?
+# signal_per_channel umschreiben zu signal in steerfile
 signal_per_channel = {
 'srmu': 'LQtoTMu',
 'dycrmu': 'LQtoTMu',

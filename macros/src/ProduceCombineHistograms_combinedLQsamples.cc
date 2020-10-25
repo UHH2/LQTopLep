@@ -23,10 +23,19 @@
 
 using namespace std;
 
-void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
-  cout << "ProduceCombinedHistograms_mc_fullsyst, channel: " << ch << endl;
+void AnalysisTool::ProduceCombineHistograms_combinedLQsamples(TString branchingRatio){
+  cout << "ProduceCombinedHistograms_combinedLQsamples, BR: " << branchingRatio << endl;		
+  float BR = branchingRatio.Atof()/10;
+  cout << "BR: " << BR << endl;
+
   cout << "year: " << AnalysisTool::yeartag << endl;
-  // ch == ech, much, comb
+
+  
+  // BR = 0.0, 0.1, ... 1.0 
+  // BR = BR(LQ -> te) = 1 - BR(LQ -> tmu)
+
+  TString year = AnalysisTool::yeartag;
+
   map<TString, float> xsecs = {
     make_pair("LQtoTMuM200",  6.06E+01),
     make_pair("LQtoTMuM300",  8.04E+00),
@@ -54,13 +63,12 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
     make_pair("LQtoTEM1400", 4.32E-04),
     make_pair("LQtoTEM1700", 7.73E-05),
     make_pair("LQtoTEM2000", 1.55E-05)
-  };
 
-  vector<TString> samples_base;
+  };
 
   TString histfolder_base = "FinalSelection";
 
-  vector<TString> systematics = {"nominal", "scale_TTbar", "scale_DYJets", "scale_Diboson", "scale_TTV", "scale_WJets", "scale_SingleTop", "pdf", "muid", "muiso", "mutrigger", "eleid", "elereco", "eletrigger", "pu", "btag_bc", "btag_udsg"}; // eletrigger and mutrigger in each channel?
+  vector<TString> systematics = {"nominal", "scale_TTbar", "scale_DYJets", "scale_Diboson", "scale_TTV", "scale_WJets", "scale_SingleTop", "pdf", "muid", "muiso", "mutrigger", "eleid", "elereco", "eletrigger", "pu", "btag_bc", "btag_udsg"};
 
   TString dir_base = AnalysisTool::base_path + AnalysisTool::year + "/";
   vector<TString> region_tags = {"catA", "catB"};
@@ -68,20 +76,10 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
   vector<TString> histoutname_base = {"MLQ", "ST"};
   // vector<TString> channel_tags = {"ech", "much"};
   vector<TString> channel_tags;
-  
-  if(ch == "much") {
-    samples_base = {"LQtoTMuM200", "LQtoTMuM300", "LQtoTMuM400", "LQtoTMuM500", "LQtoTMuM600", "LQtoTMuM700", "LQtoTMuM800", "LQtoTMuM900", "LQtoTMuM1000", "LQtoTMuM1200", "LQtoTMuM1400", "LQtoTMuM1700", "LQtoTMuM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDMu", "TTV", "WJets", "DATA"};
-    channel_tags = {"srmu", "dycrmu", "ttbar"};
-  }
-  else if (ch == "ech") {
-    samples_base = {"LQtoTEM200", "LQtoTEM300", "LQtoTEM400", "LQtoTEM500", "LQtoTEM600", "LQtoTEM700", "LQtoTEM800", "LQtoTEM900", "LQtoTEM1000", "LQtoTEM1200", "LQtoTEM1400", "LQtoTEM1700", "LQtoTEM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDEle", "QCDMu", "TTV", "WJets", "DATA"}; //QCDMu is being used in ttbar channel
-    channel_tags = {"srele", "dycrele", "ttbar"};
-  }
-  else if (ch == "comb") {
-    samples_base = {"LQtoTMuM200", "LQtoTMuM300", "LQtoTMuM400", "LQtoTMuM500", "LQtoTMuM600", "LQtoTMuM700", "LQtoTMuM800", "LQtoTMuM900", "LQtoTMuM1000", "LQtoTMuM1200", "LQtoTMuM1400", "LQtoTMuM1700", "LQtoTMuM2000", "LQtoTEM200", "LQtoTEM300", "LQtoTEM400", "LQtoTEM500", "LQtoTEM600", "LQtoTEM700", "LQtoTEM800", "LQtoTEM900", "LQtoTEM1000", "LQtoTEM1200", "LQtoTEM1400", "LQtoTEM1700", "LQtoTEM2000", "LQtoTETMuM200", "LQtoTETMuM300", "LQtoTETMuM400", "LQtoTETMuM500", "LQtoTETMuM600", "LQtoTETMuM700", "LQtoTETMuM800", "LQtoTETMuM900", "LQtoTETMuM1000", "LQtoTETMuM1200", "LQtoTETMuM1400", "LQtoTETMuM1700", "LQtoTETMuM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDMu",/* "QCDEle",*/ "TTV", "WJets", "DATA"};
-    channel_tags = {"srmu", "srele", "ttbar", "dycrmu", "dycrele"};
-  }
-  else throw runtime_error("Error: invalid channel"); 
+
+
+  vector<TString> samples_base = {"LQtoTLM200", "LQtoTLM300", "LQtoTLM400", "LQtoTLM500", "LQtoTLM600", "LQtoTLM700", "LQtoTLM800", "LQtoTLM900", "LQtoTLM1000", "LQtoTLM1200", "LQtoTLM1400", "LQtoTLM1700", "LQtoTLM2000", "SingleTop", "TTbar", "DYJets", "Diboson", "QCDMu",/* "QCDEle",*/ "TTV", "WJets", "DATA"}; // QCDEle empty in 2017, 2018
+  channel_tags = {"srmu", "srele", "ttbar", "dycrmu", "dycrele"};
 
   vector<TString> samples = {};
   for(size_t i=0; i<samples_base.size(); i++){
@@ -94,8 +92,7 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
 
 
   TString filename_base = "uhh2.AnalysisModuleRunner.";
-
-  TString outfilename = AnalysisTool::combine_path + "input/combine_histograms_mc_fullsyst_" + AnalysisTool::year + "_" + ch + ".root";
+  TString outfilename = AnalysisTool::combine_path + "input/combine_histograms_mc_fullsyst_BR_" + branchingRatio + "_" + AnalysisTool::yeartag + ".root";
   
   TFile* f_out = new TFile(outfilename, "RECREATE");
 
@@ -104,11 +101,9 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
     for(unsigned int channel=0; channel<channel_tags.size(); channel++){
       if(channel_tags[channel] == "ttbar" && region_tags[region] == "catA") continue;
       cout << "============== Channel: " << channel_tags[channel] << ", Region: " << region_tags[region] << endl;
-
-
       for(unsigned int k=0; k<systematics.size(); k++){
         TString syst = systematics[k];
-	 cout << "============ Syst: " << syst << endl;
+	cout << "============ Syst: " << syst << endl;
 
         for(unsigned int m=0; m<syst_shift.size(); m++){
           TString dir_nom = dir_base;
@@ -127,7 +122,7 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
             TString sample_in = samples[i];
             TString sample_out = samples[i];
             if(sample_out == "DATA") sample_out = "data_obs_" + AnalysisTool::yeartag;
-	    // cout << "-- Sample: " << sample_in << endl;
+	    //cout << "-- Sample: " << sample_in << endl;
 
             if(sample_in == "DATA" && syst != "nominal") force_nominal = true;
             if(!sample_in.Contains("TTbar") && syst == "scale_TTbar") force_nominal = true;
@@ -158,7 +153,8 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
               //
               // }
             }
-            TFile* f_in = new TFile(filename, "READ");
+
+	    
 
             TString histname_in = "";
             histname_in = histfolder_base + "_" + channel_tags[channel] + "_" + region_tags[region] + "_" + syst;
@@ -170,8 +166,53 @@ void AnalysisTool::ProduceCombineHistograms_mc_fullsyst(TString ch){
 
             TString histname_out =  histoutname_base[region] + "_" + channel_tags[channel] + "_" + region_tags[region] + "__" + sample_out;
             if(syst != "nominal") histname_out += "__" + syst + syst_shift_combine[m];
-            TH1F* h_in = (TH1F*)f_in->Get(histname_in);
-            
+
+
+	    TFile* f_in;
+	    TH1F* h_in;
+
+	    if(sample_in.Contains("LQ")) {
+	      vector<TString> signal_base = {"LQtoTEM", "LQtoTMuM", "LQtoTETMuM"};
+	      // open LQtoTEM histogram to get binning
+	      filename.ReplaceAll("LQtoTLM", "LQtoTEM");
+	      f_in = new TFile(filename, "READ");
+	      h_in = (TH1F*)f_in->Get(histname_in);
+
+	      // get the 3 signal histograms
+	      vector<TFile*> signal_infile;
+	      vector<TH1F*> signal_hists;
+	      for(unsigned int j=0; j<signal_base.size(); j++) {
+		//cout << "filename: " << filename << endl;
+		TFile* f1 = new TFile(filename, "READ");
+		//signal_infile.emplace_back(f1);
+		TH1F* h1 = (TH1F*)f1->Get(histname_in);
+		h1->SetDirectory(0); // to decouple it from the open file directory
+		signal_hists.emplace_back(h1);
+		filename.ReplaceAll(signal_base[j], signal_base[(j+1)%3]);
+		f1->Close();
+	      }
+	      // loop through bins
+	      for(int l=1; l<h_in->GetNbinsX()+1; l++){
+		vector<float> binContent;
+		// loop over signal_base
+		for(unsigned int j=0; j<signal_base.size(); j++) {
+		  //cout << "Line: " << __LINE__ << endl;
+		  binContent.emplace_back(signal_hists[j]->GetBinContent(l));
+		  // cout << "binContent " << j << ": "  << binContent[j] << endl;
+		}
+		// LQLQ -> tltl = B²*(LQLQ->tete) + (1-B)²*(LQLQ->tmutmu) + (1-B²-(1-B)²)*(LQLQ->tetmu)
+		float reweight = pow(BR, 2)*binContent[0] + pow(1-BR, 2)*binContent[1] + (1 - pow(BR, 2) - pow(1-BR, 2))*binContent[2];
+		//cout << "reweight: " << reweight << endl;
+		h_in->SetBinContent(l, reweight);
+	      }
+	      //for(unsigned int j=0; j<signal_base.size(); j++) {
+	      //signal_infile[j]->Close();
+	      //}
+	    }
+	    else{
+	      f_in = new TFile(filename, "READ");
+	      h_in = (TH1F*)f_in->Get(histname_in);
+            }
 	    // cout << "-- Sample_in: " << sample_in << endl;
 
 

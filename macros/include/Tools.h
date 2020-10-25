@@ -27,7 +27,7 @@ public:
   void ProduceCombineHistograms_mc_fullsyst(TString ch);
   void ProduceCombineHistograms_combinedLQsamples(TString branchingRatio);
   void PlotLimits();
-  void PlotLimitsCombine(TString channel);
+  void PlotLimitsCombine(TString channel, TString BR);
 
 private:
   TString base_path, theta_path, combine_path, trigger_tag, full_tag, final_tag, uhh2_path;
